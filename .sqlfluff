@@ -1,0 +1,19 @@
+[sqlfluff]
+dialect = sparksql
+templater = dbt
+
+[sqlfluff:rules]
+tab_space_size = 2
+max_line_length = 100
+
+[sqlfluff:rules:L010]
+# Keywords
+capitalisation_policy = upper
+
+[sqlfluff:rules:L030]
+# Function names
+capitalisation_policy = upper
+
+[sqlfluff:rules:L040]
+# Null & Boolean Literals
+capitalisation_policy = upper
