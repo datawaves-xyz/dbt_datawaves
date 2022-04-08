@@ -1,0 +1,11 @@
+
+version: 2
+
+models:
+  - name: wyvern
+    config:
+      materialized: ephemeral
+  - name: opensea_trades
+
+
+
