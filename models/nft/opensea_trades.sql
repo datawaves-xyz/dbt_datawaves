@@ -1,5 +1,5 @@
-WITH wyvern_data AS (
-  SELECT * FROM {{ ref('wyvern_data') }}
+with wyvern_data as (
+  select * from {{ ref('wyvern_data') }}
 )
 
-SELECT * FROM wyvern_data
+select * from wyvern_data

@@ -1,24 +1,40 @@
-SELECT
-  dt,
+select
   call_tx_hash,
   call_block_number,
-  (CASE
-    WHEN lower(hex(substring(calldatabuy, 1, 4))) IN ('fb16a595', '96809f90')
-      THEN cast(conv(hex(substring(calldatabuy, 101, 32)), 16, 10) AS string)
-    WHEN lower(hex(substring(calldatabuy, 1, 4))) IN ('23b872dd', 'f242432a')
-      THEN cast(conv(hex(substring(calldatabuy, 69, 32)), 16, 10) AS string)
-    END) AS token_id,
-  (CASE
-      WHEN lower(hex(substring(calldatabuy, 1, 4))) IN ("fb16a595", "96809f90")
-        THEN concat("0x", lower(hex(substring(calldatabuy, 81, 20))))
-      ELSE addrs[4]
-    END) AS nft_contract,
-  addrs[1] AS buyer,
-  addrs[8] AS seller,
-  addrs[6] AS original_currency_contract,
-  uints[4] AS original_amount_raw,
-  (CASE WHEN addrs[6] = '0x0000000000000000000000000000000000000000'
-        THEN '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2'
-      ELSE addrs[6]
-    END) AS currency_token
-FROM {{ var('wyvern_atomic_match') }}
+  addrs[1] as buyer,
+  addrs[8] as seller,
+  uints[4] as original_amount,
+  addrs[6] as original_currency_address,
+  case
+    when lower(hex(substring(calldatabuy, 1, 4))) in ('68f0bcaa') then 'Bundle Trade'
+    else 'Single Item Trade'
+  end as trade_type,
+  case
+    when lower(hex(substring(calldatabuy, 1, 4))) in ('fb16a595', '23b872dd') then 'erc721'
+    when lower(hex(substring(calldatabuy, 1, 4))) in ('23b872dd', 'f242432a') then 'erc1155'
+  end as erc_standard,
+  addrs[0] as exchange_contract_address,
+  case
+    when
+      lower(
+        hex(substring(calldatabuy, 1, 4))
+      ) in ('fb16a595', '96809f90') then concat('0x', lower(hex(substring(calldatabuy, 81, 20))))
+    when lower(hex(substring(calldatabuy, 1, 4))) in ('fb16a595', '96809f90') then addrs[4]
+    else addrs[4]
+  end as nft_contract_adress,
+  case
+    when addrs[6] = '0x0000000000000000000000000000000000000000' then '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2'
+    else addrs[6]
+  end as currency_token,
+  case
+    when
+      lower(
+        hex(substring(calldatabuy, 1, 4))
+      ) in ('fb16a595', '96809f90') then cast(conv(hex(substring(calldatabuy, 101, 32)), 16, 10) as string)
+    when
+      lower(
+        hex(substring(calldatabuy, 1, 4))
+      ) in ('23b872dd', 'f242432a') then cast(conv(hex(substring(calldatabuy, 69, 32)), 16, 10) as string)
+  end as token_id
+
+from {{ var('wyvern_atomic_match') }}
