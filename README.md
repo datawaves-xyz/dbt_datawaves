@@ -4,13 +4,15 @@
 
 ## Development
 
-Install dbt:
 
-
-Install dbt and sqlfluff:
+Install sqlfluff:
 
 - pip install dbt
 - pip install 'dbt-spark[PyHive]'
+
+
+Install sqlfluff:
+
 - pip install sqlfluff
 - pip install sqlfluff-templater-dbt
 
