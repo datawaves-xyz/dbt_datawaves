@@ -3,11 +3,11 @@
 {% endmacro %}
 
 
-{% macro default__binary_literal(expression) %}    
+{% macro default__binary_literal(expression) -%}
     X'{{ expression }}'    
-{%- endmacro -%}
+{%- endmacro %}
 
 
-{% macro spark__binary_literal(expression) %}
+{% macro spark__binary_literal(expression) -%}
     X'{{ expression }}'    
-{%- endmacro -%}
+{%- endmacro %}

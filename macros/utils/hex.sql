@@ -9,7 +9,7 @@
     {{ expression }}
   )
 
-{%- endmacro -%}
+{% endmacro %}
 
 
 {% macro spark__hex(expression) %}
@@ -18,4 +18,4 @@
     {{ expression }}
   )
 
-{%- endmacro -%}
+{% endmacro %}
