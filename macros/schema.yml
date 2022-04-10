@@ -1,0 +1,18 @@
+version: 2
+
+macros:
+  - name: hex
+    description: Converts `expression` to hexadecimal.
+    docs:
+      show: true
+
+  - name: binary_literal
+    description: A binary literal is used to specify a byte sequence value.
+    docs:
+      show: true
+    arguments:
+      - name: expression
+        type: string
+        description: Any hexadecimal symbols from 0 to F.
+
+

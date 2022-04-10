@@ -1,4 +1,5 @@
 select
+
   call_tx_hash,
   call_block_number,
   addrs[1] as buyer,
@@ -6,20 +7,17 @@ select
   uints[4] as original_amount,
   addrs[6] as original_currency_address,
   case
-    when lower(hex(substring(calldatabuy, 1, 4))) in ('68f0bcaa') then 'Bundle Trade'
+    when substring(calldatabuy, 1, 4) in ({{ binary_literal('68f0bcaa') }}) then 'Bundle Trade'
     else 'Single Item Trade'
   end as trade_type,
   case
-    when lower(hex(substring(calldatabuy, 1, 4))) in ('fb16a595', '23b872dd') then 'erc721'
-    when lower(hex(substring(calldatabuy, 1, 4))) in ('23b872dd', 'f242432a') then 'erc1155'
+    when substring(calldatabuy, 1, 4) in ({{ binary_literal('fb16a595') }}, {{ binary_literal('23b872dd') }}) then 'erc721'
+    when substring(calldatabuy, 1, 4) in ({{ binary_literal('23b872dd') }}, {{ binary_literal('f242432a') }}) then 'erc1155'
   end as erc_standard,
   addrs[0] as exchange_contract_address,
   case
-    when
-      lower(
-        hex(substring(calldatabuy, 1, 4))
-      ) in ('fb16a595', '96809f90') then concat('0x', lower(hex(substring(calldatabuy, 81, 20))))
-    when lower(hex(substring(calldatabuy, 1, 4))) in ('fb16a595', '96809f90') then addrs[4]
+    when substring(calldatabuy, 1, 4) in ({{ binary_literal('fb16a595') }}, {{ binary_literal('96809f90') }}) then concat('0x', lower(hex(substring(calldatabuy, 81, 20))))
+    when substring(calldatabuy, 1, 4) in ({{ binary_literal('fb16a595') }}, {{ binary_literal('96809f90') }}) then addrs[4]
     else addrs[4]
   end as nft_contract_adress,
   case
@@ -27,14 +25,8 @@ select
     else addrs[6]
   end as currency_token,
   case
-    when
-      lower(
-        hex(substring(calldatabuy, 1, 4))
-      ) in ('fb16a595', '96809f90') then cast(conv(hex(substring(calldatabuy, 101, 32)), 16, 10) as string)
-    when
-      lower(
-        hex(substring(calldatabuy, 1, 4))
-      ) in ('23b872dd', 'f242432a') then cast(conv(hex(substring(calldatabuy, 69, 32)), 16, 10) as string)
+    when substring(calldatabuy, 1, 4) in ({{ binary_literal('fb16a595') }}, {{ binary_literal('96809f90') }}) then cast(conv(hex(substring(calldatabuy, 101, 32)), 16, 10) as string)
+    when substring(calldatabuy, 1, 4) in ({{ binary_literal('23b872dd') }}, {{ binary_literal('f242432a') }}) then cast(conv(hex(substring(calldatabuy, 69, 32)), 16, 10) as string)
   end as token_id
 
 from {{ var('wyvern_atomic_match') }}

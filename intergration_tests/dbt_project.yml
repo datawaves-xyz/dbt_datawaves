@@ -12,3 +12,8 @@ seeds:
       data_hex:
         +column_types:
           input: binary
+
+      data_binary_literal:
+        
+
+
