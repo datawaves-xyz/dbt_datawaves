@@ -11,6 +11,10 @@ models:
       #+schema: nft
       +materialized: view
 
+    enrich:
+      +materialized: view
+
 vars:
   ethereum:
     wyvern_atomic_match: "opensea.wyvernexchangev1_call_atomicmatch_"
+    erc20_tokens: "ethereum.tokens"

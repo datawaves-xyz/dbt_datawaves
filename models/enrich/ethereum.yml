@@ -1,0 +1,15 @@
+version: 2
+
+models:
+  - name: ethereum__erc20_tokens
+    columns:
+      - name: contract_address
+        description: The address of the ERC20 token.
+      - name: symbol
+        description: The symbol of the ERC20 token.
+      - name: name
+        description: The name of the ERC20 token.
+      - name: decimals
+        description: The number of decimals the token uses. 
+      - name: total_supply
+        description: The total token supply.
