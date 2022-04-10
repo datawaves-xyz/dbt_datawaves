@@ -16,13 +16,17 @@ select
     else 'Single Item Trade'
   end as trade_type,
   case
-    when substring(calldatabuy, 1, 4) in ({{ binary_literal('fb16a595') }}, {{ binary_literal('23b872dd') }}) then 'erc721'
-    when substring(calldatabuy, 1, 4) in ({{ binary_literal('23b872dd') }}, {{ binary_literal('f242432a') }}) then 'erc1155'
+    when substring(calldatabuy, 1, 4) in ({{ binary_literal('fb16a595') }}, {{ binary_literal('23b872dd') }})
+      then 'erc721'
+    when substring(calldatabuy, 1, 4) in ({{ binary_literal('23b872dd') }}, {{ binary_literal('f242432a') }})
+      then 'erc1155'
   end as erc_standard,
   addrs[0] as exchange_contract_address,
   case
-    when substring(calldatabuy, 1, 4) in ({{ binary_literal('fb16a595') }}, {{ binary_literal('96809f90') }}) then concat('0x', lower(hex(substring(calldatabuy, 81, 20))))
-    when substring(calldatabuy, 1, 4) in ({{ binary_literal('fb16a595') }}, {{ binary_literal('96809f90') }}) then addrs[4]
+    when substring(calldatabuy, 1, 4) in ({{ binary_literal('fb16a595') }}, {{ binary_literal('96809f90') }})
+      then concat('0x', lower(hex(substring(calldatabuy, 81, 20))))
+    when substring(calldatabuy, 1, 4) in ({{ binary_literal('fb16a595') }}, {{ binary_literal('96809f90') }})
+      then addrs[4]
     else addrs[4]
   end as nft_contract_address,
   case
@@ -39,6 +43,6 @@ select
 from wyvern_atomic_match
 
 where
-  (addrs[3] = {{ binary_literal('5b3256965e7c3cf26e11fcaf296dfc8807c01073') }}
-    or addrs[10] = {{ binary_literal('5b3256965e7c3cf26e11fcaf296dfc8807c01073') }})
+  (addrs[3] = '0x5b3256965e7c3cf26e11fcaf296dfc8807c01073'
+    or addrs[10] = '0x5b3256965e7c3cf26e11fcaf296dfc8807c01073')
   and call_success = true
