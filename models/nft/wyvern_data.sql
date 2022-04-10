@@ -32,3 +32,8 @@ select
   end as token_id
 
 from {{ var('wyvern_atomic_match') }}
+
+where
+  (addrs[3] = ({{ binary_literal('5b3256965e7c3cf26e11fcaf296dfc8807c01073') }})
+    or addrs[10] = ({{ binary_literal('5b3256965e7c3cf26e11fcaf296dfc8807c01073') }}))
+  and call_success = true
