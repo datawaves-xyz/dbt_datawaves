@@ -1,0 +1,14 @@
+config-version: 2
+
+name: 'ethereum_integration_tests'
+version: '1.0'
+profile: 'integration_tests'
+
+seeds:
+  +location_root:
+  
+  ethereum_integration_tests:
+    utils:
+      data_hex:
+        +column_types:
+          input: binary

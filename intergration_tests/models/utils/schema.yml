@@ -1,0 +1,8 @@
+version: 2
+
+models:
+  - name: test_hex
+    tests:
+      - assert_equal:
+          actual: actual
+          expected: expected
