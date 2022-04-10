@@ -15,4 +15,12 @@ macros:
         type: string
         description: Any hexadecimal symbols from 0 to F.
 
-
+  - name: displayed_amount
+    description: Adjust the token amount according to the decimals.
+    docs:
+      show: true
+    arguments:
+      - name: original_amount
+        type: integer
+      - name: decimals
+        type: integer
