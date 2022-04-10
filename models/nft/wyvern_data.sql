@@ -25,8 +25,10 @@ select
     else addrs[6]
   end as currency_token,
   case
-    when substring(calldatabuy, 1, 4) in ({{ binary_literal('fb16a595') }}, {{ binary_literal('96809f90') }}) then cast(conv(hex(substring(calldatabuy, 101, 32)), 16, 10) as string)
-    when substring(calldatabuy, 1, 4) in ({{ binary_literal('23b872dd') }}, {{ binary_literal('f242432a') }}) then cast(conv(hex(substring(calldatabuy, 69, 32)), 16, 10) as string)
+    when substring(calldatabuy, 1, 4) in ({{ binary_literal('fb16a595') }}, {{ binary_literal('96809f90') }})
+      then cast(conv(hex(substring(calldatabuy, 101, 32)), 16, 10) as {{ dbt_utils.type_string() }})
+    when substring(calldatabuy, 1, 4) in ({{ binary_literal('23b872dd') }}, {{ binary_literal('f242432a') }})
+      then cast(conv(hex(substring(calldatabuy, 69, 32)), 16, 10) as {{ dbt_utils.type_string() }})
   end as token_id
 
 from {{ var('wyvern_atomic_match') }}
