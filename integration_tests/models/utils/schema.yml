@@ -7,9 +7,14 @@ models:
           actual: actual
           expected: expected
 
-  - name: test_binary_literal
+  - name: test_displayed_amount
     tests:
       - assert_equal:
           actual: actual
           expected: expected
 
+  - name: test_substring
+    tests:
+      - assert_equal:
+          actual: actual
+          expected: expected

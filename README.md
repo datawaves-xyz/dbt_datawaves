@@ -17,7 +17,9 @@ Install sqlfluff:
 - pip install sqlfluff-templater-dbt
 
 
-Try running the following commands:
+Try running integration tests for utils:
 
-- dbt run
+- cd integration_tests
+- dbt seed
+- dbt dbt run --models ./models/utils
 - dbt test

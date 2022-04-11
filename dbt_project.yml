@@ -9,7 +9,7 @@ models:
   ethereum:
     nft:
       +schema: nft
-      +materialized: table
+      +materialized: view
 
     enrich:
       +materialized: view
