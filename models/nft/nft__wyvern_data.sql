@@ -12,20 +12,20 @@ select
   uints[4] as original_amount,
   addrs[6] as original_currency_address,
   case
-    when substring(calldatabuy, 1, 4) in ({{ binary_literal('68f0bcaa') }}) then 'Bundle Trade'
+    when {{ substring('calldatabuy', 1, 4) }} in ({{ binary_literal('68f0bcaa') }}) then 'Bundle Trade'
     else 'Single Item Trade'
   end as trade_type,
   case
-    when substring(calldatabuy, 1, 4) in ({{ binary_literal('fb16a595') }}, {{ binary_literal('23b872dd') }})
+    when {{ substring('calldatabuy', 1, 4) }} in ({{ binary_literal('fb16a595') }}, {{ binary_literal('23b872dd') }})
       then 'erc721'
-    when substring(calldatabuy, 1, 4) in ({{ binary_literal('23b872dd') }}, {{ binary_literal('f242432a') }})
+    when {{ substring('calldatabuy', 1, 4) }} in ({{ binary_literal('23b872dd') }}, {{ binary_literal('f242432a') }})
       then 'erc1155'
   end as erc_standard,
   addrs[0] as exchange_contract_address,
   case
-    when substring(calldatabuy, 1, 4) in ({{ binary_literal('fb16a595') }}, {{ binary_literal('96809f90') }})
+    when {{ substring('calldatabuy', 1, 4) }} in ({{ binary_literal('fb16a595') }}, {{ binary_literal('96809f90') }})
       then concat('0x', lower(hex(substring(calldatabuy, 81, 20))))
-    when substring(calldatabuy, 1, 4) in ({{ binary_literal('fb16a595') }}, {{ binary_literal('96809f90') }})
+    when {{ substring('calldatabuy', 1, 4) }} in ({{ binary_literal('fb16a595') }}, {{ binary_literal('96809f90') }})
       then addrs[4]
     else addrs[4]
   end as nft_contract_address,
@@ -34,7 +34,7 @@ select
     else addrs[6]
   end as currency_token,
   case
-    when substring(calldatabuy, 1, 4) in ({{ binary_literal('fb16a595') }}, {{ binary_literal('96809f90') }})
+    when {{ substring('calldatabuy', 1, 4) }} in ({{ binary_literal('fb16a595') }}, {{ binary_literal('96809f90') }})
       then cast({{ binary_to_numeric(substring('calldatabuy', 101, 32)) }} as {{ dbt_utils.type_string() }})
     when substring(calldatabuy, 1, 4) in ({{ binary_literal('23b872dd') }}, {{ binary_literal('f242432a') }})
       then cast({{ binary_to_numeric(substring('calldatabuy', 69, 32)) }} as {{ dbt_utils.type_string() }})
