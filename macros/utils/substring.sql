@@ -3,19 +3,11 @@
 {% endmacro %}
 
 
-{% macro default__substring(expression, position, length) %}
-  substring(
-    {{ expression }},
-    {{ position }},
-    {{ length }}
-  )
+{% macro default__substring(expression, position, length) -%}
+    substring({{ expression }}, {{ position }}, {{ length }})
 {% endmacro %}
 
 
 {% macro spark__substring(expression, position, length) %}
-  substring(
-    {{ expression }},
-    {{ position }},
-    {{ length }}
-  )
+    substring({{ expression }}, {{ position }}, {{ length }})
 {% endmacro %}

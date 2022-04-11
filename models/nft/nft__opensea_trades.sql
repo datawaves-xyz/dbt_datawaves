@@ -21,4 +21,3 @@ select
   end as original_currency_symbol
 from w
 left join erc20 on erc20.contract_address = w.nft_contract_address
-limit 1000
