@@ -4,6 +4,6 @@ with data as (
 
 select 
 
-  {{ ethereum.binary_literal('input') }} as actual,
+  {{ ethereum.binary_literal('01010101') }} as actual,
   output as expected
 from data
