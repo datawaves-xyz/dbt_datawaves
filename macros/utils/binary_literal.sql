@@ -4,10 +4,10 @@
 
 
 {% macro default__binary_literal(expression) -%}
-    X'{{ expression }}'    
+  X'{{ expression }}'
 {%- endmacro %}
 
 
 {% macro spark__binary_literal(expression) -%}
-    X'{{ expression }}'    
+  X'{{ expression }}'
 {%- endmacro %}

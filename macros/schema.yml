@@ -6,6 +6,18 @@ macros:
     docs:
       show: true
 
+  - name: substring
+    description: Returns a substring of the supplied string or binary value.
+    docs:
+      show: true
+    arguments:
+      - name: expression
+        type: string or binary
+      - name: position
+        type: integer
+      - name: length
+        type: integer
+
   - name: binary_literal
     description: A binary literal is used to specify a byte sequence value.
     docs:
@@ -24,3 +36,11 @@ macros:
         type: integer
       - name: decimals
         type: integer
+
+  - name: binary_to_numeric
+    description: Convert a binary column to numeric type.
+    docs:
+      show: true
+    arguments:
+      - name: expression
+        type: binary

@@ -8,7 +8,8 @@ profile: 'dbt_ethereum'
 models:
   ethereum:
     nft:
-      +materialized: view
+      +schema: nft
+      +materialized: table
 
     enrich:
       +materialized: view
