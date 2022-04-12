@@ -21,4 +21,4 @@ select
   tokens.total_supply
 from tokens
 
-inner join erc721 on erc721.address = tokens.address
+inner join erc721 on erc721.address = tokens.contract_address

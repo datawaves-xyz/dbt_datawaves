@@ -1,7 +1,7 @@
 with tokens as (
   select *
   from {{ var('tokens') }}
-),
+)
 
 select
   tokens.address as contract_address,
