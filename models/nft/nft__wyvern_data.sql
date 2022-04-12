@@ -4,7 +4,7 @@ with wyvern_atomic_match as (
 )
 
 select
-
+  dt,
   call_tx_hash as tx_hash,
   call_block_number as block_number,
   addrs[1] as buyer,

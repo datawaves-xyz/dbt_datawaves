@@ -5,7 +5,7 @@ with w as (
 
 erc20 as (
   select *
-  from {{ ref('ethereum__erc20_tokens') }}
+  from {{ ref('erc20__tokens') }}
 )
 
 select
