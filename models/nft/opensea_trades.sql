@@ -1,11 +1,11 @@
 with w as (
   select *
-  from {{ ref('nft__wyvern_data') }}
+  from {{ ref('wyvern_data') }}
 ),
 
 erc20 as (
   select *
-  from {{ ref('erc20__tokens') }}
+  from {{ ref('erc20_tokens') }}
 )
 
 select

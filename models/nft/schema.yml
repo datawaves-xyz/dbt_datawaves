@@ -2,7 +2,7 @@
 version: 2
 
 models:
-  - name: nft__wyvern_data
+  - name: wyvern_data
     config:
       materialized: ephemeral
-  - name: nft__opensea_trades
+  - name: opensea_trades

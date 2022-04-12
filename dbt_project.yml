@@ -19,6 +19,9 @@ models:
       +schema: erc721
       +materialized: view
 
+    staging:
+      +materialized: ephemeral
+
 vars:
   ethereum:
     wyvern_atomic_match: "opensea.wyvernexchangev1_call_atomicmatch_"

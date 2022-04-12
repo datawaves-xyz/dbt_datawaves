@@ -1,6 +1,17 @@
 # dbt_ethereum
 
 
+## Models
+
+
+### NFT
+
+
+| **model**                                                                                                 | **description**                                                                 |
+|-----------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------|
+| [opensea_trades](https://github.com/datawaves_xyz/dbt_ethereum/blob/master/models/nft/opensea_trades.sql) | Each record represents a trade in OpenSeas, enriched with data about the trade. |
+
+
 
 ## Development
 

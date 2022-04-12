@@ -5,7 +5,7 @@ with contracts as (
 
 tokens as (
   select *
-  from {{ var('tokens') }}
+  from {{ ref('stg_tokens') }}
 ),
 
 erc721 as (
@@ -14,11 +14,11 @@ erc721 as (
 )
 
 select
-  tokens.address as contract_address,
+  tokens.contract_address,
   tokens.symbol,
   tokens.name,
-  cast(tokens.decimals as {{ dbt_utils.type_int() }}) as decimals,
-  cast(tokens.total_supply as {{ dbt_utils.type_int() }}) as total_supply
+  tokens.decimals,
+  tokens.total_supply
 from tokens
 
 inner join erc721 on erc721.address = tokens.address
