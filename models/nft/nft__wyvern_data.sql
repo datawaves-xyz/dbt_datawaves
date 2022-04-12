@@ -24,7 +24,7 @@ select
   addrs[0] as exchange_contract_address,
   case
     when {{ substring('calldatabuy', 1, 4) }} in ({{ binary_literal('fb16a595') }}, {{ binary_literal('96809f90') }})
-      then concat('0x', lower(hex(substring(calldatabuy, 81, 20))))
+      then {{ binary_to_address(substring('calldatabuy', 81, 20)) }}
     when {{ substring('calldatabuy', 1, 4) }} in ({{ binary_literal('fb16a595') }}, {{ binary_literal('96809f90') }})
       then addrs[4]
     else addrs[4]

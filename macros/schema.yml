@@ -44,3 +44,11 @@ macros:
     arguments:
       - name: expression
         type: binary
+
+  - name: binary_to_address
+    description: Convert a binary column to a hex string started with 0x
+    docs:
+      show: true
+    arguments:
+      - name: expression
+        type: binary

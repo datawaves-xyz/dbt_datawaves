@@ -21,5 +21,5 @@ Try running integration tests for utils:
 
 - cd integration_tests
 - dbt seed
-- dbt dbt run --models ./models/utils
+- dbt run --models ./models/utils
 - dbt test
