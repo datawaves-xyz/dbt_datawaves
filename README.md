@@ -16,7 +16,7 @@
 ## Development
 
 
-Install sqlfluff:
+Install dbt (with Spark adapter):
 
 - pip install dbt
 - pip install 'dbt-spark[PyHive]'
