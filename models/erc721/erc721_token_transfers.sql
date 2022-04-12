@@ -17,7 +17,7 @@ select
   token_transfers.token_address,
   token_transfers.from_address,
   token_transfers.to_address,
-  token_transfers.value,
+  token_transfers.value as token_id,
   token_transfers.transaction_hash,
   token_transfers.log_index,
   token_transfers.block_timestamp,

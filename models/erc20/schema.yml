@@ -16,3 +16,22 @@ models:
         description: The total token supply.
 
   - name: erc20_token_transfers
+    columns:
+      - name: token_address
+        description: The address of the ERC20 token.
+      - name: from_address
+        description: Address of the sender.
+      - name: to_address
+        description: Address of the receiver.
+      - name: value
+        description: Amount of tokens transferred.
+      - name: transaction_hash
+        description: Transaction hash.
+      - name: log_index
+        description: Log index in the transaction receipt.
+      - name: block_timestamp
+        description: Timestamp of the block where this transfer was in.
+      - name: block_number
+        description: Block number where this transfer was in.
+      - name: block_hash
+        description: Hash of the block where this transfer was in.
