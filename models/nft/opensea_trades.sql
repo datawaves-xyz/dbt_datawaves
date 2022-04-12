@@ -9,6 +9,7 @@ erc20 as (
 )
 
 select
+  w.dt,
   w.block_number,
   w.tx_hash,
   w.exchange_contract_address,
