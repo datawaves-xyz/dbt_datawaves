@@ -7,6 +7,7 @@ select
   dt,
   call_tx_hash as tx_hash,
   call_block_number as block_number,
+  call_block_time as block_time,
   addrs[1] as buyer,
   addrs[8] as seller,
   uints[4] as original_amount,

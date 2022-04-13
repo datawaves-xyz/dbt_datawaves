@@ -9,21 +9,23 @@ erc20 as (
 )
 
 select
-  w.dt,
-  w.block_timestamp,
-  w.block_number,
-  w.tx_hash,
-  w.buyer,
-  w.seller,
-  w.token_id,
-  w.exchange_contract_address,
-  w.nft_contract_address,
-  w.original_currency_address,
-  w.original_amount as original_amount_raw,
-  {{ displayed_amount('w.original_amount', 'erc20.decimals') }} as original_amount,
-  case when w.original_currency_address = {{ binary_literal('0000000000000000000000000000000000000000') }} then 'ETH'
+  wyvern_data.dt,
+  wyvern_data.block_time,
+  wyvern_data.block_number,
+  wyvern_data.tx_hash,
+  wyvern_data.buyer,
+  wyvern_data.seller,
+  wyvern_data.token_id,
+  wyvern_data.exchange_contract_address,
+  wyvern_data.nft_contract_address,
+  wyvern_data.original_currency_address,
+  wyvern_data.original_amount as original_amount_raw,
+  {{ displayed_amount('wyvern_data.original_amount', 'erc20.decimals') }} as original_amount,
+  case
+    when wyvern_data.original_currency_address = {{ binary_literal('0000000000000000000000000000000000000000') }}
+      then 'ETH'
     else erc20.symbol
   end as original_currency_symbol,
-  w.currency_token
-from wyvern_data w
-left join erc20 on erc20.contract_address = w.nft_contract_address
+  wyvern_data.currency_token
+from wyvern_data
+left join erc20 on erc20.contract_address = wyvern_data.nft_contract_address
