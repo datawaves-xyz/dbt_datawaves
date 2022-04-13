@@ -25,8 +25,6 @@ select
   case
     when {{ substring('calldatabuy', 1, 4) }} in ({{ binary_literal('fb16a595') }}, {{ binary_literal('96809f90') }})
       then {{ binary_to_address(substring('calldatabuy', 81, 20)) }}
-    when {{ substring('calldatabuy', 1, 4) }} in ({{ binary_literal('fb16a595') }}, {{ binary_literal('96809f90') }})
-      then addrs[4]
     else addrs[4]
   end as nft_contract_address,
   case
