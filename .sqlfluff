@@ -1,6 +1,7 @@
 [sqlfluff]
 dialect = sparksql
 templater = dbt
+exclude_rules = L027, L011, L031
 
 [sqlfluff:templater:dbt]
 project_dir = ./
