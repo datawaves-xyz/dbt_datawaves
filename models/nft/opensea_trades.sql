@@ -11,13 +11,14 @@
 -- Count token IDs in each transaction
 erc721_tokens_in_tx as (
   select
+    w.dt,
     w.tx_hash,
     w.token_id,
     count(1) as token_count
   from erc721_token_transfers t
   left join wyvern_data w on w.tx_hash = t.transaction_hash and w.token_id = t.token_id
   where t.transaction_hash != '0x0000000000000000000000000000000000000000'
-  group by w.tx_hash, w.token_id
+  group by w.dt, w.tx_hash, w.token_id
 )
 
 select
@@ -35,7 +36,7 @@ select
     else(
       select count(1)
       from erc721_token_transfers t
-      where t.transaction_hash = w.tx_hash and t.from_address != '0x0000000000000000000000000000000000000000' )
+      where t.transaction_hash = w.tx_hash and t.from_address != '0x0000000000000000000000000000000000000000' and w.dt = t.dt)
   end as number_of_items,
   agg.name as aggregator,
   case
@@ -74,7 +75,7 @@ select
 from wyvern_data w
 
 left join erc721_tokens_in_tx
-  on erc721_tokens_in_tx.tx_hash = w.tx_hash and erc721_tokens_in_tx.token_id = w.token_id
+  on erc721_tokens_in_tx.tx_hash = w.tx_hash and erc721_tokens_in_tx.token_id = w.token_id and w.dt = erc721_tokens_in_tx.dt
 
 left join erc20_tokens erc20 on erc20.contract_address = w.nft_contract_address
 left join erc721_tokens tokens on tokens.contract_address = w.nft_contract_address

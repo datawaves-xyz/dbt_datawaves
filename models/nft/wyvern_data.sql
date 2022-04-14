@@ -74,4 +74,4 @@ select
 
 from converted
 
-left join tx on converted.tx_hash = tx.hash
+left join tx on converted.tx_hash = tx.hash and converted.dt = tx.dt
