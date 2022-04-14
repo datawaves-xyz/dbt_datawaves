@@ -22,10 +22,19 @@ models:
     staging:
       +materialized: ephemeral
 
+seeds:
+  
+  ethereum:
+    nft:
+      +schema: nft
+
 vars:
   ethereum:
     wyvern_atomic_match: "opensea.wyvernexchangev1_call_atomicmatch_"
+
+    
     # ethereum-etl
     tokens: "ethereum.tokens"
     contracts: "ethereum.contracts"
     token_transfers: "ethereum.token_transfers"
+    transactions: "ethereum.transactions"
