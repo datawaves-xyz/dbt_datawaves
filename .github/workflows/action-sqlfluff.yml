@@ -7,12 +7,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: yu-iskw/action-sqlfluff@v3
+      - uses: datawaves-xyz/action-sqlfluff@main
         id: lint-sql
         with:
           github_token: ${{ secrets.github_token }}
           reporter: github-pr-review
-          sqlfluff_version: "0.11.1"
+          sqlfluff_version: "0.12.0"
           sqlfluff_command: "fix"
           config: "${{ github.workspace }}/.sqlfluff"
           paths: '${{ github.workspace }}/models'

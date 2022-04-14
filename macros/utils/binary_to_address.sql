@@ -3,11 +3,11 @@
 {% endmacro %}
 
 
-{% macro default__binary_to_address(expression) %}
+{% macro default__binary_to_address(expression) -%}
     concat('0x', lower(hex({{ expression }})))
-{% endmacro %}
+{%- endmacro %}
 
 
-{% macro spark__binary_to_address(expression) %}
+{% macro spark__binary_to_address(expression) -%}
     concat('0x', lower(hex({{ expression }})))
-{% endmacro %}
+{%- endmacro %}
