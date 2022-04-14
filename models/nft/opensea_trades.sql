@@ -13,7 +13,7 @@ erc721_tokens_in_tx as (
   select
     w.tx_hash,
     w.token_id,
-    count(w.token_id) as token_count
+    count(1) as token_count
   from erc721_token_transfers t
   left join wyvern_data w on w.tx_hash = t.transaction_hash and w.token_id = t.token_id
   where t.transaction_hash != '0x0000000000000000000000000000000000000000'
@@ -24,12 +24,19 @@ select
   w.token_id as nft_token_id,
   w.exchange_contract_address,
   w.nft_contract_address,
-
   case
     when erc721_tokens_in_tx.token_count >= 1 then 'erc721'
     else w.erc_standard
   end as erc_standard,
-
+  -- Count the number of items for different trade types
+  case
+    when agg.name is null and erc721_tokens_in_tx.token_count > 1 then erc721_tokens_in_tx.token_count
+    when w.trade_type = 'Single Item Trade' then 1
+    else(
+      select count(1)
+      from erc721_token_transfers t
+      where t.transaction_hash = w.tx_hash and t.from_address != '0x0000000000000000000000000000000000000000' )
+  end as number_of_items,
   agg.name as aggregator,
   case
     when agg.name is not null then 'Aggregator Trade'
@@ -38,8 +45,8 @@ select
     else w.trade_type
   end as trade_type,
   -- Replace the buyer when using aggregator to trade
-  case when agg.name is null then w.buyer
-    else w.buyer_when_aggr
+  case when agg.name is not null then w.buyer_when_aggr
+    else w.buyer
   end as buyer,
   w.seller,
   -- Get the token of aggregator when using aggregator to trade

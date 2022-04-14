@@ -19,6 +19,9 @@ capitalisation_policy = lower
 # Unquoted identifier
 extended_capitalisation_policy = lower
 
+[sqlfluff:rules:L047]
+# Count(1)
+prefer_count_1 = True
 
 [sqlfluff:rules:L030]
 # Function names
