@@ -3,7 +3,7 @@ version: 2
 models:
   - name: wyvern_data
     config:
-      materialized: ephemeral
+      materialized: view
   - name: opensea_trades
     config:
       materialized: ephemeral

@@ -38,9 +38,5 @@ select
 
 from opensea_trades
 
-{% if is_incremental() %}
-
 where dt >= '{{ var("start_ts") }}'
   and dt < '{{ var("end_ts") }}'
-
-{% endif %}
