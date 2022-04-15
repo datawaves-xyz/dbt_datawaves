@@ -1,25 +1,14 @@
 {{
   cte_import([
-    ('erc20_tokens', 'stg_tokens'),
-    ('erc721_tokens', 'stg_tokens'),
-    ('aggregators', 'aggregators')
+    ('agg', 'aggregators'),
+    ('tokens', 'stg_tokens'),
+    ('wyvern_data', 'wyvern_data'),
   ])
 }},
-
-wyvern_data as (
-  select *
-  from {{ ref('wyvern_data') }}
-
-  where dt >= '{{ var("start_ts") }}'
-    and dt < '{{ var("end_ts") }}'
-),
 
 erc721_token_transfers as (
   select *
   from {{ var('token_transfers') }}
-
-  where dt >= '{{ var("start_ts") }}'
-    and dt < '{{ var("end_ts") }}'
 ),
 
 -- Count token IDs in each transaction
@@ -30,7 +19,10 @@ erc721_tokens_in_tx as (
     count(1) as token_count
   from erc721_token_transfers t
   left join wyvern_data w on w.tx_hash = t.transaction_hash and w.token_id = cast(t.value as string)
-  where t.transaction_hash != '0x0000000000000000000000000000000000000000'
+  where t.from_address != '0x0000000000000000000000000000000000000000'
+    and t.dt >= '{{ var("start_ts") }}'
+    and t.dt < '{{ var("end_ts") }}'
+
   group by tx_hash, cast(t.value as string)
 )
 
@@ -92,7 +84,11 @@ left join erc721_tokens_in_tx
   on erc721_tokens_in_tx.tx_hash = w.tx_hash
     and erc721_tokens_in_tx.token_id = w.token_id
 
-left join erc20_tokens erc20 on erc20.contract_address = w.nft_contract_address
-left join erc721_tokens tokens on tokens.contract_address = w.nft_contract_address
-left join erc721_tokens agg_tokens on agg_tokens.contract_address = w.tx_to
-left join aggregators agg on agg.contract_address = w.tx_to
+left join tokens erc20 on erc20.contract_address = w.nft_contract_address
+left join tokens on tokens.contract_address = w.nft_contract_address
+left join tokens agg_tokens on agg_tokens.contract_address = w.tx_to
+left join agg on agg.contract_address = w.tx_to
+
+where w.dt >= '{{ var("start_ts") }}'
+  and w.dt < '{{ var("end_ts") }}'
+

@@ -1,16 +1,11 @@
 with wyvern_atomic_match as (
   select *
   from {{ var('wyvern_atomic_match') }}
-
-  where dt >= '{{ var("start_ts") }}'
-    and dt < '{{ var("end_ts") }}'
 ),
 
 tx as (
   select *
   from {{ var('transactions') }}
-  where dt >= '{{ var("start_ts") }}'
-    and dt < '{{ var("end_ts") }}'
 ),
 
 converted as (
@@ -46,9 +41,9 @@ converted as (
     end as currency_token,
     case
       when {{ substring('calldatabuy', 1, 4) }} in ({{ binary_literal('fb16a595') }}, {{ binary_literal('96809f90') }})
-        then cast({{ binary_to_numeric(substring('calldatabuy', 101, 32)) }} as {{ dbt_utils.type_string() }})
+        then cast(round({{ binary_to_numeric(substring('calldatabuy', 101, 32)) }}, 0) as {{ dbt_utils.type_string() }})
       when substring(calldatabuy, 1, 4) in ({{ binary_literal('23b872dd') }}, {{ binary_literal('f242432a') }})
-        then cast({{ binary_to_numeric(substring('calldatabuy', 69, 32)) }} as {{ dbt_utils.type_string() }})
+        then cast(round({{ binary_to_numeric(substring('calldatabuy', 69, 32)) }}, 0) as {{ dbt_utils.type_string() }})
     end as token_id
 
   from wyvern_atomic_match
@@ -56,6 +51,8 @@ converted as (
     (addrs[3] = '0x5b3256965e7c3cf26e11fcaf296dfc8807c01073'
       or addrs[10] = '0x5b3256965e7c3cf26e11fcaf296dfc8807c01073')
     and call_success = true
+    and dt >= '{{ var("start_ts") }}'
+    and dt < '{{ var("end_ts") }}'
 )
 
 select
@@ -80,3 +77,5 @@ select
 from converted
 
 left join tx on converted.tx_hash = tx.hash
+  and tx.dt >= '{{ var("start_ts") }}'
+  and tx.dt < '{{ var("end_ts") }}'  

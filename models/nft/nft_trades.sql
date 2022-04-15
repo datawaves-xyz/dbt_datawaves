@@ -10,9 +10,6 @@
 with opensea_trades as (
   select *
   from {{ ref('opensea_trades') }}
-
-  where dt >= '{{ var("start_ts") }}'
-    and dt < '{{ var("end_ts") }}'
 )
 
 select
@@ -40,3 +37,10 @@ select
   dt
 
 from opensea_trades
+
+{% if is_incremental() %}
+
+where dt >= '{{ var("start_ts") }}'
+  and dt < '{{ var("end_ts") }}'
+
+{% endif %}

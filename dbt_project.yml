@@ -20,7 +20,7 @@ models:
       +materialized: view
 
     staging:
-      +materialized: ephemeral
+      +materialized: view
 
 seeds:
   
