@@ -20,7 +20,7 @@ models:
       +materialized: view
 
     staging:
-      +materialized: ephemeral
+      +materialized: view
 
 seeds:
   
@@ -29,10 +29,7 @@ seeds:
       +schema: nft
 
 vars:
-  ethereum:
-    wyvern_atomic_match: "opensea.wyvernexchangev1_call_atomicmatch_"
-
-    
+  ethereum:    
     # ethereum-etl
     tokens: "ethereum.tokens"
     contracts: "ethereum.contracts"
