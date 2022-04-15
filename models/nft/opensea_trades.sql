@@ -75,15 +75,15 @@ select
     else tokens.name
   end as nft_project_name,
   -- Adjust the currency amount/symbol with erc20 tokens
-  w.original_currency_address,
   w.original_amount as original_amount_raw,
   {{ displayed_amount('w.original_amount', 'erc20.decimals') }} as original_amount,
   case
-    when w.original_currency_address = {{ binary_to_address('0000000000000000000000000000000000000000') }}
+    when w.original_currency_address = '0x0000000000000000000000000000000000000000'
       then 'ETH'
     else erc20.symbol
-  end as original_currency_symbol,
+  end as currency_symbol,
   w.currency_token,
+  w.original_currency_address,
   -- blocks & tx
   w.block_time,
   w.block_number,
@@ -99,7 +99,7 @@ left join erc721_tokens_in_tx
   on erc721_tokens_in_tx.tx_hash = w.tx_hash
     and erc721_tokens_in_tx.token_id = w.token_id
 
-left join tokens erc20 on erc20.contract_address = w.nft_contract_address
+left join tokens erc20 on erc20.contract_address = w.currency_token
 left join tokens on tokens.contract_address = w.nft_contract_address
 left join tokens agg_tokens on agg_tokens.contract_address = w.nft_contract_address
 left join agg on agg.contract_address = w.contract_address

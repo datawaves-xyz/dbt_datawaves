@@ -1,6 +1,9 @@
 with wyvern_atomic_match as (
   select *
-  from {{ var('wyvern_atomic_match') }}
+  from opensea.wyvernexchangev1_call_atomicmatch_
+  union
+  select *
+  from opensea.wyvernexchangev2_call_atomicmatch_
 )
 
 select
@@ -12,7 +15,6 @@ select
   {{ binary_to_address(substring('calldatabuy', 49, 20)) }} as buyer_when_aggr,
   addrs[8] as seller,
   uints[4] as original_amount,
-  addrs[6] as original_currency_address,
   case
     when {{ substring('calldatabuy', 1, 4) }} in ({{ binary_literal('68f0bcaa') }}) then 'Bundle Trade'
     else 'Single Item Trade'
@@ -33,12 +35,13 @@ select
     when addrs[6] = '0x0000000000000000000000000000000000000000' then '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2'
     else addrs[6]
   end as currency_token,
+  addrs[6] as original_currency_address,
   case
     when {{ substring('calldatabuy', 1, 4) }} in ({{ binary_literal('fb16a595') }}, {{ binary_literal('96809f90') }})
       then cast(round({{ binary_to_numeric(substring('calldatabuy', 101, 32)) }}, 0) as {{ dbt_utils.type_string() }})
     when substring(calldatabuy, 1, 4) in ({{ binary_literal('23b872dd') }}, {{ binary_literal('f242432a') }})
       then cast(round({{ binary_to_numeric(substring('calldatabuy', 69, 32)) }}, 0) as {{ dbt_utils.type_string() }})
-  end as token_id,  
+  end as token_id,
   contract_address as contract_address
 
 from wyvern_atomic_match
