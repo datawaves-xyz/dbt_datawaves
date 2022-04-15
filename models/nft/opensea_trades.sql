@@ -1,24 +1,41 @@
 {{
   cte_import([
-    ('wyvern_data', 'wyvern_data'),
-    ('erc20_tokens', 'erc20_tokens'),
-    ('erc721_tokens', 'erc721_tokens'),
-    ('erc721_token_transfers', 'erc721_token_transfers'),
+    ('erc20_tokens', 'stg_tokens'),
+    ('erc721_tokens', 'stg_tokens'),
     ('aggregators', 'aggregators')
   ])
 }},
 
+wyvern_data as (
+  select *
+  from {{ ref('wyvern_data') }}
+
+  where dt >= '{{ var("start_ts") }}'
+    and dt < '{{ var("end_ts") }}'
+),
+
+erc721_token_transfers as (
+  select *
+  from {{ var('token_transfers') }}
+
+  where dt >= '{{ var("start_ts") }}'
+    and dt < '{{ var("end_ts") }}'
+),
+
 -- Count token IDs in each transaction
 erc721_tokens_in_tx as (
   select
-    w.dt,
-    w.tx_hash,
-    w.token_id,
+    w.tx_hash as tx_hash,
+    cast(t.value as string) as token_id,
     count(1) as token_count
   from erc721_token_transfers t
-  left join wyvern_data w on w.tx_hash = t.transaction_hash and w.token_id = t.token_id and w.dt = t.dt
+  left join wyvern_data w on w.tx_hash = t.transaction_hash and w.token_id = cast(t.value as string)
   where t.transaction_hash != '0x0000000000000000000000000000000000000000'
-  group by w.dt, w.tx_hash, w.token_id
+
+    and dt >= '{{ var("start_ts") }}'
+    and dt < '{{ var("end_ts") }}'
+
+  group by tx_hash, cast(t.value as string)
 )
 
 select
@@ -36,9 +53,8 @@ select
     else(
       select count(1)
       from erc721_token_transfers t
-      where t.transaction_hash = w.tx_hash 
-        and t.from_address != '0x0000000000000000000000000000000000000000'
-        and w.dt = t.dt)
+      where t.transaction_hash = w.tx_hash
+        and t.from_address != '0x0000000000000000000000000000000000000000')
   end as number_of_items,
   agg.name as aggregator,
   case
@@ -79,7 +95,6 @@ from wyvern_data w
 left join erc721_tokens_in_tx
   on erc721_tokens_in_tx.tx_hash = w.tx_hash
     and erc721_tokens_in_tx.token_id = w.token_id
-    and w.dt = erc721_tokens_in_tx.dt
 
 left join erc20_tokens erc20 on erc20.contract_address = w.nft_contract_address
 left join erc721_tokens tokens on tokens.contract_address = w.nft_contract_address

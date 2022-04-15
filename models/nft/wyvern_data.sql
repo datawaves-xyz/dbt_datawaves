@@ -1,11 +1,16 @@
 with wyvern_atomic_match as (
   select *
   from {{ var('wyvern_atomic_match') }}
+
+  where dt >= '{{ var("start_ts") }}'
+    and dt < '{{ var("end_ts") }}'
 ),
 
 tx as (
   select *
   from {{ var('transactions') }}
+  where dt >= '{{ var("start_ts") }}'
+    and dt < '{{ var("end_ts") }}'
 ),
 
 converted as (
@@ -74,4 +79,4 @@ select
 
 from converted
 
-left join tx on converted.tx_hash = tx.hash and converted.dt = tx.dt
+left join tx on converted.tx_hash = tx.hash
