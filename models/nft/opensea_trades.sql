@@ -31,10 +31,6 @@ erc721_tokens_in_tx as (
   from erc721_token_transfers t
   left join wyvern_data w on w.tx_hash = t.transaction_hash and w.token_id = cast(t.value as string)
   where t.transaction_hash != '0x0000000000000000000000000000000000000000'
-
-    and dt >= '{{ var("start_ts") }}'
-    and dt < '{{ var("end_ts") }}'
-
   group by tx_hash, cast(t.value as string)
 )
 
