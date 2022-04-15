@@ -74,7 +74,7 @@ select
   w.original_amount as original_amount_raw,
   {{ displayed_amount('w.original_amount', 'erc20.decimals') }} as original_amount,
   case
-    when w.original_currency_address = {{ binary_literal('0000000000000000000000000000000000000000') }}
+    when w.original_currency_address = {{ binary_to_address('0000000000000000000000000000000000000000') }}
       then 'ETH'
     else erc20.symbol
   end as original_currency_symbol,
