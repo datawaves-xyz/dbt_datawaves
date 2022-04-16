@@ -9,7 +9,7 @@
 
 | **model**                                                                                                 | **description**                                                                 |
 |-----------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------|
-| [opensea_trades](https://github.com/datawaves-xyz/dbt_ethereum/blob/master/models/nft/opensea_trades.sql) | Each record represents a trade in OpenSeas, enriched with data about the trade. |
+| [opensea_trades](https://github.com/datawaves-xyz/dbt_ethereum/blob/master/models/nft/opensea_trades.sql) | Each record represents a trade in OpenSea, enriched with data about the trade. |
 
 
 
