@@ -11,14 +11,6 @@ models:
       +schema: nft
       +materialized: view
 
-    erc20:
-      +schema: erc20
-      +materialized: view
-
-    erc721:
-      +schema: erc721
-      +materialized: view
-
     staging:
       +materialized: view
 
