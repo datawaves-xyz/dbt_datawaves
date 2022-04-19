@@ -1,6 +1,8 @@
 {{
   config(
-    materialized='table',
+    materialized='incremental',
+    incremental_strategy='insert_overwrite',
+    partition_by=['dt'],
     file_format='parquet'
   )
 }}
@@ -33,10 +35,14 @@ final as (
     block_number,
     tx_hash,
     tx_from,
-    tx_to
+    tx_to,
+    dt
 
   from opensea_trades
+
+  where dt >= '{{ var("start_ts") }}'
+    and dt < '{{ var("end_ts") }}'
 )
 
-select *
+select /*+ REPARTITION(dt) */ *
 from final
