@@ -27,6 +27,7 @@ final as (
     nft_project_name,
     original_amount_raw,
     original_amount,
+    usd_amount,
     currency_symbol,
     original_currency_address,
     currency_token,

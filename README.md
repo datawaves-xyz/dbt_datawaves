@@ -36,6 +36,7 @@ Try running integration tests for utils:
 - dbt test
 
 
-Backfill all the history of a model
+Backfill the history/single date of an incremental model
 
--
+- dbt run --models {NAME} --full-refresh
+- dbt run --models {NAME}  --vars '{"start_ts": "2022-01-01", "end_ts": "2022-01-02"}'
