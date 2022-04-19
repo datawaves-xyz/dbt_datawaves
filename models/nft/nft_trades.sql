@@ -44,5 +44,5 @@ final as (
     and dt < '{{ var("end_ts") }}'
 )
 
-select /*+ COALESCE(1) */ *
+select /*+ REPARTITION(dt) */ *
 from final
