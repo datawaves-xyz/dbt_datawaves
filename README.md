@@ -34,3 +34,8 @@ Try running integration tests for utils:
 - dbt seed
 - dbt run --models ./models/utils
 - dbt test
+
+
+Backfill all the history of a model
+
+-
