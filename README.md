@@ -36,7 +36,9 @@ Try running integration tests for utils:
 - dbt test
 
 
+## Operations
+
 Backfill the history/single date of an incremental model
 
-- dbt run --models {NAME} --full-refresh
-- dbt run --models {NAME}  --vars '{"start_ts": "2022-01-01", "end_ts": "2022-01-02"}'
+- dbt run --select {MODEL} --full-refresh --target prod
+- dbt run --select {MODEL}  --vars '{"start_ts": "2022-01-01", "end_ts": "2022-01-02"}'  --target prod
