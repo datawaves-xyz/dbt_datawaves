@@ -9,8 +9,8 @@ on:
 
 env:
   SPARK_DATABASE: ${{ secrets.SPARK_DATABASE }}
-  SPARK_HOST: ${{ secrets.SPARK_STS_HOST }}
-  SPARK_PORT: ${{ secrets.SPARK_STS_PORT }}
+  SPARK_STS_HOST: ${{ secrets.SPARK_STS_HOST }}
+  SPARK_STS_PORT: ${{ secrets.SPARK_STS_PORT }}
 
 jobs:
   compile-n-sync:
