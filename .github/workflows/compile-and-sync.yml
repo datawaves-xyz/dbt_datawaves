@@ -30,7 +30,7 @@ jobs:
           dbt_command: "dbt compile --profiles-dir profile"
 
       - name: Create pull request
-        uses: grokspawn/action-pull-request-another-repo@v1.0.0
+        uses: datawaves-xyz/action-pull-request-another-repo@v1.0.6
         env:
           API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
         with:
