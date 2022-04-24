@@ -10,9 +10,6 @@ models:
       +schema: nft
       +materialized: view
 
-    staging:
-      +materialized: view
-
 seeds:
   ethereum:
     nft:
