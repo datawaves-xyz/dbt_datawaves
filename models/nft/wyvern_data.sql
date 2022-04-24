@@ -8,7 +8,7 @@ with wyvern_atomic_match as (
 
 tx as (
   select *
-  from {{ var('transactions') }}
+  from {{ ref('stg_ethereum__transactions') }}
 ),
 
 wyvern_data as (
