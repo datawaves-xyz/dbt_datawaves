@@ -1,14 +1,14 @@
 with wyvern_atomic_match as (
   select *
-  from opensea.wyvernexchangev1_call_atomicmatch_
+  from {{ ref('opensea_WyvernExchangeV1_call_atomicMatch_') }}
   union
   select *
-  from opensea.wyvernexchangev2_call_atomicmatch_
+  from {{ ref('opensea_WyvernExchangeV2_call_atomicMatch_') }}
 ),
 
 tx as (
   select *
-  from {{ var('transactions') }}
+  from {{ ref('stg_ethereum__transactions') }}
 ),
 
 wyvern_data as (
