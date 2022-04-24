@@ -36,7 +36,7 @@ jobs:
         with:
           source_folder: "."
           destination_repo: "datawaves-xyz/blockchain-dbt-airflow"
-          destination_folder: "dbt-project"
+          destination_folder: "dbt_project"
           destination_head_branch: "sync-from-dbt-ethereum"
           destination_base_branch: "master"
           user_email: ${{ secrets.GIT_USER_EMAIL }}
