@@ -5,15 +5,15 @@ dbt_ethereum:
       type: spark
       method: thrift
       threads: 16
-      host:  "{{ env_var('SPARK_STS_HOST') }}"
-      port:  "{{ env_var('SPARK_STS_PORT') }}"
+      host: "{{ env_var('SPARK_STS_HOST') }}"
+      port: "{{ env_var('SPARK_STS_PORT', '-1') | as_number }}"
       # dbt understands spark database as schema
       schema: "{{ env_var('SPARK_DATABASE') }}"
     ci:
       type: spark
       method: thrift
       threads: 16
-      host:  "{{ env_var('SPARK_STS_HOST') }}"
-      port:  "{{ env_var('SPARK_STS_PORT') }}"
+      host: "{{ env_var('SPARK_STS_HOST') }}"
+      port: "{{ env_var('SPARK_STS_PORT', '-1') | as_number }}"
       # dbt understands spark database as schema
       schema: "{{ env_var('SPARK_DATABASE') }}"

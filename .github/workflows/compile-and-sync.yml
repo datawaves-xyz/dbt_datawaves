@@ -22,12 +22,12 @@ jobs:
       - name: Install deps
         uses: mwhitaker/dbt-action@master
         with:
-          dbt_command: "dbt deps --profiles-dir profiles"
+          dbt_command: "dbt deps --profiles-dir profile"
 
       - name: Compile dbt
         uses: mwhitaker/dbt-action@master
         with:
-          dbt_command: "dbt compile --profiles-dir profiles"
+          dbt_command: "dbt compile --profiles-dir profile"
 
       - name: Create pull request
         uses: grokspawn/action-pull-request-another-repo@v1.0.0
