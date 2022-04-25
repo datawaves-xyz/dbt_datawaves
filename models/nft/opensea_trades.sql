@@ -88,7 +88,7 @@ select
       then 'ETH'
     else erc20.symbol
   end as currency_symbol,
-  w.currency_contact,
+  w.currency_contract,
   w.original_currency_contract,
   -- blocks & tx
   w.block_time,

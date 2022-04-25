@@ -69,8 +69,8 @@ select
   w.erc_standard,
   w.exchange_contract_address,
   w.nft_contract_address,
-  w.currency_token,
-  w.original_currency_address,
+  w.currency_contract,
+  w.original_currency_contract,
   w.token_id,
   tx.from_address as tx_from,
   tx.to_address as tx_to
