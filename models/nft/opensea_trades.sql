@@ -80,16 +80,16 @@ select
     else tokens.name
   end as nft_project_name,
   -- Adjust the currency amount/symbol with erc20 tokens
-  w.original_amount as original_amount_raw,
-  {{ displayed_amount('w.original_amount', 'erc20.decimals') }} as original_amount,
-  {{ displayed_amount('w.original_amount', 'erc20.decimals') }} * p.price as usd_amount,
+  {{ displayed_amount('w.currency_amount', 'erc20.decimals') }} as currency_amount,
+  {{ displayed_amount('w.currency_amount', 'erc20.decimals') }} * p.price as usd_amount,
+  w.currency_amount as original_currency_amount,
   case
-    when w.original_currency_address = '0x0000000000000000000000000000000000000000'
+    when w.original_currency_contract = '0x0000000000000000000000000000000000000000'
       then 'ETH'
     else erc20.symbol
   end as currency_symbol,
-  w.currency_token,
-  w.original_currency_address,
+  w.currency_contact,
+  w.original_currency_contract,
   -- blocks & tx
   w.block_time,
   w.block_number,
