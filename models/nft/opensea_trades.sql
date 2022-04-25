@@ -108,9 +108,9 @@ left join transfers_in_tx on transfers_in_tx.tx_hash = w.tx_hash
 
 left join prices_usd p
   on p.minute = {{ dbt_utils.date_trunc('minute', 'w.block_time') }}
-    and p.contract_address = w.currency_token
+    and p.contract_address = w.currency_contract
 
-left join tokens erc20 on erc20.contract_address = w.currency_token
+left join tokens erc20 on erc20.contract_address = w.currency_contract
 left join tokens on tokens.contract_address = w.nft_contract_address
 left join tokens agg_tokens on agg_tokens.contract_address = w.nft_contract_address
 left join agg on agg.contract_address = w.tx_to
