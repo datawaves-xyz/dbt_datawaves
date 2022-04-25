@@ -28,7 +28,7 @@ final as (
     currency_contract,
     usd_amount,
     original_currency_amount,
-    original_currency_contract,  
+    original_currency_contract,
     block_time,
     block_number,
     tx_hash,
