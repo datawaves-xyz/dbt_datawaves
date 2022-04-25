@@ -40,8 +40,8 @@ wyvern_data as (
     case
       when addrs[6] = '0x0000000000000000000000000000000000000000' then '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2'
       else addrs[6]
-    end as currency_token,
-    addrs[6] as original_currency_address,
+    end as currency_contract,
+    addrs[6] as original_currency_contract,
     case
       when {{ substring('calldatabuy', 1, 4) }} in ({{ binary_literal('fb16a595') }}, {{ binary_literal('96809f90') }})
         then cast(round({{ binary_to_numeric(substring('calldatabuy', 101, 32)) }}, 0) as {{ dbt_utils.type_string() }})
