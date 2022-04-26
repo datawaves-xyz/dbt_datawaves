@@ -9,6 +9,10 @@ models:
     nft:
       +schema: nft
       +materialized: view
+      +tags:
+        - chain_ethereum
+        - level_modeling
+        - proj_nft
 
 seeds:
   ethereum:
