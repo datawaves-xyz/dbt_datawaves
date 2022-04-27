@@ -32,10 +32,13 @@ jobs:
       - name: Polish dbt folder
         run: |
           cp target/manifest.json manifest.json
-          rm -rf .git
+          sudo rm -rf .git
+          sudo rm -rf .github
+          sudo rm -rf dbt_console_output.txt
           sudo rm -rf target
           sudo rm -rf logs
           sudo rm -rf dbt_packages
+          sudo rm -rf profile/.user.yml
           echo """log-path: /tmp/dbt-log
           target-path: /tmp/dbt-target
           packages-install-path: /tmp/dbt-package""" >> dbt_project.yml
