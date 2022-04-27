@@ -33,9 +33,9 @@ jobs:
         run: |
           cp target/manifest.json manifest.json
           rm -rf .git
-          rm -rf target
-          rm -rf logs
-          rm -rf dbt_packages
+          sudo rm -rf target
+          sudo rm -rf logs
+          sudo rm -rf dbt_packages
           echo """log-path: /tmp/dbt-log
           target-path: /tmp/dbt-target
           packages-install-path: /tmp/dbt-package""" >> dbt_project.yml
