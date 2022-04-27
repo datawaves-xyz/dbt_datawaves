@@ -33,6 +33,9 @@ jobs:
         run: |
           cp target/manifest.json manifest.json
           rm -rf .git
+          rm -rf target
+          rm -rf logs
+          rm -rf dbt_packages
           echo """log-path: /tmp/dbt-log
           target-path: /tmp/dbt-target
           packages-install-path: /tmp/dbt-package""" >> dbt_project.yml
@@ -44,7 +47,7 @@ jobs:
         with:
           source_folder: "."
           destination_repo: "datawaves-xyz/blockchain-dbt-airflow"
-          destination_folder: "dbt_project"
+          destination_folder: "dbt_ethereum"
           destination_head_branch: "sync-from-dbt-ethereum"
           destination_base_branch: "master"
           user_email: ${{ secrets.GIT_USER_EMAIL }}
