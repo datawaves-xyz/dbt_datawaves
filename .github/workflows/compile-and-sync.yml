@@ -14,7 +14,7 @@ env:
 
 jobs:
   compile-n-sync:
-    runs-on: datawaves-runner
+    runs-on: self-hosted
     steps:
       - name: Checkout
         uses: actions/checkout@v2
