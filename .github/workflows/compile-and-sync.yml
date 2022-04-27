@@ -30,10 +30,12 @@ jobs:
           dbt_command: "dbt compile --profiles-dir profile"
 
       - name: Polish dbt folder
-        runs: |
+        run: |
           cp target/manifest.json manifest.json
           rm -rf .git
-          echo "log-path: /tmp/dbt-log\ntarget-path: /tmp/dbt-target\npackages-install-path: /tmp/dbt-package" >> dbt_project.yml
+          echo """log-path: /tmp/dbt-log
+          target-path: /tmp/dbt-target
+          packages-install-path: /tmp/dbt-package""" >> dbt_project.yml
 
       - name: Create pull request
         uses: datawaves-xyz/action-pull-request-another-repo@main
