@@ -3,5 +3,4 @@ packages:
     version: 0.8.4
 
   - git: "https://github.com/datawaves-xyz/dbt_ethereum_source"
-    # Ignore version control for now and add it when the dbt_ethereum_source has the stable version.
-    # revision: 0.1.0
+    revision: 0.1.1
