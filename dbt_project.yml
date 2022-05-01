@@ -20,17 +20,6 @@ seeds:
       +schema: nft
 
 vars:
-  ethereum:
-    # ethereum-etl
-    transactions: "{{ ref('stg_ethereum__transactions') }}"
-    blocks: "{{ ref('stg_ethereum__blocks') }}"
-    logs: "{{ ref('stg_ethereum__logs') }}"
-    traces: "{{ ref('stg_ethereum__traces') }}"
-    token_transfers: "{{ ref('stg_ethereum__token_transfers' )}}"
-    contracts: "{{ ref('stg_ethereum__contracts') }}"
-    tokens: "{{ ref('stg_ethereum__tokens') }}"
-    receipts: "{{ ref('stg_ethereum__receipts') }}"
-
   prices_usd: "prices.usd"
   start_ts: "1970-01-01"
   end_ts: "9999-01-01"

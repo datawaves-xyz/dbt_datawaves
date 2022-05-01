@@ -1,13 +1,13 @@
 {{
   cte_import([
     ('agg', 'aggregators'),
-    ('tokens', 'stg_ethereum__tokens'),
+    ('tokens', 'stg_tokens'),
   ])
 }},
 
 erc721_token_transfers as (
   select *
-  from {{ ref('stg_ethereum__token_transfers') }}
+  from {{ ref('stg_token_transfers') }}
   where dt >= '{{ var("start_ts") }}'
     and dt < '{{ var("end_ts") }}'
 ),
