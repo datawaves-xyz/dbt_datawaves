@@ -50,7 +50,10 @@ wyvern_data as (
     end as token_id
 
   from wyvern_atomic_match
-  where call_success = true
+  where
+    (addrs[3] = '0x5b3256965e7c3cf26e11fcaf296dfc8807c01073'
+      or addrs[10] = '0x5b3256965e7c3cf26e11fcaf296dfc8807c01073')
+    and call_success = true
 )
 
 select
