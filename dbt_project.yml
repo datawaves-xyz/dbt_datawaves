@@ -19,6 +19,9 @@ seeds:
     nft:
       +schema: nft
 
+  otherdeed_attributes:
+    +schema: otherdeed
+
 vars:
   prices_usd: "prices.usd"
   start_ts: "1970-01-01"

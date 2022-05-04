@@ -4,3 +4,5 @@ packages:
 
   - git: "https://github.com/datawaves-xyz/dbt_ethereum_source"
     revision: 0.1.3
+
+  - git: "https://github.com/datawaves-xyz/dbt_otherdeed_attributes"
