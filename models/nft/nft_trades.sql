@@ -38,5 +38,5 @@ final as (
   from opensea_trades
 )
 
-select /*+ REPARTITION(1) */ *
+select /*+ REPARTITION(50) */ *
 from final
