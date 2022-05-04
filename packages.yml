@@ -6,3 +6,4 @@ packages:
     revision: 0.1.3
 
   - git: "https://github.com/datawaves-xyz/dbt_otherdeed_attributes"
+    revision: 0.1
