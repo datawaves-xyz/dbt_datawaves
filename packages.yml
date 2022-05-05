@@ -4,3 +4,6 @@ packages:
 
   - git: "https://github.com/datawaves-xyz/dbt_ethereum_source"
     revision: 0.1.6
+
+  - package: dbt-labs/dbt_external_tables
+    version: 0.8.0

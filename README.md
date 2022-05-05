@@ -36,6 +36,10 @@ Try running integration tests for utils:
 - dbt test
 
 
+Refresh external tables:
+
+- dbt run-operation stage_external_sources --vars "ext_full_refresh: true"
+
 ## Operations
 
 Backfill the history/single date of an incremental model
