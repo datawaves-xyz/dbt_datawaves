@@ -1,0 +1,23 @@
+version: 2
+
+sources:
+  - name: ethereum_nft_metadata
+    tables:
+      - name: otherdeed_kodas
+        external:
+          location: s3a://ifcrypto/external/nft_metadata/otherdeed_kodas
+          using: csv 
+          options:
+            header: 'true'
+      - name: otherdeed_lands
+        external:
+          location: s3a://ifcrypto/external/nft_metadata/otherdeed_lands
+          using: csv 
+          options:
+            header: 'true'
+      - name: cryptocoven
+        external:
+          location: s3a://ifcrypto/external/nft_metadata/cryptocoven
+          using: csv 
+          options:
+            header: 'true'
