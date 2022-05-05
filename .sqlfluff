@@ -5,6 +5,7 @@ exclude_rules = L011, L031
 
 [sqlfluff:templater:dbt]
 project_dir = ./
+profiles_dir = ./profile
 
 [sqlfluff:rules]
 tab_space_size = 2
