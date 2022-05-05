@@ -13,6 +13,13 @@ models:
         - chain_ethereum
         - level_modeling
         - proj_nft
+    labels:
+      +schema: labels
+      +materialized: view
+      +tags:
+        - chain_ethereum
+        - level_modeling
+        - proj_labels
 
 seeds:
   ethereum:
