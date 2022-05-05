@@ -20,7 +20,7 @@ wyvern_data as (
     addrs[1] as buyer,
     {{ binary_to_address(substring('calldatabuy', 49, 20)) }} as buyer_when_aggr,
     addrs[8] as seller,
-    cast(uints[4] AS double) as currency_amount,
+    cast(uints[4] as double) as currency_amount,
     case
       when {{ substring('calldatabuy', 1, 4) }} in ({{ binary_literal('68f0bcaa') }}) then 'Bundle Trade'
       else 'Single Item Trade'
