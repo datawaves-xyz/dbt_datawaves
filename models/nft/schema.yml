@@ -9,3 +9,5 @@ models:
       materialized: ephemeral
   - name: nft_trades
   - name: nft_trades_partition_by_dt
+  - name: whale
+  - name: smart_money
