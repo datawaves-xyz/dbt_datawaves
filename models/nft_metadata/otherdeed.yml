@@ -2,5 +2,4 @@ version: 2
 
 models:
   - name: otherdeed
-    config:
-      materialized: view
+
