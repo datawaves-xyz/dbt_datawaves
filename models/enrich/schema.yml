@@ -1,0 +1,10 @@
+version: 2
+models:
+  - name: ERC20_evt_Approval
+  - name: ERC20_evt_Transfer
+  - name: ERC721_evt_Approval
+  - name: ERC721_evt_Transfer
+  - name: ERC1155_evt_ApprovalForAll
+  - name: ERC721_evt_TransferBatch
+  - name: ERC721_evt_TransferSingle
+  - name: ERC721_evt_URI

@@ -13,9 +13,11 @@ models:
         - chain_ethereum
         - level_modeling
         - proj_nft
+
     nft_metadata:
       +schema: nft_metadata
-      +materialized: view      
+      +materialized: view
+
     labels:
       +schema: labels
       +materialized: view
@@ -23,6 +25,10 @@ models:
         - chain_ethereum
         - level_modeling
         - proj_labels
+
+    enrich:
+      +schema: enrich
+      +materialized: ephemeral
 
 seeds:
   ethereum:
