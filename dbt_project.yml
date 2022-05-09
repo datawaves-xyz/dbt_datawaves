@@ -18,7 +18,6 @@ models:
       +materialized: view      
     labels:
       +schema: labels
-      +materialized: view
       +tags:
         - chain_ethereum
         - level_modeling

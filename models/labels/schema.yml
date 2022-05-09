@@ -1,5 +1,13 @@
 version: 2
 
 models:
+  - name: labels
+    config:
+      materialized: table
+      file_format: parquet
   - name: nft_whale
+    config:
+      materialized: ephemeral
   - name: smart_nft_trader
+    config:
+      materialized: ephemeral  
