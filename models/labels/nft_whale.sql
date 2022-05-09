@@ -15,8 +15,11 @@ stat as (
       buyer as address,
       sum(usd_amount) as amount
     from (
-      select
-        distinct buyer, usd_amount, nft_token_id, nft_contract_address
+      select distinct
+        buyer,
+        usd_amount,
+        nft_token_id,
+        nft_contract_address
       from (
         select
           buyer, nft_contract_address, nft_token_id, usd_amount,
