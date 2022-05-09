@@ -82,6 +82,7 @@ select
   -- Adjust the currency amount/symbol with erc20 tokens
   {{ displayed_amount('w.currency_amount', 'erc20.decimals') }} as currency_amount,
   {{ displayed_amount('w.currency_amount', 'erc20.decimals') }} * p.price as usd_amount,
+  {{ displayed_amount('w.currency_amount', 'erc20.decimals') }} * p.price / pe.price as eth_amount,
   w.currency_amount as original_currency_amount,
   case
     when w.original_currency_contract = '0x0000000000000000000000000000000000000000'
@@ -109,6 +110,10 @@ left join transfers_in_tx on transfers_in_tx.tx_hash = w.tx_hash
 left join prices_usd p
   on p.minute = {{ dbt_utils.date_trunc('minute', 'w.block_time') }}
     and p.contract_address = w.currency_contract
+
+left join prices_usd pe
+  on pe.minute = {{ dbt_utils.date_trunc('minute', 'w.block_time') }}
+    and pe.symbol = 'WETH'
 
 left join tokens erc20 on erc20.contract_address = w.currency_contract
 left join tokens on tokens.contract_address = w.nft_contract_address

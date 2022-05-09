@@ -27,6 +27,7 @@ final as (
     currency_symbol,
     currency_contract,
     usd_amount,
+    eth_amount,
     original_currency_amount,
     original_currency_contract,
     block_time,
