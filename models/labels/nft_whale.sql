@@ -22,7 +22,10 @@ stat as (
         nft_contract_address
       from (
         select
-          buyer, nft_contract_address, nft_token_id, usd_amount,
+          buyer,
+          nft_contract_address,
+          nft_token_id,
+          usd_amount,
           row_number() over(partition by nft_contract_address, nft_token_id order by block_time desc) as rank
         from nft_trades
       )
