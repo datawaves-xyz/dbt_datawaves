@@ -29,10 +29,10 @@ stat as (
   order by amount desc
 )
 
-select 
-  stat.address, 
+select
+  stat.address,
   'NFT Millionaire' as label,
   'NFT Whale' as label_type
 from stat
-left anti join contracts 
-on stat.address = contracts.address
+left anti join contracts
+  on stat.address = contracts.address
