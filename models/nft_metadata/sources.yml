@@ -6,18 +6,27 @@ sources:
       - name: otherdeed_kodas
         external:
           location: s3a://ifcrypto/external/nft_metadata/otherdeed_kodas
-          using: csv 
+          using: csv
           options:
-            header: 'true'
+            header: "true"
+
       - name: otherdeed_lands
         external:
           location: s3a://ifcrypto/external/nft_metadata/otherdeed_lands
-          using: csv 
+          using: csv
           options:
-            header: 'true'
+            header: "true"
+
       - name: cryptocoven
         external:
           location: s3a://ifcrypto/external/nft_metadata/cryptocoven
-          using: csv 
+          using: csv
           options:
-            header: 'true'
+            header: "true"
+
+      - name: nft_tokens
+        external:
+          location: s3a://ifcrypto/external/nft_metadata/nft_tokens
+          using: csv
+          options:
+            header: "true"
