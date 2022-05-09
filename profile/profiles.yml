@@ -17,3 +17,10 @@ dbt_ethereum:
       port: "{{ env_var('SPARK_STS_PORT', '-1') | as_number }}"
       # dbt understands spark database as schema
       schema: "{{ env_var('SPARK_DATABASE', 'not-set') }}"
+    dev:
+      type: spark
+      method: thrift
+      threads: 4
+      host: "{{ env_var('SPARK_STS_HOST', 'not-set') }}"
+      port: "{{ env_var('SPARK_STS_PORT', '-1') | as_number }}"
+      schema: "mock"
