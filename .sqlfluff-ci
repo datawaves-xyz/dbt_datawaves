@@ -1,0 +1,4 @@
+
+[sqlfluff:templater:dbt]
+profiles_dir = ./profile
+target = ci

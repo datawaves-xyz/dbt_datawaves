@@ -1,10 +1,17 @@
 name: sqlfluff with reviewdog
+
 on:
   pull_request:
+
+env:
+  SPARK_DATABASE: ${{ secrets.SPARK_DATABASE }}
+  SPARK_STS_HOST: ${{ secrets.SPARK_STS_HOST }}
+  SPARK_STS_PORT: ${{ secrets.SPARK_STS_PORT }}
+
 jobs:
   test-check:
     name: runner / sqlfluff (github-check)
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - uses: actions/checkout@v2
       - uses: datawaves-xyz/action-sqlfluff@main
@@ -14,5 +21,6 @@ jobs:
           reporter: github-pr-review
           sqlfluff_version: "0.12.0"
           sqlfluff_command: "fix"
-          config: "${{ github.workspace }}/.sqlfluff"
-          paths: '${{ github.workspace }}/models'
+          config: "${{ github.workspace }}/.sqlfluff-ci"
+          paths: "${{ github.workspace }}/models"
+          extra_requirements_txt: "${{ github.workspace }}/requirements_ci.txt"
