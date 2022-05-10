@@ -15,16 +15,14 @@ trader as (
   from (
     select
       seller as address,
-      currency_amount as amount
+      eth_amount as amount
     from nft_trades
-    where currency_symbol in ('ETH', 'WETH')
 
     union all
     select
       buyer as address,
-      -currency_amount as amount
+      -eth_amount as amount
     from nft_trades
-    where currency_symbol in ('ETH', 'WETH')
   )
   group by address
 ),

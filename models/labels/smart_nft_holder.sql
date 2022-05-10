@@ -14,44 +14,41 @@ token_transfers as (
 ),
 
 floor_price_info as (
-  select 
+  select
     nft_contract_address,
-    percentile(currency_amount,0.05) as floor_price
+    percentile(eth_amount, 0.05) as floor_price
   from nft_trades
-  where currency_symbol in ('ETH','WETH') and to_date(block_time) = date_sub(current_date(), 1)
+  where to_date(block_time) = date_sub(current_date(), 1)
   group by nft_contract_address
 ),
 
 holder_info as (
-  select 
-    distinct
+  select distinct
     nft_contract_address,
     nft_token_id,
     to_address as address,
-    currency_amount
+    eth_amount
   from (
-    select 
+    select
       nft_contract_address,
       nft_token_id,
       to_address,
-      currency_amount,
+      eth_amount,
       row_number()over(partition by nft_contract_address, nft_token_id order by block_time desc) as rank
     from (
-      select 
+      select
         nft_contract_address,
         nft_token_id,
         buyer as to_address,
-        currency_amount,
+        eth_amount,
         block_time
       from nft_trades
-            
       union
-
-      select 
+      select
         token_address as nft_contract_address,
         cast(value as string) as nft_token_id,
         to_address,
-        0 as currency_amount,
+        0 as eth_amount,
         block_timestamp as block_time
       from token_transfers
       where from_address = '0x0000000000000000000000000000000000000000'
@@ -61,21 +58,21 @@ holder_info as (
 ),
 
 smart_holder as (
-  select 
+  select
     address,
-    sum(floor_price-currency_amount) as estimated_profit
+    sum(floor_price - eth_amount) as estimated_profit
   from (
-    select 
+    select
       holder_info.address,
       holder_info.nft_contract_address,
       holder_info.nft_token_id,
-      holder_info.currency_amount,
+      holder_info.eth_amount,
       floor_price_info.floor_price
     from holder_info
     left join floor_price_info
-    on holder_info.nft_contract_address = floor_price_info.nft_contract_address
+      on holder_info.nft_contract_address = floor_price_info.nft_contract_address
     left anti join contracts
-    on holder_info.address = contracts.address
+      on holder_info.address = contracts.address
   )
   group by address
   order by estimated_profit desc
