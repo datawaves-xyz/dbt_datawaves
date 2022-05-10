@@ -30,3 +30,10 @@ sources:
           using: csv
           options:
             header: "true"
+
+      - name: nft_token_metadata
+        external:
+          location: s3a://ifcrypto/external/nft_metadata/nft_token_metadata
+          using: csv
+          options:
+            header: "true"
