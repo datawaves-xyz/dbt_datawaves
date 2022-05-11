@@ -3,7 +3,7 @@ with nft_tokens as (
   from {{ source('ethereum_nft_metadata', 'nft_tokens') }}
 )
 
-select 
+select
   contract_address,
   name,
   symbol,
