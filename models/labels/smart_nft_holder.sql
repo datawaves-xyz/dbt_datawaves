@@ -8,9 +8,9 @@ contracts as (
   from {{ ref('stg_contracts') }}
 ),
 
-token_transfers as (
+erc721_token_transfers as (
   select *
-  from {{ ref('stg_token_transfers') }}
+  from {{ ref('ERC721_evt_Transfer') }}
 ),
 
 floor_price_info as (
@@ -45,13 +45,13 @@ holder_info as (
       from nft_trades
       union
       select
-        token_address as nft_contract_address,
-        cast(value as string) as nft_token_id,
-        to_address,
+        contract_address as nft_contract_address,
+        tokenid as nft_token_id,
+        to as to_address,
         0 as eth_amount,
-        block_timestamp as block_time
-      from token_transfers
-      where from_address = '0x0000000000000000000000000000000000000000'
+        evt_block_time as block_time
+      from erc721_token_transfers
+      where from = '0x0000000000000000000000000000000000000000'
     )
   )
   where rank = 1
