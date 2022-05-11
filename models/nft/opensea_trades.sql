@@ -34,7 +34,7 @@ erc721_tokens_in_tx as (
     tokenid as token_id,
     count(1) as num
   from erc721_token_transfers
-  where from_address != '0x0000000000000000000000000000000000000000'
+  where `from` != '0x0000000000000000000000000000000000000000'
   group by evt_tx_hash, tokenid
 ),
 
@@ -45,7 +45,7 @@ transfers_in_tx as (
     evt_tx_hash as tx_hash,
     count(1) as num
   from erc721_token_transfers
-  where from_address != '0x0000000000000000000000000000000000000000'
+  where `from` != '0x0000000000000000000000000000000000000000'
   group by evt_tx_hash
 )
 
