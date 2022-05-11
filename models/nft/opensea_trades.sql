@@ -30,23 +30,23 @@ prices_usd as (
 -- Count number of token IDs in each transaction
 erc721_tokens_in_tx as (
   select
-    transaction_hash as tx_hash,
-    cast(round(value, 0) as string) as token_id,
+    evt_tx_hash as tx_hash,
+    tokenid as token_id,
     count(1) as num
   from erc721_token_transfers
   where from_address != '0x0000000000000000000000000000000000000000'
-  group by transaction_hash, cast(round(value, 0) as string)
+  group by evt_tx_hash, tokenid
 ),
 
 -- Count number of token transfers in each transaction;
 -- We use this to count number of erc721 and erc1155 items when there's no token_id associated
 transfers_in_tx as (
   select
-    transaction_hash as tx_hash,
+    evt_tx_hash as tx_hash,
     count(1) as num
   from erc721_token_transfers
   where from_address != '0x0000000000000000000000000000000000000000'
-  group by transaction_hash
+  group by evt_tx_hash
 )
 
 select
