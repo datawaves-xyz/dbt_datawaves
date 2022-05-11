@@ -12,8 +12,16 @@
 | [opensea_trades](https://github.com/datawaves-xyz/dbt_ethereum/blob/master/models/nft/opensea_trades.sql) | Each record represents a trade in OpenSea, enriched with data about the trade. |
 
 
+### Labels
 
-## Development
+| **model**                                                                                                 | **description**                                                                 |
+|-----------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------|
+| [nft_whale](https://github.com/datawaves-xyz/dbt_ethereum/blob/master/models/labels/nft_whale.sql) |  |
+| [smart_nft_holder](https://github.com/datawaves-xyz/dbt_ethereum/blob/master/models/labels/smart_nft_holder.sql) |  |
+| [smart_nft_trader](https://github.com/datawaves-xyz/dbt_ethereum/blob/master/models/labels/smart_nft_trader.sql) |  |
+
+
+## Development Instructions
 
 
 Install dbt (with Spark adapter):
@@ -21,14 +29,12 @@ Install dbt (with Spark adapter):
 - pip install dbt
 - pip install 'dbt-spark[PyHive]'
 
-
-Install sqlfluff:
+Install sqlfluff (for syntax check):
 
 - pip install sqlfluff
 - pip install sqlfluff-templater-dbt
 
-
-Try running integration tests for utils:
+Run integration tests for utils:
 
 - cd integration_tests
 - dbt seed
@@ -36,13 +42,17 @@ Try running integration tests for utils:
 - dbt test
 
 
+## Operational Instructions
+
 Refresh external tables:
 
 - dbt run-operation stage_external_sources --vars "ext_full_refresh: true"
 
-## Operations
+Execute a node + any upstream nodes. It is useful when testing your models:
 
-Backfill the history/single date of an incremental model
+- dbt run --select +{MODEL} --target beta
+
+Backfill the history/single date of an incremental model:
 
 - dbt run --select {MODEL} --full-refresh --target prod
 - dbt run --select {MODEL}  --vars '{"start_ts": "2022-01-01", "end_ts": "2022-01-02"}'  --target prod
