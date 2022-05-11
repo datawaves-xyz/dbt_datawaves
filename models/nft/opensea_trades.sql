@@ -2,12 +2,13 @@
   cte_import([
     ('agg', 'aggregators'),
     ('tokens', 'stg_tokens'),
+    ('nft_tokens', 'nft_tokens')
   ])
 }},
 
 erc721_token_transfers as (
   select *
-  from {{ ref('stg_token_transfers') }}
+  from {{ ref('ERC721_evt_Transfer') }}
   where dt >= '{{ var("start_ts") }}'
     and dt < '{{ var("end_ts") }}'
 ),
@@ -77,7 +78,7 @@ select
   -- Get the token of aggregator when using aggregator to trade
   case
     when agg.name is not null then agg_tokens.name
-    else tokens.name
+    else nft_tokens.name
   end as nft_project_name,
   -- Adjust the currency amount/symbol with erc20 tokens
   {{ displayed_amount('w.currency_amount', 'erc20.decimals') }} as currency_amount,
@@ -116,6 +117,6 @@ left join prices_usd pe
     and pe.symbol = 'WETH'
 
 left join tokens erc20 on erc20.contract_address = w.currency_contract
-left join tokens on tokens.contract_address = w.nft_contract_address
+left join nft_tokens on nft_tokens.contract_address = w.nft_contract_address
 left join tokens agg_tokens on agg_tokens.contract_address = w.nft_contract_address
 left join agg on agg.contract_address = w.tx_to

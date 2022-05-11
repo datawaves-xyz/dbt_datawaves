@@ -8,14 +8,12 @@ models:
   ethereum:
     nft:
       +schema: nft
-      +materialized: view
       +tags:
         - chain_ethereum
         - level_modeling
         - proj_nft
     nft_metadata:
       +schema: nft_metadata
-      +materialized: view      
     labels:
       +schema: labels
       +tags:
