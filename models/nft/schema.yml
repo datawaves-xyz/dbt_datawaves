@@ -11,4 +11,7 @@ models:
   - name: nft_trades_partition_by_dt
   - name: nft_tokens
     config:
-      materialized: view  
+      materialized: view
+  - name: nft_token_metadata
+    config:
+      materialized: view
