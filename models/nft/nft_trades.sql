@@ -1,10 +1,3 @@
-{{
-  config(
-    materialized='table',
-    file_format='parquet'
-  )
-}}
-
 with opensea_trades as (
   select *
   from {{ ref('opensea_trades') }}

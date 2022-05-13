@@ -8,7 +8,9 @@ models:
     config:
       materialized: ephemeral
   - name: nft_trades
-  - name: nft_trades_partition_by_dt
+    config:
+      materialized: table
+      file_format: parquet
   - name: nft_tokens
     config:
       materialized: view
