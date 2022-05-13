@@ -1,4 +1,4 @@
-with trait_info as(
+with trait_info as (
   select distinct
     token_id,
     category as trait,
@@ -92,28 +92,28 @@ with trait_info as(
 ),
 
 rarity_score as (
-  select 
-      token_id,
-      trait,
-      trait_type,
-      count(case when trait is not null then 1 else null end) over (partition by trait_type,trait )
-      /count(case when trait is not null then 1 else null end) over (partition by trait_type ) as rarity_score
+  select
+    token_id,
+    trait,
+    trait_type,
+    count(case when trait is not null then 1 end) over (partition by trait_type, trait )
+    / count(case when trait is not null then 1 end) over (partition by trait_type ) as rarity_score
 
   from trait_info
 ),
 
 rarity_scoreboard as (
-  select 
-      token_id,
-      sum(ln(rarity_score)) as rarity_score
+  select
+    token_id,
+    sum(ln(rarity_score)) as rarity_score
   from rarity_score
   group by token_id
 )
 
 select
+  y.*,
   x.nft_token_id,
   x.latest_eth_amount,
-  y.*,
   z.rarity_score
 
 from

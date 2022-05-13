@@ -131,7 +131,7 @@ recent_sales as (
     nft_token_id,
     eth_amount
   from ethereum_nft.nft_trades
-  where nft_contract_address = '0x34d85c9cdeb23fa97cb08333b511ac86e1c4e258' 
+  where nft_contract_address = '0x34d85c9cdeb23fa97cb08333b511ac86e1c4e258'
     and to_date(block_time) = date_sub(current_date(), 2)
 )
 
