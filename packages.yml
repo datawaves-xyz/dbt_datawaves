@@ -2,8 +2,11 @@ packages:
   - package: dbt-labs/dbt_utils
     version: 0.8.4
 
+  - package: dbt-labs/dbt_external_tables
+    version: 0.8.0
+
   - git: "https://github.com/datawaves-xyz/dbt_ethereum_source"
     revision: 0.1.11
 
-  - package: dbt-labs/dbt_external_tables
-    version: 0.8.0
+  - git: "https://github.com/datawaves-xyz/dbt_external"
+    revision: 0.0.1
