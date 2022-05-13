@@ -13,6 +13,6 @@ select
   name,
   symbol,
   token_uri,
-  metadata
+  metadata,
   synced_at
 from nft_token_metadata
