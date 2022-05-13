@@ -124,6 +124,15 @@ buyer_info as (
   from 7d_trader a
   left join whales b
     on a.buyer = b.address
+),
+
+recent_sales as (
+  select
+    nft_token_id,
+    eth_amount
+  from ethereum_nft.nft_trades
+  where nft_contract_address = '0x34d85c9cdeb23fa97cb08333b511ac86e1c4e258' 
+    and to_date(block_time) = date_sub(current_date(), 2)
 )
 
 select
@@ -132,7 +141,9 @@ select
   count(distinct a.token_id) as total,
   count(distinct b.buyer) as buyer_7d,
   count(distinct b.whale_buyer) as whale_buyer_7d,
-  avg(c.avg_sale_eth) as avg_eth
+  avg(c.avg_sale_eth) as avg_eth,
+  percentile(s.eth_amount, 0.05) as floor_price_eth
+
 from trait_type_info a
 
 left join buyer_info b
@@ -140,6 +151,9 @@ left join buyer_info b
 
 left join trade_info c
   on a.token_id = c.nft_token_id
+
+left join recent_sales s
+  on a.token_id = s.nft_token_id
 
 group by a.trait, a.trait_type
 order by whale_buyer_7d desc
