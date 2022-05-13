@@ -1,0 +1,19 @@
+version: 2
+
+models:
+  - name: otherdeed_basic_stats
+    config:
+      materialized: table
+      file_format: parquet
+  - name: otherdeed_marketplace_stats
+    config:
+      materialized: table
+      file_format: parquet
+  - name: otherdeed_token_stats
+    config:
+      materialized: table
+      file_format: parquet
+  - name: otherdeed_trait_stats
+    config:
+      materialized: table
+      file_format: parquet
