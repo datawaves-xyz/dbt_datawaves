@@ -124,7 +124,7 @@ buyer_info as (
   from 7d_trader a
   left join whales b
     on a.buyer = b.address
-),
+)
 
 select
   a.trait,
