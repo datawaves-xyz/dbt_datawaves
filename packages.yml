@@ -9,4 +9,4 @@ packages:
     revision: 0.1.11
 
   - git: "https://github.com/datawaves-xyz/dbt_external"
-    revision: 0.0.1
+    revision: 0.0.2
