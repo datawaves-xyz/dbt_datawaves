@@ -87,7 +87,7 @@ trait_info as (
     token_id,
     koda_clothing as trait,
     'koda_clothing' as trait_type
-  from eotherdeed
+  from otherdeed
   where koda_clothing is not null
   union
   select distinct
