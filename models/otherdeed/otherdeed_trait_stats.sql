@@ -6,7 +6,7 @@
   ])
 }},
 
-trait_info as (
+trait_type_info as (
   select distinct
     token_id,
     category as trait,
