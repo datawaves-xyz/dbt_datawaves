@@ -22,6 +22,10 @@ models:
         - proj_labels
     otherdeed:
       +schema: otherdeed
+      +tags:
+        - chain_ethereum
+        - level_modeling      
+        - proj_otherdeed
 
 seeds:
   ethereum:
