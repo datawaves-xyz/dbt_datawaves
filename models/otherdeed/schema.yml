@@ -17,3 +17,7 @@ models:
     config:
       materialized: table
       file_format: parquet
+  - name: otherdeed
+    config:
+      materialized: table
+      file_format: parquet      

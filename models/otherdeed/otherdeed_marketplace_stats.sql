@@ -1,8 +1,15 @@
-with all_inflow as (
+{{
+  cte_import([
+    ('nft_trades', 'nft_trades'),
+    ('labels', 'labels')
+  ])
+}},
+
+all_inflow as (
   select
     to_date(block_time) as dt,
     sum(usd_amount) as volume
-  from ethereum_nft.nft_trades
+  from nft_trades
 
   where to_date(block_time) >= date_sub(current_date(), 30)
     and nft_contract_address = '0x34d85c9cdeb23fa97cb08333b511ac86e1c4e258'
@@ -13,7 +20,7 @@ all_outflow as (
   select
     to_date(block_time) as dt,
     -sum(usd_amount) as volume
-  from ethereum_nft.nft_trades
+  from nft_trades
 
   where to_date(block_time) >= date_sub(current_date(), 30)
     and nft_contract_address = '0x34d85c9cdeb23fa97cb08333b511ac86e1c4e258'
@@ -24,9 +31,9 @@ smart_trader_inflow as (
   select
     to_date(t.block_time) as dt,
     sum(t.usd_amount) as volume
-  from ethereum_nft.nft_trades t
+  from nft_trades t
 
-  inner join ethereum_labels.labels ll
+  inner join labels ll
     on t.nft_contract_address = '0x34d85c9cdeb23fa97cb08333b511ac86e1c4e258'
       and ll.address = t.buyer
       and ll.label = 'Smart NFT Holder'
@@ -39,9 +46,9 @@ smart_trader_outflow as (
   select
     to_date(t.block_time) as dt,
     -sum(t.usd_amount) as volume
-  from ethereum_nft.nft_trades t
+  from nft_trades t
 
-  inner join ethereum_labels.labels ll
+  inner join labels ll
     on t.nft_contract_address = '0x34d85c9cdeb23fa97cb08333b511ac86e1c4e258'
       and ll.address = t.seller
       and ll.label = 'Smart NFT Holder'
@@ -54,9 +61,9 @@ whale_inflow as (
   select
     to_date(t.block_time) as dt,
     sum(t.usd_amount) as volume
-  from ethereum_nft.nft_trades t
+  from nft_trades t
 
-  inner join ethereum_labels.labels ll
+  inner join labels ll
     on t.nft_contract_address = '0x34d85c9cdeb23fa97cb08333b511ac86e1c4e258'
       and ll.address = t.buyer
       and ll.label = 'NFT Millionaire'
@@ -69,9 +76,9 @@ whale_outflow as (
   select
     to_date(t.block_time) as dt,
     -sum(t.usd_amount) as volume
-  from ethereum_nft.nft_trades t
+  from nft_trades t
 
-  inner join ethereum_labels.labels ll
+  inner join labels ll
     on t.nft_contract_address = '0x34d85c9cdeb23fa97cb08333b511ac86e1c4e258'
       and ll.address = t.seller
       and ll.label = 'NFT Millionaire'

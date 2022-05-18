@@ -1,7 +1,0 @@
-version: 2
-
-models:
-  - name: otherdeed
-    config:
-      materialized: table
-      file_format: parquet
