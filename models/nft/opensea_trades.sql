@@ -49,7 +49,7 @@ erc721_tokens_in_tx as (
 erc1155_tokens_in_tx as (
   select
     evt_tx_hash as tx_hash,
-    tokenid as token_id,
+    id as token_id,
     count(1) as num_of_items
   from erc1155_token_transfers
   where `from` != '0x0000000000000000000000000000000000000000'
