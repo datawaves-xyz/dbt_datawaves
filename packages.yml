@@ -6,7 +6,7 @@ packages:
     version: 0.8.0
 
   - git: "https://github.com/datawaves-xyz/dbt_ethereum_source"
-    revision: 0.1.11
+    revision: 0.1.12
 
   - git: "https://github.com/datawaves-xyz/dbt_external"
     revision: 0.0.2
