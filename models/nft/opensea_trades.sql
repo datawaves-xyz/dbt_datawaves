@@ -13,6 +13,13 @@ erc721_token_transfers as (
     and dt < '{{ var("end_ts") }}'
 ),
 
+erc1155_token_transfers as (
+  select *
+  from {{ ref('ERC1155_evt_TransferSingle') }}
+  where dt >= '{{ var("start_ts") }}'
+    and dt < '{{ var("end_ts") }}'
+),
+
 wyvern_data as (
   select *
   from {{ ref('wyvern_data') }}
@@ -32,19 +39,37 @@ erc721_tokens_in_tx as (
   select
     evt_tx_hash as tx_hash,
     tokenid as token_id,
-    count(1) as num
+    count(1) as num_of_items
   from erc721_token_transfers
   where `from` != '0x0000000000000000000000000000000000000000'
   group by evt_tx_hash, tokenid
 ),
 
+-- Count number of token IDs in each transaction
+erc1155_tokens_in_tx as (
+  select
+    evt_tx_hash as tx_hash,
+    id as token_id,
+    count(1) as num_of_items
+  from erc1155_token_transfers
+  where `from` != '0x0000000000000000000000000000000000000000'
+  group by evt_tx_hash, tokenid
+),
+
 -- Count number of token transfers in each transaction;
--- We use this to count number of erc721 and erc1155 items when there's no token_id associated
+-- We use this to count number of erc721 and erc1155 transfers
 transfers_in_tx as (
   select
     evt_tx_hash as tx_hash,
-    count(1) as num
+    count(1) as num_of_transfers
   from erc721_token_transfers
+  where `from` != '0x0000000000000000000000000000000000000000'
+  group by evt_tx_hash
+  union
+  select
+    evt_tx_hash as tx_hash,
+    count(1) as num_of_transfers
+  from erc1155_token_transfers
   where `from` != '0x0000000000000000000000000000000000000000'
   group by evt_tx_hash
 )
@@ -54,21 +79,26 @@ select
   w.exchange_contract_address,
   w.nft_contract_address,
   case
-    when erc721_tokens_in_tx.num >= 1 then 'erc721'
+    when erc1155_tokens_in_tx.num_of_items >= 1 then 'erc1155'
+    when erc721_tokens_in_tx.num_of_items >= 1 then 'erc721'
     else w.erc_standard
   end as erc_standard,
+  agg.name as aggregator,
   -- Count the number of items for different trade types
   case
-    when agg.name is null and erc721_tokens_in_tx.num > 1 then erc721_tokens_in_tx.num
+    when agg.name is null and erc721_tokens_in_tx.num_of_items > 1 then erc721_tokens_in_tx.num_of_items
+    when agg.name is null and erc1155_tokens_in_tx.num_of_items > 1 then erc1155_tokens_in_tx.num_of_items
     when w.trade_type = 'Single Item Trade' then 1
-    else transfers_in_tx.num
+    when w.erc_standard = 'erc1155' then erc721_tokens_in_tx.num_of_items
+    when w.erc_standard = 'erc721' then erc1155_tokens_in_tx.num_of_items
+    else transfers_in_tx.num_of_transfers
   end as number_of_items,
-  agg.name as aggregator,
+  -- A bundle trade contains at least one erc721 or erc1155 tokens in tx
   case
     when agg.name is not null then 'Aggregator Trade'
-    when agg.name is null and erc721_tokens_in_tx.num = 1 then 'Single Item Trade'
-    when agg.name is null and erc721_tokens_in_tx.num > 1 then 'Bundle Trade'
-    else w.trade_type
+    when erc721_tokens_in_tx.num_of_items = 1 or erc1155_tokens_in_tx.num_of_items = 1 then 'Single Item Trade'
+    when erc721_tokens_in_tx.num_of_items > 1 or erc1155_tokens_in_tx.num_of_items > 1 then 'Bundle Trade'
+    else wc.trade_type
   end as trade_type,
   -- Replace the buyer when using aggregator to trade
   case when agg.name is not null then w.buyer_when_aggr
@@ -105,6 +135,10 @@ from wyvern_data w
 left join erc721_tokens_in_tx
   on erc721_tokens_in_tx.tx_hash = w.tx_hash
     and erc721_tokens_in_tx.token_id = w.token_id
+
+left join erc1155_tokens_in_tx
+  on erc1155_tokens_in_tx.tx_hash = w.tx_hash
+    and erc1155_tokens_in_tx.token_id = w.token_id
 
 left join transfers_in_tx on transfers_in_tx.tx_hash = w.tx_hash
 
