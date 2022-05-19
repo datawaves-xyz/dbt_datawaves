@@ -28,7 +28,9 @@ address_info as (
     a.punkIndex as nft_token_id,
     a.fromAddress as from_address,
     a.value,
-    case when a.toAddress = '0x0000000000000000000000000000000000000000' then b.to_address else a.toAddress end as to_address
+    case
+      when a.toaddress = '0x0000000000000000000000000000000000000000' then b.to_address else a.toaddress
+    end as to_address
   from cryptopunksmarket_evt_punkbought a
   left join erc20_token_transfers b
     on a.evt_tx_hash = b.evt_tx_hash and a.fromAddress = b.from_address
