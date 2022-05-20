@@ -1,7 +1,7 @@
 [sqlfluff]
 dialect = sparksql
 templater = dbt
-exclude_rules = L011, L031
+exclude_rules = L011, L014, L031
 
 [sqlfluff:templater:dbt]
 project_dir = ./
@@ -16,10 +16,6 @@ comma_style = trailing
 [sqlfluff:rules:L010]
 # Keywords
 capitalisation_policy = lower
-
-[sqlfluff:rules:L014]
-# Unquoted identifier
-extended_capitalisation_policy = lower
 
 [sqlfluff:rules:L047]
 # Count(1)

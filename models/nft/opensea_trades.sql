@@ -38,11 +38,11 @@ prices_usd as (
 erc721_tokens_in_tx as (
   select
     evt_tx_hash as tx_hash,
-    `tokenId` as token_id,
+    tokenId as token_id,
     count(1) as num_of_items
   from erc721_token_transfers
   where `from` != '0x0000000000000000000000000000000000000000'
-  group by evt_tx_hash, `tokenId`
+  group by evt_tx_hash, tokenId
 ),
 
 -- Count number of token IDs in each transaction
