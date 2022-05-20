@@ -27,7 +27,6 @@
 Install dbt (with Spark adapter):
 
 ```bash
-pip install dbt
 pip install 'dbt-spark[PyHive]'
 ```
 
