@@ -38,11 +38,11 @@ prices_usd as (
 erc721_tokens_in_tx as (
   select
     evt_tx_hash as tx_hash,
-    tokenid as token_id,
+    tokenId as token_id,
     count(1) as num_of_items
   from erc721_token_transfers
   where `from` != '0x0000000000000000000000000000000000000000'
-  group by evt_tx_hash, tokenid
+  group by evt_tx_hash, tokenId
 ),
 
 -- Count number of token IDs in each transaction
@@ -53,7 +53,7 @@ erc1155_tokens_in_tx as (
     count(1) as num_of_items
   from erc1155_token_transfers
   where `from` != '0x0000000000000000000000000000000000000000'
-  group by evt_tx_hash, tokenid
+  group by evt_tx_hash, id
 ),
 
 -- Count number of token transfers in each transaction;
@@ -98,7 +98,7 @@ select
     when agg.name is not null then 'Aggregator Trade'
     when erc721_tokens_in_tx.num_of_items = 1 or erc1155_tokens_in_tx.num_of_items = 1 then 'Single Item Trade'
     when erc721_tokens_in_tx.num_of_items > 1 or erc1155_tokens_in_tx.num_of_items > 1 then 'Bundle Trade'
-    else wc.trade_type
+    else w.trade_type
   end as trade_type,
   -- Replace the buyer when using aggregator to trade
   case when agg.name is not null then w.buyer_when_aggr

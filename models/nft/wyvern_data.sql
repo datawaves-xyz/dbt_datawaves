@@ -18,23 +18,23 @@ wyvern_data as (
     call_block_number as block_number,
     call_block_time as block_time,
     addrs[1] as buyer,
-    {{ binary_to_address(substring('calldatabuy', 49, 20)) }} as buyer_when_aggr,
+    {{ binary_to_address(substring('calldataBuy', 49, 20)) }} as buyer_when_aggr,
     addrs[8] as seller,
     cast(uints[4] as double) as currency_amount,
     case
-      when {{ substring('calldatabuy', 1, 4) }} in ({{ binary_literal('68f0bcaa') }}) then 'Bundle Trade'
+      when {{ substring('calldataBuy', 1, 4) }} in ({{ binary_literal('68f0bcaa') }}) then 'Bundle Trade'
       else 'Single Item Trade'
     end as trade_type,
     case
-      when {{ substring('calldatabuy', 1, 4) }} in ({{ binary_literal('fb16a595') }}, {{ binary_literal('23b872dd') }})
+      when {{ substring('calldataBuy', 1, 4) }} in ({{ binary_literal('fb16a595') }}, {{ binary_literal('23b872dd') }})
         then 'erc721'
-      when {{ substring('calldatabuy', 1, 4) }} in ({{ binary_literal('23b872dd') }}, {{ binary_literal('f242432a') }})
+      when {{ substring('calldataBuy', 1, 4) }} in ({{ binary_literal('23b872dd') }}, {{ binary_literal('f242432a') }})
         then 'erc1155'
     end as erc_standard,
     addrs[0] as exchange_contract_address,
     case
-      when {{ substring('calldatabuy', 1, 4) }} in ({{ binary_literal('fb16a595') }}, {{ binary_literal('96809f90') }})
-        then {{ binary_to_address(substring('calldatabuy', 81, 20)) }}
+      when {{ substring('calldataBuy', 1, 4) }} in ({{ binary_literal('fb16a595') }}, {{ binary_literal('96809f90') }})
+        then {{ binary_to_address(substring('calldataBuy', 81, 20)) }}
       else addrs[4]
     end as nft_contract_address,
     case
@@ -43,10 +43,10 @@ wyvern_data as (
     end as currency_contract,
     addrs[6] as original_currency_contract,
     case
-      when {{ substring('calldatabuy', 1, 4) }} in ({{ binary_literal('fb16a595') }}, {{ binary_literal('96809f90') }})
-        then cast(round({{ binary_to_numeric(substring('calldatabuy', 101, 32)) }}, 0) as {{ dbt_utils.type_string() }})
-      when substring(calldatabuy, 1, 4) in ({{ binary_literal('23b872dd') }}, {{ binary_literal('f242432a') }})
-        then cast(round({{ binary_to_numeric(substring('calldatabuy', 69, 32)) }}, 0) as {{ dbt_utils.type_string() }})
+      when {{ substring('calldataBuy', 1, 4) }} in ({{ binary_literal('fb16a595') }}, {{ binary_literal('96809f90') }})
+        then cast(round({{ binary_to_numeric(substring('calldataBuy', 101, 32)) }}, 0) as {{ dbt_utils.type_string() }})
+      when substring(calldataBuy, 1, 4) in ({{ binary_literal('23b872dd') }}, {{ binary_literal('f242432a') }})
+        then cast(round({{ binary_to_numeric(substring('calldataBuy', 69, 32)) }}, 0) as {{ dbt_utils.type_string() }})
     end as token_id
 
   from wyvern_atomic_match
