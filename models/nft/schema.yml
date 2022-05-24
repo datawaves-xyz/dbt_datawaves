@@ -17,3 +17,7 @@ models:
   - name: nft_token_metadata
     config:
       materialized: view
+  - name: cryptopunks_trades
+    config:
+      materialized: table
+      file_format: parquet
