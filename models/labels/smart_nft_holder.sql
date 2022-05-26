@@ -16,10 +16,23 @@ erc721_token_transfers as (
 floor_price_info as (
   select
     nft_contract_address,
-    percentile(eth_amount, 0.05) as floor_price
-  from nft_trades
-  where to_date(block_time) = date_sub(current_date(), 1)
-  group by nft_contract_address
+    floor_price
+  from (
+    select
+      dt,
+      nft_contract_address,
+      floor_price,
+      row_number()over(partition by nft_contract_address order by dt desc) as rank
+    from (
+      select
+        dt,
+        nft_contract_address,
+        percentile(eth_amount, 0.05) as floor_price
+      from nft_trades
+      group by dt, nft_contract_address
+    )
+    where rank = 1
+  )
 ),
 
 holder_info as (
