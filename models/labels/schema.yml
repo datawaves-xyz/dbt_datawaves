@@ -14,6 +14,3 @@ models:
   - name: smart_nft_holder
     config:
       materialized: ephemeral  
-  - name: blue_chip_collection
-    config:
-      materialized: ephemeral 

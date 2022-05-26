@@ -19,21 +19,29 @@ erc20_token_transfers as (
     and contract_address = '0xb47e3cd837ddf8e4c57f05d70ab865de6e193bbb'
 ),
 
+prices_usd as (
+  select *
+  from {{ var('prices_usd') }}
+  where contract_address = '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2'
+    and dt >= '{{ var("start_ts") }}'
+    and dt < '{{ var("end_ts") }}'
+),
+
 address_info as (
   select
     a.dt,
     a.evt_block_time as block_time,
     a.evt_block_number as block_number,
     a.evt_tx_hash as tx_hash,
-    a.punkIndex as nft_token_id,
-    a.fromAddress as from_address,
+    a.punkindex as nft_token_id,
+    a.fromaddress as from_address,
     a.value,
     case
       when a.toaddress = '0x0000000000000000000000000000000000000000' then b.to_address else a.toaddress
     end as to_address
   from cryptopunksmarket_evt_punkbought a
   left join erc20_token_transfers b
-    on a.evt_tx_hash = b.evt_tx_hash and a.fromAddress = b.from_address
+    on a.evt_tx_hash = b.evt_tx_hash and a.fromaddress = b.from_address
 ),
 
 punk_trade as (
@@ -53,9 +61,9 @@ punk_trade as (
       row_number()over(partition by a.nft_token_id, a.block_time order by b.evt_block_time desc) as rank
     from address_info a
     left join cryptopunksmarket_evt_punkbidentered b
-      on a.nft_token_id = b.punkIndex and b.fromAddress = a.to_address and b.evt_block_time <= a.block_time
+      on a.nft_token_id = b.punkindex and b.fromaddress = a.to_address and b.evt_block_time <= a.block_time
   )
-  where rank = 1 and value < 20000 * power(10, 18)
+  where rank = 1
 ),
 
 punk_agg_tx as (
@@ -83,7 +91,7 @@ select
   a.original_currency_amount / power(10, 18) as currency_amount,
   'ETH' as currency_symbol,
   '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2' as currency_contract,
-  null as usd_amount, -- a.original_currency_amount/power(10,18)*p.price as usd_amount
+  a.original_currency_amount / power(10, 18) * p.price as usd_amount,
   a.original_currency_amount / power(10, 18) as eth_amount,
   a.original_currency_amount,
   '0x0000000000000000000000000000000000000000' as original_currency_contract,
@@ -98,3 +106,5 @@ left join punk_agg_tx b
   on a.tx_hash = b.tx_hash
 left join ethereum.transactions c
   on a.tx_hash = c.hash and a.dt = c.dt
+left join prices_usd p
+  on p.minute = {{ dbt_utils.date_trunc('minute', 'a.block_time') }}
