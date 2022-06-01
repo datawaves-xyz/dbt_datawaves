@@ -106,5 +106,5 @@ left join ethereum.transactions c
   on a.tx_hash = c.hash and a.dt = c.dt
 left join prices_usd p
   on p.minute = {{ dbt_utils.date_trunc('minute', 'a.block_time') }}
-left join agg 
+left join agg
   on agg.contract_address = c.to_address
