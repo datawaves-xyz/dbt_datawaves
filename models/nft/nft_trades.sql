@@ -6,7 +6,7 @@ with opensea_trades as (
 cryptopunks_trades as (
   select *
   from {{ ref('cryptopunks_trades') }}
-)
+),
 
 final as (
   select

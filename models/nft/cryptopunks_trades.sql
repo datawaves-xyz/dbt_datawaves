@@ -1,12 +1,10 @@
-with cryptopunksmarket_evt_punkbought as (
-  select *
-  from {{ ref('cryptopunks_CryptoPunksMarket_evt_PunkBought') }}
-),
-
-cryptopunksmarket_evt_punkbidentered as (
-  select *
-  from {{ ref('cryptopunks_CryptoPunksMarket_evt_PunkBidEntered') }}
-),
+{{
+  cte_import([
+    ('agg', 'aggregators'),
+    ('cryptopunksmarket_evt_punkbought', 'cryptopunks_CryptoPunksMarket_evt_PunkBought'),
+    ('cryptopunksmarket_evt_punkbidentered','cryptopunks_CryptoPunksMarket_evt_PunkBidEntered')
+  ])
+}},
 
 erc20_token_transfers as (
   select
@@ -83,7 +81,7 @@ select
   '0xb47e3cd837ddf8e4c57f05d70ab865de6e193bbb' as nft_contract_address,
   'erc20' as erc_standard,
   b.num as number_of_items,
-  null as aggregator,
+  agg.name as aggregator,
   case when b.num > 1 then 'Bundle Trade' else 'Single Item Trade' end as trade_type,
   a.from_address as buyer,
   a.to_address as seller,
@@ -108,3 +106,5 @@ left join ethereum.transactions c
   on a.tx_hash = c.hash and a.dt = c.dt
 left join prices_usd p
   on p.minute = {{ dbt_utils.date_trunc('minute', 'a.block_time') }}
+left join agg
+  on agg.contract_address = c.to_address
