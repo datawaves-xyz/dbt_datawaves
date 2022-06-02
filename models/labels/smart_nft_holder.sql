@@ -14,7 +14,7 @@ erc721_token_transfers as (
 ),
 
 floor_price_info as (
-  select
+  select distinct
     nft_contract_address,
     floor_price
   from (
@@ -31,8 +31,8 @@ floor_price_info as (
       from nft_trades
       group by dt, nft_contract_address
     )
-    where rank = 1
   )
+  where rank = 1
 ),
 
 holder_info as (
