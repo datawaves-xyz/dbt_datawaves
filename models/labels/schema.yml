@@ -10,7 +10,10 @@ models:
       materialized: ephemeral
   - name: smart_nft_trader
     config:
-      materialized: ephemeral  
+      materialized: ephemeral
   - name: smart_nft_holder
+    config:
+      materialized: ephemeral
+  - name: smart_nft_sweeper
     config:
       materialized: ephemeral  
