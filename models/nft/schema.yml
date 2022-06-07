@@ -23,10 +23,10 @@ models:
       file_format: parquet
   - name: nft_mint_erc721
     config:
-      materialized: view
+      materialized: ephemeral
   - name: nft_mint_erc1155
     config:
-      materialized: view
+      materialized: ephemeral
   - name: nft_mint 
     config:
       materialized: table
