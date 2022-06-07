@@ -37,7 +37,7 @@ floor_buy_info as (
     from nft_trades
     where to_date(block_time) >= date_sub(current_date(), 33)
   ) a
-  join floor_price_info b
+  inner join floor_price_info b
     on a.dt = b.dt and a.nft_contract_address = b.nft_contract_address
 ),
 
@@ -68,7 +68,7 @@ sweeper_stat as (
       select distinct buyer
       from sweeper_info
     ) as a
-    join (
+    inner join (
       select
         block_time,
         buyer,
@@ -78,7 +78,7 @@ sweeper_stat as (
       from nft_trades
       where to_date(block_time) >= date_sub(current_date(), 33)
     ) as b
-      on a.buyer = b.buyer
+    on a.buyer = b.buyer
     left join (
       select
         block_time,
@@ -89,7 +89,8 @@ sweeper_stat as (
       from nft_trades
       where to_date(block_time) >= date_sub(current_date(), 30)
     ) as c
-      on b.buyer = c.seller and b.nft_contract_address = c.nft_contract_address and b.nft_token_id = c.nft_token_id and b.block_time < c.block_time
+    on
+      b.buyer = c.seller and b.nft_contract_address = c.nft_contract_address and b.nft_token_id = c.nft_token_id and b.block_time < c.block_time
   )
   group by buyer
 )
