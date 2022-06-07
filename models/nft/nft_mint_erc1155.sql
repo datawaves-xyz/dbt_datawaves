@@ -1,7 +1,6 @@
 {{
   cte_import([
-    ('transactions', 'stg_transactions'),
-    ('traces', 'stg_traces'),
+    ('transactions', 'stg_transactions')
   ])
 }},
 
@@ -30,7 +29,7 @@ erc1155_mint_tx as (
     b.dt,
     b.to as minter,
     a.value,
-    b.value as quanity
+    b.value as quantity
   from transactions as a
   join erc1155_token_transfer_single as b
     on a.hash = b.evt_tx_hash
@@ -41,6 +40,7 @@ erc1155_mint as (
     x.tx_hash,
     x.nft_contract_address,
     x.nft_token_id,
+    x.quantity,
     x.evt_block_time,
     x.dt,
     x.minter,
@@ -50,7 +50,7 @@ erc1155_mint as (
     select
       tx_hash,
       avg(value) as avg_value,
-      sum(quanity) as num_of_items
+      count(distinct nft_token_id) as num_of_items
     from erc1155_mint_tx
     group by tx_hash
   ) as y
@@ -61,6 +61,7 @@ select
   u.tx_hash,
   u.nft_contract_address,
   u.nft_token_id,
+  u.quantity,
   u.evt_block_time,
   u.dt,
   u.minter,
