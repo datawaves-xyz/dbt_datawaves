@@ -13,4 +13,7 @@ models:
       materialized: ephemeral  
   - name: smart_nft_holder
     config:
-      materialized: ephemeral  
+      materialized: ephemeral
+  - name: smart_nft_minter
+    config:
+      materialized: ephemeral       
