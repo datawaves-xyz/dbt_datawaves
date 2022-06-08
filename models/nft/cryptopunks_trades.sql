@@ -33,7 +33,7 @@ address_info as (
     a.evt_tx_hash as tx_hash,
     a.punkindex as nft_token_id,
     a.fromaddress as from_address,
-    a.value,
+    cast(a.value as double) as value,
     case
       when a.toaddress = '0x0000000000000000000000000000000000000000' then b.to_address else a.toaddress
     end as to_address
@@ -55,7 +55,7 @@ punk_trade as (
   from (
     select
       a.*,
-      b.value as bid_value,
+      cast(b.value as double) as bid_value,
       row_number()over(partition by a.nft_token_id, a.block_time order by b.evt_block_time desc) as rank
     from address_info a
     left join cryptopunksmarket_evt_punkbidentered b
