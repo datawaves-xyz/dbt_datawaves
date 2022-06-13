@@ -17,9 +17,9 @@ mint_stat as (
     sum(b.eth_amount - a.eth_mint_price) as profit,
     count(distinct a.nft_contract_address) as mint_collection_count
   from mint_info as a
-  inner join trade_info as b
-    on a.minter = b.seller and a.nft_contract_address = b.nft_contract_address and a.nft_token_id = b.nft_token_id
-  group by 1
+  join trade_info as b
+  on a.minter = b.seller and a.nft_contract_address = b.nft_contract_address and a.nft_token_id = b.nft_token_id
+  group by a.minter
   order by profit desc
 )
 
@@ -29,6 +29,5 @@ select distinct
   'Smart Money' as label_type
 from mint_stat
 where mint_collection_count >= 2
-  and ((mint_amount > 0 and profit / mint_amount >= 5) or (mint_amount = 0 and profit > 0))
-order by profit desc
+  and ((mint_amount > 0 and profit/mint_amount >= 5) or (mint_amount = 0 and profit > 0))
 limit 100

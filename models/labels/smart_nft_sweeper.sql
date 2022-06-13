@@ -46,10 +46,10 @@ sweeper_info as (
     dt,
     buyer,
     count(1) as transactions
-  from floor_buy
+  from floor_buy_info
   where eth_amount <= floor_price
   group by dt, buyer
-  having transactions >= 5 -- top 1%
+  having transactions >= 5 -- top 10%
 ),
 
 sweeper_stat as (
@@ -61,7 +61,6 @@ sweeper_stat as (
       b.buyer,
       b.nft_contract_address,
       b.nft_token_id,
-      b.nft_project_name,
       coalesce(b.eth_amount, 0) as purcehase_amount,
       coalesce(c.eth_amount, 0) as sale_amount
     from (
@@ -101,4 +100,3 @@ select
   'Smart Money' as label_type
 from sweeper_stat
 where profit > 0
-order by profit desc
