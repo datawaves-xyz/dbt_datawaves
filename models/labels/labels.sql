@@ -5,6 +5,7 @@
     ('smart_nft_holder', 'smart_nft_holder'),
     ('smart_nft_sweeper', 'smart_nft_sweeper'),
     ('smart_nft_minter', 'smart_nft_minter'),
+    ('smart_nft_golden_dog_minter', 'smart_nft_golden_dog_minter'),
   ])
 }}
 
@@ -45,3 +46,11 @@ select
   label,
   label_type
 from smart_nft_minter
+
+union all
+
+select
+  address,
+  label,
+  label_type
+from smart_nft_golden_dog_minter

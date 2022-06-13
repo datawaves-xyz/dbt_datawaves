@@ -1,0 +1,6 @@
+version: 2
+
+models:
+  - name: golden_dog
+    config:
+      matterialized: view
