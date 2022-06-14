@@ -20,4 +20,6 @@ models:
   - name: smart_nft_minter
     config:
       materialized: ephemeral       
-   
+  - name: smart_nft_golden_dog_minter
+    config:
+      materialized: ephemeral 
