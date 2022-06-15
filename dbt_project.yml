@@ -12,16 +12,24 @@ models:
         - chain_ethereum
         - level_modeling
         - proj_nft
+
     nft_metadata:
       +schema: nft_metadata
+
     labels:
       +schema: labels
       +tags:
         - chain_ethereum
         - level_modeling
         - proj_labels
+
     index:
       +schema: index
+      +tags:
+        - chain_ethereum
+        - level_modeling
+        - proj_index
+
     otherdeed:
       +schema: otherdeed
       +tags:
