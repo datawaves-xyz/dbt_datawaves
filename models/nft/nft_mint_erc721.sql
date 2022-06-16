@@ -1,12 +1,14 @@
-{{
-  cte_import([
-    ('transactions', 'stg_transactions')
-  ])
-}},
+
+with transactions as (
+  select *
+  from {{ source('ethereum', 'transactions' )}}
+  where dt >= '{{ var("start_ts") }}'
+    and dt < '{{ var("end_ts") }}'
+)
 
 prices_usd as (
   select *
-  from {{ var('prices_usd') }}
+  from {{ source('prices', 'usd') }}
   where contract_address = '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2'
     and dt >= '{{ var("start_ts") }}'
     and dt < '{{ var("end_ts") }}'
@@ -14,7 +16,7 @@ prices_usd as (
 
 erc721_token_transfer as (
   select *
-  from {{ ref('ERC721_evt_Transfer') }}
+  from {{ source('erc721', 'ERC721_evt_Transfer') }}
   where `from` = '0x0000000000000000000000000000000000000000'
     and dt >= '{{ var("start_ts") }}'
     and dt < '{{ var("end_ts") }}'
@@ -26,7 +28,7 @@ trace as (
     from_address,
     to_address,
     value as refund_value
-  from {{ ref('stg_traces') }}
+  from {{ source('ethereum', 'traces') }}
   where status = 1
 ),
 

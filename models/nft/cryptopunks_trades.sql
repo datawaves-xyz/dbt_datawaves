@@ -1,17 +1,25 @@
 {{
   cte_import([
     ('agg', 'aggregators'),
-    ('cryptopunksmarket_evt_punkbought', 'cryptopunks_CryptoPunksMarket_evt_PunkBought'),
-    ('cryptopunksmarket_evt_punkbidentered','cryptopunks_CryptoPunksMarket_evt_PunkBidEntered')
   ])
 }},
+
+cryptopunksmarket_evt_punkbought as (
+  select *
+  from {{ source('cryptopunks', 'cryptopunks_CryptoPunksMarket_evt_PunkBought')}}
+),
+
+cryptopunksmarket_evt_punkbidentered as (
+  select *
+  from {{ source('cryptopunks', 'cryptopunks_CryptoPunksMarket_evt_PunkBidEntered') }}
+),
 
 erc20_token_transfers as (
   select
     evt_tx_hash,
     `from` as from_address,
     `to` as to_address
-  from {{ ref('ERC20_evt_Transfer') }}
+  from {{ source('erc20', 'ERC20_evt_Transfer') }}
   where dt >= '{{ var("start_ts") }}'
     and dt < '{{ var("end_ts") }}'
     and contract_address = '0xb47e3cd837ddf8e4c57f05d70ab865de6e193bbb'
@@ -19,7 +27,7 @@ erc20_token_transfers as (
 
 prices_usd as (
   select *
-  from {{ var('prices_usd') }}
+  from {{ source('prices', 'usd') }}
   where contract_address = '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2'
     and dt >= '{{ var("start_ts") }}'
     and dt < '{{ var("end_ts") }}'

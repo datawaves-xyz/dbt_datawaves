@@ -10,17 +10,18 @@ models:
   - name: nft_trades
     config:
       materialized: table
-      file_format: parquet
+    alias: trades
   - name: nft_tokens
     config:
       materialized: view
+    alias: tokens
   - name: nft_token_metadata
     config:
       materialized: view
+    alias: token_metadata
   - name: cryptopunks_trades
     config:
       materialized: table
-      file_format: parquet
   - name: nft_mint_erc721
     config:
       materialized: ephemeral
@@ -30,5 +31,5 @@ models:
   - name: nft_mints
     config:
       materialized: table
-      file_format: parquet
+    alias: mints
       

@@ -1,12 +1,13 @@
-{{
-  cte_import([
-    ('transactions', 'stg_transactions')
-  ])
-}},
+with transactions as (
+  select *
+  from {{ source('ethereum', 'transactions' )}}
+  where dt >= '{{ var("start_ts") }}'
+    and dt < '{{ var("end_ts") }}'
+),
 
 prices_usd as (
   select *
-  from {{ var('prices_usd') }}
+  from {{ source('prices', 'usd') }}
   where contract_address = '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2'
     and dt >= '{{ var("start_ts") }}'
     and dt < '{{ var("end_ts") }}'
@@ -14,7 +15,7 @@ prices_usd as (
 
 erc1155_token_transfer_single as (
   select *
-  from {{ ref('ERC1155_evt_TransferSingle') }}
+  from {{ source('erc1155', 'ERC1155_evt_TransferSingle') }}
   where `from` = '0x0000000000000000000000000000000000000000'
     and dt >= '{{ var("start_ts") }}'
     and dt < '{{ var("end_ts") }}'

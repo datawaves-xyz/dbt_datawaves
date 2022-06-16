@@ -5,12 +5,12 @@ with nft_trades as (
 
 contracts as (
   select distinct address
-  from {{ ref('stg_contracts') }}
+  from {{ source('ethereum', 'contracts') }}
 ),
 
 erc721_token_transfers as (
   select *
-  from {{ ref('ERC721_evt_Transfer') }}
+  from {{ source('erc721', 'ERC721_evt_Transfer') }}
 ),
 
 floor_price_info as (
