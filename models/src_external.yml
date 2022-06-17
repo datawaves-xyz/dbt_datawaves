@@ -7,15 +7,4 @@ sources:
   - name: nft_metadata
     tables:
       - name: tokens
-        external:
-          location: s3a://ifcrypto/external/nft_metadata/nft_tokens
-          using: csv
-          options:
-            header: "true"
-
       - name: token_metadata
-        external:
-          location: s3a://ifcrypto/external/nft_metadata/nft_token_metadata_fixed
-          using: parquet
-          options:
-            header: "true"

@@ -1,10 +1,9 @@
-
 with transactions as (
   select *
   from {{ source('ethereum', 'transactions' )}}
   where dt >= '{{ var("start_ts") }}'
     and dt < '{{ var("end_ts") }}'
-)
+),
 
 prices_usd as (
   select *
