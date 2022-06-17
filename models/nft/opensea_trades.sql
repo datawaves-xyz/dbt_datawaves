@@ -1,21 +1,25 @@
 {{
   cte_import([
     ('agg', 'aggregators'),
-    ('tokens', 'stg_tokens'),
     ('nft_tokens', 'nft_tokens')
   ])
 }},
 
+tokens as (
+  select * 
+  from {{ source('ethereum', 'tokens') }}
+)
+
 erc721_token_transfers as (
   select *
-  from {{ ref('ERC721_evt_Transfer') }}
+  from {{ source('erc721', 'erc721_evt_transfer') }}
   where dt >= '{{ var("start_ts") }}'
     and dt < '{{ var("end_ts") }}'
 ),
 
 erc1155_token_transfers as (
   select *
-  from {{ ref('ERC1155_evt_TransferSingle') }}
+  from {{ source('erc1155', 'erc1155_evt_transfersingle') }}
   where dt >= '{{ var("start_ts") }}'
     and dt < '{{ var("end_ts") }}'
 ),
@@ -29,7 +33,7 @@ wyvern_data as (
 
 prices_usd as (
   select *
-  from {{ var('prices_usd') }}
+  from {{ source('prices', 'usd') }}
   where dt >= '{{ var("start_ts") }}'
     and dt < '{{ var("end_ts") }}'
 ),
@@ -111,9 +115,9 @@ select
     else nft_tokens.name
   end as nft_project_name,
   -- Adjust the currency amount/symbol with erc20 tokens
-  {{ displayed_amount('w.currency_amount', 'p.decimals') }} as currency_amount,
-  {{ displayed_amount('w.currency_amount', 'p.decimals') }} * p.price as usd_amount,
-  {{ displayed_amount('w.currency_amount', 'p.decimals') }} * p.price / pe.price as eth_amount,
+  {{ datawaves_utils.displayed_amount('w.currency_amount', 'p.decimals') }} as currency_amount,
+  {{ datawaves_utils.displayed_amount('w.currency_amount', 'p.decimals') }} * p.price as usd_amount,
+  {{ datawaves_utils.displayed_amount('w.currency_amount', 'p.decimals') }} * p.price / pe.price as eth_amount,
   w.currency_amount as original_currency_amount,
   case
     when w.original_currency_contract = '0x0000000000000000000000000000000000000000'

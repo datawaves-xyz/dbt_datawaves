@@ -1,0 +1,34 @@
+version: 2
+sources:
+  - name: ethereum
+    tables:
+      - name: transactions
+      - name: blocks
+      - name: tokens
+      - name: traces
+      - name: contracts
+
+  - name: opensea
+    tables:
+      - name: wyvernexchangev1_call_atomicMatch_
+      - name: wyvernexchangev2_call_atomicMatch_
+
+  - name: cryptopunks
+    tables:
+      - name: cryptopunksmarket_evt_assign
+      - name: cryptopunksmarket_evt_punkbought
+      - name: cryptopunksmarket_evt_punkbidentered
+
+  - name: erc721
+    tables:
+      - name: erc721_evt_transfer
+
+  - name: erc20
+    tables:
+      - name: erc20_evt_transfer
+
+  - name: erc1155
+    tables:
+      - name: erc1155_evt_transfersingle
+
+

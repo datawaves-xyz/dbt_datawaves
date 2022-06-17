@@ -1,20 +1,19 @@
 config-version: 2
 
-name: "ethereum"
+name: "datawaves"
 version: "1.0.0"
-profile: "dbt_ethereum"
+profile: "datawaves"
 
 models:
-  ethereum:
+  +file_format: delta
+
+  datawaves:
     nft:
       +schema: nft
       +tags:
         - chain_ethereum
         - level_modeling
         - proj_nft
-
-    nft_metadata:
-      +schema: nft_metadata
 
     labels:
       +schema: labels
@@ -30,19 +29,11 @@ models:
         - level_modeling
         - proj_index
 
-    otherdeed:
-      +schema: otherdeed
-      +tags:
-        - chain_ethereum
-        - level_modeling      
-        - proj_otherdeed
-
 seeds:
-  ethereum:
+  datawaves:
     nft:
       +schema: nft
 
 vars:
-  prices_usd: "prices.usd"
   start_ts: "1970-01-01"
   end_ts: "9999-01-01"

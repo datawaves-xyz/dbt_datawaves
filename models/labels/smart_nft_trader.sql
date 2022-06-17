@@ -5,7 +5,7 @@ with nft_trades as (
 
 contracts as (
   select distinct address
-  from {{ ref('stg_contracts') }}
+  from {{ source('ethereum', 'contracts') }}
 ),
 
 trader as (

@@ -2,9 +2,13 @@
   cte_import([
     ('nft_mint_erc721', 'nft_mint_erc721'),
     ('nft_mint_erc1155', 'nft_mint_erc1155'),
-    ('cryptopunksmarket_evt_assign', 'cryptopunks_CryptoPunksMarket_evt_Assign')
   ])
 }},
+
+cryptopunksmarket_evt_assign as (
+  select *
+  from {{ source('cryptopunks', 'cryptopunksmarket_evt_assign') }}
+),
 
 mint_union as (
   select

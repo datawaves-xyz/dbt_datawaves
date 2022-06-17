@@ -1,0 +1,10 @@
+version: 2
+sources:
+  - name: prices
+    tables:
+      - name: usd
+
+  - name: nft_metadata
+    tables:
+      - name: tokens
+      - name: token_metadata
