@@ -1,9 +1,9 @@
 with wyvern_atomic_match as (
   select *
-  from {{ source('opensea', 'opensea_WyvernExchangeV1_call_atomicMatch_') }}
+  from {{ source('opensea', 'wyvernexchangev1_call_atomicMatch_') }}
   union
   select *
-  from {{ source('opensea', 'opensea_WyvernExchangeV2_call_atomicMatch_') }}
+  from {{ source('opensea', 'wyvernexchangev2_call_atomicMatch_') }}
 ),
 
 tx as (

@@ -12,14 +12,14 @@ tokens as (
 
 erc721_token_transfers as (
   select *
-  from {{ source('erc721', 'ERC721_evt_Transfer') }}
+  from {{ source('erc721', 'erc721_evt_transfer') }}
   where dt >= '{{ var("start_ts") }}'
     and dt < '{{ var("end_ts") }}'
 ),
 
 erc1155_token_transfers as (
   select *
-  from {{ source('erc1155', 'ERC1155_evt_TransferSingle') }}
+  from {{ source('erc1155', 'erc1155_evt_transfersingle') }}
   where dt >= '{{ var("start_ts") }}'
     and dt < '{{ var("end_ts") }}'
 ),

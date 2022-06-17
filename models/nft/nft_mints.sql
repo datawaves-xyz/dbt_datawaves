@@ -7,7 +7,7 @@
 
 cryptopunksmarket_evt_assign as (
   select *
-  from {{ source('cryptopunks', 'cryptopunks_CryptoPunksMarket_evt_Assign') }}
+  from {{ source('cryptopunks', 'cryptopunksmarket_evt_assign') }}
 ),
 
 mint_union as (

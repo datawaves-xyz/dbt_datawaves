@@ -10,25 +10,25 @@ sources:
 
   - name: opensea
     tables:
-      - name: opensea_WyvernExchangeV1_call_atomicMatch_
-      - name: opensea_WyvernExchangeV2_call_atomicMatch_
+      - name: wyvernexchangev1_call_atomicMatch_
+      - name: wyvernexchangev2_call_atomicMatch_
 
   - name: cryptopunks
     tables:
-      - name: cryptopunks_CryptoPunksMarket_evt_Assign
-      - name: cryptopunks_CryptoPunksMarket_evt_PunkBought
-      - name: cryptopunks_CryptoPunksMarket_evt_PunkBidEntered
+      - name: cryptopunksmarket_evt_assign
+      - name: cryptopunksmarket_evt_punkbought
+      - name: cryptopunksmarket_evt_punkbidentered
 
   - name: erc721
     tables:
-      - name: ERC721_evt_Transfer
+      - name: erc721_evt_transfer
 
   - name: erc20
     tables:
-      - name: ERC20_evt_Transfer
+      - name: erc20_evt_transfer
 
   - name: erc1155
     tables:
-      - name: ERC1155_evt_TransferSingle
+      - name: erc1155_evt_transfersingle
 
 

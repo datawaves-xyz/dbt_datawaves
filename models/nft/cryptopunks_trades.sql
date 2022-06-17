@@ -6,12 +6,12 @@
 
 cryptopunksmarket_evt_punkbought as (
   select *
-  from {{ source('cryptopunks', 'cryptopunks_CryptoPunksMarket_evt_PunkBought')}}
+  from {{ source('cryptopunks', 'cryptopunksmarket_evt_punkbought')}}
 ),
 
 cryptopunksmarket_evt_punkbidentered as (
   select *
-  from {{ source('cryptopunks', 'cryptopunks_CryptoPunksMarket_evt_PunkBidEntered') }}
+  from {{ source('cryptopunks', 'cryptopunksmarket_evt_punkbidentered') }}
 ),
 
 erc20_token_transfers as (
@@ -19,7 +19,7 @@ erc20_token_transfers as (
     evt_tx_hash,
     `from` as from_address,
     `to` as to_address
-  from {{ source('erc20', 'ERC20_evt_Transfer') }}
+  from {{ source('erc20', 'erc20_evt_transfer') }}
   where dt >= '{{ var("start_ts") }}'
     and dt < '{{ var("end_ts") }}'
     and contract_address = '0xb47e3cd837ddf8e4c57f05d70ab865de6e193bbb'
