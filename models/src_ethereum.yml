@@ -30,5 +30,12 @@ sources:
   - name: erc1155
     tables:
       - name: erc1155_evt_transfersingle
+      - name: erc1155_evt_transferbatch
 
-
+  - name: ens
+    tables:
+      - name: ens_ethregistrarcontroller_evt_nameregistered
+      - name: ens_ethregistrarcontroller2_evt_nameregistered
+      - name: ens_ethregistrarcontroller3_evt_nameregistered
+      - name: reverseregistrar1_call_setname
+      - name: reverseregistrar2_call_setname

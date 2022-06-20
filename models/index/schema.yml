@@ -4,3 +4,6 @@ models:
   - name: golden_dog
     config:
       materialized: view
+  - name: blue_chip
+    config:
+      materialized: view

@@ -3,14 +3,14 @@ with nft_trades as (
   from {{ ref('nft_trades') }}
 ),
 
+nft_mints as (
+  select *
+  from {{ ref('nft_mints')}}
+),
+
 contracts as (
   select distinct address
   from {{ source('ethereum', 'contracts') }}
-),
-
-erc721_token_transfers as (
-  select *
-  from {{ source('erc721', 'erc721_evt_transfer') }}
 ),
 
 floor_price_info as (
@@ -58,13 +58,12 @@ holder_info as (
       from nft_trades
       union
       select
-        contract_address as nft_contract_address,
-        tokenid as nft_token_id,
-        to as to_address,
-        0 as eth_amount,
+        nft_contract_address,
+        nft_token_id,
+        minter as to_address,
+        eth_mint_price as eth_amount,
         evt_block_time as block_time
-      from erc721_token_transfers
-      where from = '0x0000000000000000000000000000000000000000'
+      from nft_mints
     )
   )
   where rank = 1

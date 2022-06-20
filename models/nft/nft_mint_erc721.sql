@@ -1,6 +1,6 @@
 with transactions as (
   select *
-  from {{ source('ethereum', 'transactions' )}}
+  from {{ source('ethereum', 'transactions')}}
   where dt >= '{{ var("start_ts") }}'
     and dt < '{{ var("end_ts") }}'
 ),

@@ -15,10 +15,40 @@ models:
       materialized: ephemeral
   - name: smart_nft_sweeper
     config:
-      materialized: ephemeral 
+      materialized: ephemeral
   - name: smart_nft_minter
     config:
-      materialized: ephemeral       
+      materialized: ephemeral    
   - name: smart_nft_golden_dog_minter
+    config:
+      materialized: ephemeral
+  - name: opensea_trader
+    config:
+      materialized: ephemeral
+  - name: legendary_nft_trader
+    config:
+      materialized: ephemeral 
+  - name: epic_nft_trader
+    config:
+      materialized: ephemeral 
+  - name: rare_nft_trader
+    config:
+      materialized: ephemeral 
+  - name: uncommon_nft_trader
+    config:
+      materialized: ephemeral 
+  - name: diversified_nft_holder
+    config:
+      materialized: ephemeral 
+  - name: blue_chip_nft_holder
+    config:
+      materialized: ephemeral 
+  - name: ens_name
+    config:
+      materialized: ephemeral 
+  - name: ens_name_reverse
+    config:
+      materialized: ephemeral 
+  - name: phish_hacker
     config:
       materialized: ephemeral 

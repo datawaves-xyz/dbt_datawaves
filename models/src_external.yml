@@ -8,3 +8,13 @@ sources:
     tables:
       - name: tokens
       - name: token_metadata
+
+  - name: ethereum_property_materials
+    tables:
+      - name: phishing
+        external:
+          location: s3a://ifcrypto/external/property_materials/phishing
+          using: csv
+          options:
+            header: "true"
+          
