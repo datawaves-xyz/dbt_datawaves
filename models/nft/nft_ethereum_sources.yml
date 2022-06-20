@@ -16,3 +16,4 @@ sources:
       - name: crypto_punks_market_evt_assign
       - name: crypto_punks_market_evt_punk_bought
       - name: crypto_punks_market_evt_punk_bid_entered
+      - name: crypto_punks_market_evt_punk_transfer

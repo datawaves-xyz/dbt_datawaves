@@ -6,51 +6,38 @@
     ('smart_nft_sweeper', 'smart_nft_sweeper'),
     ('smart_nft_minter', 'smart_nft_minter'),
     ('smart_nft_golden_dog_minter', 'smart_nft_golden_dog_minter'),
+    ('opensea_trader', 'opensea_trader'),
+    ('legendary_nft_trader', 'legendary_nft_trader'),
+    ('epic_nft_trader', 'epic_nft_trader'),
+    ('rare_nft_trader', 'rare_nft_trader'),
+    ('uncommon_nft_trader', 'uncommon_nft_trader'),
+    ('diversified_nft_holder', 'diversified_nft_holder'),
+    ('blue_chip_nft_holder', 'blue_chip_nft_holder'),
   ])
 }}
 
-select
-  address,
-  label,
-  label_type
-from smart_nft_trader
-
+select address, label, label_type from nft_whale
 union all
-
-select
-  address,
-  label,
-  label_type
-from nft_whale
-
+select address, label, label_type from smart_nft_trader
 union all
-
-select
-  address,
-  label,
-  label_type
-from smart_nft_holder
-
+select address, label, label_type from smart_nft_holder
 union all
-
-select
-  address,
-  label,
-  label_type
-from smart_nft_sweeper
-
+select address, label, label_type from smart_nft_sweeper
 union all
-
-select
-  address,
-  label,
-  label_type
-from smart_nft_minter
-
+select address, label, label_type from smart_nft_minter
 union all
-
-select
-  address,
-  label,
-  label_type
-from smart_nft_golden_dog_minter
+select address, label, label_type from smart_nft_golden_dog_minter
+union all
+select address, label, label_type from opensea_trader
+union all
+select address, label, label_type from legendary_nft_trader
+union all
+select address, label, label_type from epic_nft_trader
+union all
+select address, label, label_type from rare_nft_trader
+union all
+select address, label, label_type from uncommon_nft_trader
+union all
+select address, label, label_type from diversified_nft_holder
+union all
+select address, label, label_type from blue_chip_nft_holder
