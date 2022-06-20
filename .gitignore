@@ -4,3 +4,4 @@ dbt_packages/
 dbt_modules/
 logs/
 profile/.user.yml
+.DS_Store

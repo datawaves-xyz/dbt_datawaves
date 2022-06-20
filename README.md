@@ -1,11 +1,20 @@
-# dbt_ethereum
+# dbt_datawaves
 
 
-## Models
+## What does this dbt package do?
 
 
-### NFT
+This package models blockchain data from [Datawaves](https://datawaves.xyz/) and provides abstractions like smart contract activity and wallet profile. These abstractions can simplify the process of querying for data.
 
+
+
+### Architecture
+
+![](./assets/dbt_datawaves_architecture.png)
+
+### Abstractions
+
+#### Event Model
 
 | **model**                                                                                                 | **description**                                                                 |
 |-----------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------|
@@ -13,51 +22,42 @@
 | [nft_mints](https://github.com/datawaves-xyz/dbt_ethereum/blob/master/models/nft/nft_mints.sql) | Each record represents an ERC721/ERC1155 token that has been minted |
 
 
-### Labels
+#### Labels
 
 | **model**                                                                                                 | **description**                                                                 |
 |-----------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------|
-| [nft_whale](https://github.com/datawaves-xyz/dbt_ethereum/blob/master/models/labels/nft_whale.sql) |  |
+| [nft_whale](https://github.com/datawaves-xyz/dbt_ethereum/blob/master/models/labels/nft_whale.sql) | Wallets that hold large amounts of NFT value |
+| [smart_nft_trader](https://github.com/datawaves-xyz/dbt_ethereum/blob/master/models/labels/smart_nft_trader.sql) | The top 100 addresses in terms of realized profits from NFT sales |
 | [smart_nft_holder](https://github.com/datawaves-xyz/dbt_ethereum/blob/master/models/labels/smart_nft_holder.sql) |  |
-| [smart_nft_trader](https://github.com/datawaves-xyz/dbt_ethereum/blob/master/models/labels/smart_nft_trader.sql) |  |
 | [smart_nft_sweeper](https://github.com/datawaves-xyz/dbt_ethereum/blob/master/models/labels/smart_nft_sweeper.sql) |  |
 
-## Development Instructions
 
+## How do I use this dbt package?
 
-Install sqlfluff (for syntax check):
+### Prerequisites
 
-```bash
-pip install sqlfluff
-pip install sqlfluff-templater-dbt
+To use this dbt project, you must have the following:
+
+* Use Datawaves ETL Cloud to sync data into your destination.
+* A PostgreSQL, Databricks destination.
+
+### Install the package
+
+Include in your packages.yml:
+
+```yml
+packages:
+  - git: "https://github.com/datawaves-xyz/dbt_datawaves"
+    revision: "0.0.1"
 ```
 
-Run integration tests for utils:
+### Define database variables
 
-```bash
-cd integration_tests
-dbt seed
-dbt run --models ./models/utils
-dbt test
+By default, this package will looks for your Ethereum data in the `ethereum` database of your target database and. If this is not where your `ethereum` data is, add the following configuration to your `dbt_project.yml` file:
+
 ```
-
-## Operational Instructions
-
-Execute a node + any upstream nodes. It is useful when testing your models:
-
-```bash
-dbt run --select +{MODEL} --target beta
-```
-
-Backfill the history/single date of an incremental model:
-
-```bash
-dbt run --select {MODEL} --full-refresh --target prod
-dbt run --select {MODEL}  --vars '{"start_ts": "2022-01-01", "end_ts": "2022-01-02"}'  --target prod
-```
-
-Refresh external tables:
-
-```bash
-dbt run-operation stage_external_sources --vars "ext_full_refresh: true"
+vars:
+    ethereum_database: your_destination_name
+    polygon_database: your_destination_name
+    ...
 ```

@@ -1,6 +1,8 @@
 version: 2
 sources:
-  - name: ethereum
+  - name: raw
+    database: "{{var ('ethereum_database', 'ethereum')}}"
+    schema: raw
     tables:
       - name: transactions
       - name: blocks
@@ -9,25 +11,35 @@ sources:
       - name: contracts
 
   - name: opensea
+    database: "{{var ('ethereum_database', 'ethereum')}}"
+    schema: opensea
     tables:
       - name: wyvernexchangev1_call_atomicMatch_
       - name: wyvernexchangev2_call_atomicMatch_
 
   - name: cryptopunks
+    database: "{{var ('ethereum_database', 'ethereum')}}"
+    schema: cryptopunks
     tables:
       - name: cryptopunksmarket_evt_assign
       - name: cryptopunksmarket_evt_punkbought
       - name: cryptopunksmarket_evt_punkbidentered
 
   - name: erc721
+    database: "{{var ('ethereum_database', 'ethereum')}}"
+    schema: erc721
     tables:
       - name: erc721_evt_transfer
 
   - name: erc20
+    database: "{{var ('ethereum_database', 'ethereum')}}"
+    schema: erc20
     tables:
       - name: erc20_evt_transfer
 
   - name: erc1155
+    database: "{{var ('ethereum_database', 'ethereum')}}"
+    schema: erc1155  
     tables:
       - name: erc1155_evt_transfersingle
       - name: erc1155_evt_transferbatch
