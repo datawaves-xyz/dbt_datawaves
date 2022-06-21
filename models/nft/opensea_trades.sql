@@ -19,7 +19,7 @@ erc721_token_transfers as (
 
 erc1155_token_transfers as (
   select *
-  from {{ source('erc1155', 'erc1155_evt_transfersingle') }}
+  from {{ source('erc1155', 'erc1155_evt_transfer_single') }}
   where dt >= '{{ var("start_ts") }}'
     and dt < '{{ var("end_ts") }}'
 ),
