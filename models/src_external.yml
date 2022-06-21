@@ -1,13 +1,12 @@
 version: 2
 sources:
   - name: prices
-    database: "{{var ('prices_database', 'prices')}}"
-    schema: raw
+    schema: prices
     tables:
       - name: usd
 
   - name: nft_metadata
-    database: "{{var ('nft_metadata_database', 'nft_metadata')}}"
+    schema: ethereum_nft_metadata
     tables:
-      - name: tokens
-      - name: token_metadata
+      - name: nft_tokens
+      - name: nft_token_metadata
