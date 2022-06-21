@@ -10,12 +10,12 @@ sources:
       - name: contracts
 
   - name: opensea_v1
-    schema: ethereum_opensea
+    schema: ethereum_opensea_v1
     tables:
       - name: wyvern_exchange_call_atomic_match_
 
   - name: opensea_v2
-    schema: ethereum_opensea
+    schema: ethereum_opensea_v2
     tables:
       - name: wyvern_exchange_call_atomic_match_
 
