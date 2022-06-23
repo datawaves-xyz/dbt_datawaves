@@ -10,7 +10,7 @@ contracts as (
 
 erc721_token_transfers as (
   select *
-  from {{ source('erc721', 'erc721_evt_transfer') }}
+  from {{ source('ethereum_common', 'erc_721_evt_transfer') }}
 ),
 
 floor_price_info as (
