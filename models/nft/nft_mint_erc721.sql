@@ -21,7 +21,7 @@ erc721_token_transfer as (
     and dt < '{{ var("end_ts") }}'
 ),
 
-trace as (
+{# trace as (
   select
     transaction_hash,
     from_address,
@@ -29,7 +29,7 @@ trace as (
     value as refund_value
   from {{ source('ethereum', 'traces') }}
   where status = 1
-),
+), #}
 
 erc721_mint_tx as (
   select
@@ -39,12 +39,13 @@ erc721_mint_tx as (
     b.evt_block_time,
     b.dt,
     b.to as minter,
-    sum(a.value) - sum(case when c.refund_value is null then 0 else c.refund_value end) as value
+    --sum(a.value) - sum(case when c.refund_value is null then 0 else c.refund_value end) as value
+    sum(a.value) as value
   from transactions as a
   join erc721_token_transfer as b
    on a.hash = b.evt_tx_hash
-  left join trace as c
-   on a.hash = c.transaction_hash and a.from_address = c.to_address and a.to_address = c.from_address
+  {# left join trace as c
+   on a.hash = c.transaction_hash and a.from_address = c.to_address and a.to_address = c.from_address #}
   group by a.hash, b.contract_address, b.tokenId, b.evt_block_time, b.dt, b.to
 ),
 

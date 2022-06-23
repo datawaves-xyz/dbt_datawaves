@@ -6,12 +6,12 @@
 
 cryptopunksmarket_evt_punkbought as (
   select *
-  from {{ source('cryptopunks', 'crypto_punks_market_evt_punk_bought')}}
+  from {{ source('ethereum_cryptopunks', 'crypto_punks_market_evt_punk_bought')}}
 ),
 
 cryptopunksmarket_evt_punkbidentered as (
   select *
-  from {{ source('cryptopunks', 'crypto_punks_market_evt_punk_bid_entered') }}
+  from {{ source('ethereum_cryptopunks', 'crypto_punks_market_evt_punk_bid_entered') }}
 ),
 
 erc20_token_transfers as (

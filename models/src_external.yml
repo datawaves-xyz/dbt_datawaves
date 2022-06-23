@@ -9,4 +9,3 @@ sources:
     schema: ethereum_nft_metadata
     tables:
       - name: nft_tokens
-      - name: nft_token_metadata

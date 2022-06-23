@@ -16,17 +16,17 @@ sources:
       - name: erc_20_evt_transfer
       - name: erc_721_evt_transfer
 
-  - name: opensea_v1
+  - name: ethereum_opensea_v1
     schema: ethereum_opensea_v1
     tables:
       - name: wyvern_exchange_call_atomic_match_
 
-  - name: opensea_v2
+  - name: ethereum_opensea_v2
     schema: ethereum_opensea_v2
     tables:
       - name: wyvern_exchange_call_atomic_match_
 
-  - name: cryptopunks
+  - name: ethereum_cryptopunks
     schema: ethereum_cryptopunks
     tables:
       - name: crypto_punks_market_evt_assign
