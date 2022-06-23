@@ -15,7 +15,7 @@ prices_usd as (
 
 erc721_token_transfer as (
   select *
-  from {{ source('erc721', 'erc721_evt_transfer') }}
+  from {{ source('ethereum_common', 'erc_721_evt_transfer') }}
   where `from` = '0x0000000000000000000000000000000000000000'
     and dt >= '{{ var("start_ts") }}'
     and dt < '{{ var("end_ts") }}'
