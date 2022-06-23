@@ -1,7 +1,7 @@
 version: 2
 sources:
   - name: ethereum
-    schema: ethereum
+    schema: ethereum_raw
     tables:
       - name: transactions
       - name: blocks
