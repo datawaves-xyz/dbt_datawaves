@@ -50,14 +50,3 @@ packages:
   - git: "https://github.com/datawaves-xyz/dbt_datawaves"
     revision: "0.0.1"
 ```
-
-### Define database variables
-
-By default, this package will looks for your Ethereum data in the `ethereum` database of your target database and. If this is not where your `ethereum` data is, add the following configuration to your `dbt_project.yml` file:
-
-```
-vars:
-    ethereum_database: your_destination_name
-    polygon_database: your_destination_name
-    ...
-```
