@@ -9,6 +9,13 @@ sources:
       - name: traces
       - name: contracts
 
+  - name: ethereum_common
+    schema: ethereum_common
+    tables:
+      - name: erc_1155_evt_transfer_single
+      - name: erc_20_evt_transfer
+      - name: erc_721_evt_transfer
+
   - name: opensea_v1
     schema: ethereum_opensea_v1
     tables:
@@ -25,13 +32,3 @@ sources:
       - name: crypto_punks_market_evt_assign
       - name: crypto_punks_market_evt_punk_bought
       - name: crypto_punks_market_evt_punk_bid_entered
-
-
-  - name: ethereum_common
-    schema: ethereum_common
-    tables:
-      - name: erc_1155_evt_transfer_single
-      - name: erc_20_evt_transfer
-      - name: erc_721_evt_transfer
-
-
