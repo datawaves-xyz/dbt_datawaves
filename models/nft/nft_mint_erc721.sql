@@ -35,7 +35,7 @@ erc721_mint_tx as (
   select
     a.hash as tx_hash,
     b.contract_address as nft_contract_address,
-    b.tokenId as nft_token_id,
+    b.token_id as nft_token_id,
     b.evt_block_time,
     b.dt,
     b.to as minter,
@@ -46,7 +46,7 @@ erc721_mint_tx as (
    on a.hash = b.evt_tx_hash
   {# left join trace as c
    on a.hash = c.transaction_hash and a.from_address = c.to_address and a.to_address = c.from_address #}
-  group by a.hash, b.contract_address, b.tokenId, b.evt_block_time, b.dt, b.to
+  group by a.hash, b.contract_address, b.token_id, b.evt_block_time, b.dt, b.to
 ),
 
 erc721_mint as (
