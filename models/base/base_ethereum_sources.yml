@@ -1,0 +1,17 @@
+version: 2
+sources:
+  - name: ethereum
+    schema: ethereum_raw
+    tables:
+      - name: transactions
+      - name: blocks
+      - name: tokens
+      - name: traces
+      - name: contracts
+
+  - name: ethereum_common
+    schema: ethereum_common
+    tables:
+      - name: erc_1155_evt_transfer_single
+      - name: erc_20_evt_transfer
+      - name: erc_721_evt_transfer

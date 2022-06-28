@@ -1,12 +1,6 @@
 version: 2
 sources:
-  - name: prices
-    schema: prices
-    tables:
-      - name: usd
-
   - name: nft_metadata
     schema: ethereum_nft_metadata
     tables:
       - name: nft_tokens
-      - name: nft_token_metadata

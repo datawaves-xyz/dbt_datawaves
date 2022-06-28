@@ -15,10 +15,6 @@ models:
     config:
       materialized: view
     alias: tokens
-  - name: nft_token_metadata
-    config:
-      materialized: view
-    alias: token_metadata
   - name: cryptopunks_trades
     config:
       materialized: table
