@@ -13,9 +13,6 @@
     ('uncommon_nft_trader', 'uncommon_nft_trader'),
     ('diversified_nft_holder', 'diversified_nft_holder'),
     ('blue_chip_nft_holder', 'blue_chip_nft_holder'),
-    ('ens_name', 'ens_name'),
-    ('ens_name_reverse', 'ens_name_reverse'),
-    ('phish_hacker', 'phish_hacker'),
   ])
 }}
 
@@ -44,9 +41,3 @@ union all
 select * from diversified_nft_holder
 union all
 select * from blue_chip_nft_holder
-union all
-select * from ens_name
-union all
-select * from ens_name_reverse
-union all
-select * from phish_hacker

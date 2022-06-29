@@ -42,13 +42,4 @@ models:
       materialized: ephemeral 
   - name: blue_chip_nft_holder
     config:
-      materialized: ephemeral 
-  - name: ens_name
-    config:
-      materialized: ephemeral 
-  - name: ens_name_reverse
-    config:
-      materialized: ephemeral 
-  - name: phish_hacker
-    config:
-      materialized: ephemeral 
+      materialized: ephemeral

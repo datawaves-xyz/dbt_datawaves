@@ -15,7 +15,7 @@ prices_usd as (
 
 erc1155_token_transfer_single as (
   select *
-  from {{ source('erc1155', 'erc1155_evt_transfersingle') }}
+  from {{ source('ethereum_common', 'erc_1155_evt_transfer_single') }}
   where `from` = '0x0000000000000000000000000000000000000000'
     and dt >= '{{ var("start_ts") }}'
     and dt < '{{ var("end_ts") }}'

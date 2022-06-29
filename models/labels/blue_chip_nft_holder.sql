@@ -14,7 +14,7 @@ erc721_transfer as (
     tokenid as nft_token_id,
     to as to_address,
     evt_block_time as block_time
-  from {{ source('erc721', 'erc721_evt_transfer') }}
+  from {{ source('ethereum_common', 'erc_721_evt_transfer') }}
 ),
 
 erc1155_single_transfer as (
@@ -23,7 +23,7 @@ erc1155_single_transfer as (
     id as nft_token_id,
     to as to_address,
     evt_block_time as block_time
-  from {{ source('erc1155', 'erc1155_evt_transfersingle') }}
+  from {{ source('ethereum_common', 'erc_1155_evt_transfer_single') }}
 ),
 
 erc1155_batch_transfer as (
@@ -32,30 +32,30 @@ erc1155_batch_transfer as (
     explode(ids) as nft_token_id,
     to as to_address,
     evt_block_time as block_time
-  from {{ source('erc1155', 'erc1155_evt_transferbatch') }}
+  from {{ source('ethereum_common', 'erc_1155_evt_transfer_batch') }}
 ),
 
 cryptopunks_transfer as (
   select
     contract_address as nft_contract_address,
-    punkindex as nft_token_id,
+    punk_index as nft_token_id,
     to as to_address,
     evt_block_time as block_time
-  from {{ source('cryptopunks', 'cryptopunksmarket_evt_punkbidentered') }}
+  from {{ source('ethereum_cryptopunks', 'crypto_punks_market_evt_punk_transfer') }}
   union distinct
   select
     contract_address as nft_contract_address,
-    punkindex as nft_token_id,
-    toaddress as to_address,
+    punk_index as nft_token_id,
+    to_address,
     evt_block_time as block_time
-  from {{ source('cryptopunks', 'cryptopunksmarket_evt_punkbought') }}
+  from {{ source('ethereum_cryptopunks', 'crypto_punks_market_evt_punk_bought') }}
   union distinct
   select
     contract_address as nft_contract_address,
-    punkindex as nft_token_id,
+    punk_index as nft_token_id,
     to as to_address,
     evt_block_time as block_time
-  from {{ source('cryptopunks', 'cryptopunksmarket_evt_assign') }}
+  from {{ source('ethereum_cryptopunks', 'crypto_punks_market_evt_assign') }}
 ), 
 
 holder_info as (

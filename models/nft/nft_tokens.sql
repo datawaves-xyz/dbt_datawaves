@@ -1,6 +1,6 @@
 with nft_tokens as (
   select *
-  from {{ source('nft_metadata', 'tokens') }}
+  from {{ source('nft_metadata', 'nft_tokens') }}
 )
 
 select

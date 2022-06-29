@@ -15,13 +15,13 @@ prices_usd as (
 
 erc721_token_transfer as (
   select *
-  from {{ source('erc721', 'erc721_evt_transfer') }}
+  from {{ source('ethereum_common', 'erc_721_evt_transfer') }}
   where `from` = '0x0000000000000000000000000000000000000000'
     and dt >= '{{ var("start_ts") }}'
     and dt < '{{ var("end_ts") }}'
 ),
 
-trace as (
+{# trace as (
   select
     transaction_hash,
     from_address,
@@ -29,23 +29,24 @@ trace as (
     value as refund_value
   from {{ source('ethereum', 'traces') }}
   where status = 1
-),
+), #}
 
 erc721_mint_tx as (
   select
     a.hash as tx_hash,
     b.contract_address as nft_contract_address,
-    b.tokenId as nft_token_id,
+    b.token_id as nft_token_id,
     b.evt_block_time,
     b.dt,
     b.to as minter,
-    sum(a.value) - sum(case when c.refund_value is null then 0 else c.refund_value end) as value
+    --sum(a.value) - sum(case when c.refund_value is null then 0 else c.refund_value end) as value
+    sum(a.value) as value
   from transactions as a
   join erc721_token_transfer as b
    on a.hash = b.evt_tx_hash
-  left join trace as c
-   on a.hash = c.transaction_hash and a.from_address = c.to_address and a.to_address = c.from_address
-  group by a.hash, b.contract_address, b.tokenId, b.evt_block_time, b.dt, b.to
+  {# left join trace as c
+   on a.hash = c.transaction_hash and a.from_address = c.to_address and a.to_address = c.from_address #}
+  group by a.hash, b.contract_address, b.token_id, b.evt_block_time, b.dt, b.to
 ),
 
 erc721_mint as (

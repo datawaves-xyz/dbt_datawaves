@@ -4,14 +4,21 @@
   ])
 }},
 
-cryptopunksmarket_evt_punkbought as (
+tx as (
   select *
-  from {{ source('cryptopunks', 'cryptopunksmarket_evt_punkbought')}}
+  from {{ source('ethereum', 'transactions') }}
+  where dt >= '{{ var("start_ts") }}'
+    and dt < '{{ var("end_ts") }}'  
 ),
 
-cryptopunksmarket_evt_punkbidentered as (
+punk_bought as (
   select *
-  from {{ source('cryptopunks', 'cryptopunksmarket_evt_punkbidentered') }}
+  from {{ source('ethereum_cryptopunks', 'crypto_punks_market_evt_punk_bought')}}
+),
+
+punk_bid_entered as (
+  select *
+  from {{ source('ethereum_cryptopunks', 'crypto_punks_market_evt_punk_bid_entered') }}
 ),
 
 erc20_token_transfers as (
@@ -19,7 +26,7 @@ erc20_token_transfers as (
     evt_tx_hash,
     `from` as from_address,
     `to` as to_address
-  from {{ source('erc20', 'erc20_evt_transfer') }}
+  from {{ source('ethereum_common', 'erc_20_evt_transfer') }}
   where dt >= '{{ var("start_ts") }}'
     and dt < '{{ var("end_ts") }}'
     and contract_address = '0xb47e3cd837ddf8e4c57f05d70ab865de6e193bbb'
@@ -39,15 +46,15 @@ address_info as (
     a.evt_block_time as block_time,
     a.evt_block_number as block_number,
     a.evt_tx_hash as tx_hash,
-    a.punkindex as nft_token_id,
-    a.fromaddress as from_address,
+    a.punk_index as nft_token_id,
+    a.from_address as from_address,
     cast(a.value as double) as value,
     case
-      when a.toaddress = '0x0000000000000000000000000000000000000000' then b.to_address else a.toaddress
+      when a.to_address = '0x0000000000000000000000000000000000000000' then b.to_address else a.to_address
     end as to_address
-  from cryptopunksmarket_evt_punkbought a
+  from punk_bought a
   left join erc20_token_transfers b
-    on a.evt_tx_hash = b.evt_tx_hash and a.fromaddress = b.from_address
+    on a.evt_tx_hash = b.evt_tx_hash and a.from_address = b.from_address
 ),
 
 punk_trade as (
@@ -66,8 +73,8 @@ punk_trade as (
       cast(b.value as double) as bid_value,
       row_number()over(partition by a.nft_token_id, a.block_time order by b.evt_block_time desc) as rank
     from address_info a
-    left join cryptopunksmarket_evt_punkbidentered b
-      on a.nft_token_id = b.punkindex and b.fromaddress = a.to_address and b.evt_block_time <= a.block_time
+    left join punk_bid_entered b
+      on a.nft_token_id = b.punk_index and b.from_address = a.to_address and b.evt_block_time <= a.block_time
   )
   where rank = 1
 ),
@@ -110,8 +117,8 @@ select
 from punk_trade a
 left join punk_agg_tx b
   on a.tx_hash = b.tx_hash
-left join ethereum.transactions c
-  on a.tx_hash = c.hash and a.dt = c.dt
+left join tx
+  on a.tx_hash = tx.hash and a.dt = tx.dt
 left join prices_usd p
   on p.minute = {{ dbt_utils.date_trunc('minute', 'a.block_time') }}
 left join agg
