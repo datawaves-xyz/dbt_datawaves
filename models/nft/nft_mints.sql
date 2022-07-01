@@ -42,7 +42,7 @@ mint_union as (
   select
     evt_tx_hash as tx_hash,
     '0xb47e3cd837ddf8e4c57f05d70ab865de6e193bbb' as nft_contract_address,
-    punkIndex as nft_token_id,
+    punk_index as nft_token_id,
     1 as quantity,
     evt_block_time,
     dt,
