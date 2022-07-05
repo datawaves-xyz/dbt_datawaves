@@ -34,7 +34,7 @@ erc20_token_transfers as (
 
 prices_usd as (
   select *
-  from {{ source('prices', 'usd') }}
+  from {{ source('ethereum', 'prices') }}
   where contract_address = '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2'
     and dt >= '{{ var("start_ts") }}'
     and dt < '{{ var("end_ts") }}'
@@ -111,8 +111,8 @@ select
   a.block_time,
   a.block_number,
   a.tx_hash,
-  c.from_address as tx_from,
-  c.to_address as tx_to,
+  tx.from_address as tx_from,
+  tx.to_address as tx_to,
   a.dt
 from punk_trade a
 left join punk_agg_tx b
@@ -122,4 +122,4 @@ left join tx
 left join prices_usd p
   on p.minute = {{ dbt_utils.date_trunc('minute', 'a.block_time') }}
 left join agg
-  on agg.contract_address = c.to_address
+  on agg.contract_address = tx.to_address

@@ -8,6 +8,7 @@ sources:
       - name: tokens
       - name: traces
       - name: contracts
+      - name: prices
 
   - name: ethereum_common
     schema: ethereum_common
