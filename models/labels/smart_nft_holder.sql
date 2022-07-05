@@ -59,7 +59,7 @@ holder_info as (
       union
       select
         contract_address as nft_contract_address,
-        tokenid as nft_token_id,
+        token_id as nft_token_id,
         to as to_address,
         0 as eth_amount,
         evt_block_time as block_time
