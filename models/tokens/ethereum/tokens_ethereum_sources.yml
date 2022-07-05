@@ -1,6 +1,7 @@
 version: 2
 sources:
-  - name: nft_metadata
-    schema: ethereum_nft_metadata
+  - name: ethereum_tokens
+    schema: ethereum_tokens
     tables:
-      - name: nft_tokens
+      - name: erc20
+      - name: nft
