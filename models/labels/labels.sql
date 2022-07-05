@@ -16,28 +16,28 @@
   ])
 }}
 
-select * from nft_whale
+select address, label, label_type from nft_whale
 union all
-select * from smart_nft_trader
+select address, label, label_type from smart_nft_trader
 union all
-select * from smart_nft_holder
+select address, label, label_type from smart_nft_holder
 union all
-select * from smart_nft_sweeper
+select address, label, label_type from smart_nft_sweeper
 union all
-select * from smart_nft_minter
+select address, label, label_type from smart_nft_minter
 union all
-select * from smart_nft_golden_dog_minter
+select address, label, label_type from smart_nft_golden_dog_minter
 union all
-select * from opensea_trader
+select address, label, label_type from opensea_trader
 union all
-select * from legendary_nft_trader
+select address, label, label_type from legendary_nft_trader
 union all
-select * from epic_nft_trader
+select address, label, label_type from epic_nft_trader
 union all
-select * from rare_nft_trader
+select address, label, label_type from rare_nft_trader
 union all
-select * from uncommon_nft_trader
+select address, label, label_type from uncommon_nft_trader
 union all
-select * from diversified_nft_holder
+select address, label, label_type from diversified_nft_holder
 union all
-select * from blue_chip_nft_holder
+select address, label, label_type from blue_chip_nft_holder

@@ -70,7 +70,7 @@ holder_info as (
       select * from erc1155_single_transfer
       union distinct
       select * from erc1155_batch_transfer
-      union disttinct
+      union distinct
       select * from cryptopunks_transfer
     )
     where to_address != '0x0000000000000000000000000000000000000000'
