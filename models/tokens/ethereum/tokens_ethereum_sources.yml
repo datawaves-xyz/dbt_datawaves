@@ -5,8 +5,3 @@ sources:
     tables:
       - name: erc20
       - name: nft
-
-
-models:
-  - name: nft
-    schema: ethereum_tokens
