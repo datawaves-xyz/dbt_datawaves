@@ -1,14 +1,18 @@
 {{
   cte_import([
     ('agg', 'aggregators'),
-    ('nft_tokens', 'nft_tokens')
   ])
 }},
 
-tokens as (
+nft_tokens as (
   select * 
-  from {{ source('ethereum', 'tokens') }}
-)
+  from {{ source('ethereum_tokens', 'nft') }}
+),
+
+erc20 as (
+  select * 
+  from {{ source('ethereum_tokens', 'erc20') }}
+),
 
 erc721_token_transfers as (
   select *
@@ -33,7 +37,7 @@ wyvern_data as (
 
 prices_usd as (
   select *
-  from {{ source('prices', 'usd') }}
+  from {{ source('ethereum', 'prices') }}
   where dt >= '{{ var("start_ts") }}'
     and dt < '{{ var("end_ts") }}'
 ),
@@ -42,11 +46,11 @@ prices_usd as (
 erc721_tokens_in_tx as (
   select
     evt_tx_hash as tx_hash,
-    tokenId as token_id,
+    token_id as token_id,
     count(1) as num_of_items
   from erc721_token_transfers
   where `from` != '0x0000000000000000000000000000000000000000'
-  group by evt_tx_hash, tokenId
+  group by evt_tx_hash, token_id
 ),
 
 -- Count number of token IDs in each transaction
@@ -111,7 +115,7 @@ select
   w.seller,
   -- Get the token of aggregator when using aggregator to trade
   case
-    when agg.name is not null then agg_tokens.name
+    when agg.name is not null then agg_tokens.symbol
     else nft_tokens.name
   end as nft_project_name,
   -- Adjust the currency amount/symbol with erc20 tokens
@@ -154,7 +158,7 @@ left join prices_usd pe
   on pe.minute = {{ dbt_utils.date_trunc('minute', 'w.block_time') }}
     and pe.symbol = 'WETH'
 
-left join tokens erc20 on erc20.contract_address = w.currency_contract
+left join erc20 on erc20.contract_address = w.currency_contract
 left join nft_tokens on nft_tokens.contract_address = w.nft_contract_address
-left join tokens agg_tokens on agg_tokens.contract_address = w.nft_contract_address
+left join erc20 agg_tokens on agg_tokens.contract_address = w.nft_contract_address
 left join agg on agg.contract_address = w.tx_to
