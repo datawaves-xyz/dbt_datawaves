@@ -29,13 +29,13 @@ erc1155_transfer as (
 ),
 
 cryptopunks_transfer as (
-  select
+  {# select
     contract_address as nft_contract_address,
     punk_index as nft_token_id,
     to as to_address,
     evt_block_time as block_time
   from {{ source('ethereum_cryptopunks', 'crypto_punks_market_evt_punk_transfer') }}
-  union distinct
+  union distinct #}
   select
     contract_address as nft_contract_address,
     punk_index as nft_token_id,
