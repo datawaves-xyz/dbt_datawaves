@@ -35,7 +35,6 @@ This package models blockchain data from [Datawaves](https://datawaves.xyz/) and
 
 | **model** | **description**  |
 |-----------|------------------|
-
 | [smart_nft_trader](https://github.com/datawaves-xyz/dbt_ethereum/blob/master/models/labels/smart_nft_trader.sql) | The top 100 addresses in terms of realized profits from NFT sales. |
 | [smart_nft_holder](https://github.com/datawaves-xyz/dbt_ethereum/blob/master/models/labels/smart_nft_holder.sql) | The top 100 addresses in terms of estimated profits of their current NFT portfolio. |
 | [smart_nft_sweeper](https://github.com/datawaves-xyz/dbt_ethereum/blob/master/models/labels/smart_nft_sweeper.sql) | Addresses that have profitably swept at least 5 times at or below the floor price in the last 30 days. |
