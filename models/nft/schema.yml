@@ -18,10 +18,6 @@ models:
   - name: cryptopunks_trades
     config:
       materialized: view
-  - name: nft_tokens
-    config:
-      materialized: view
-    alias: tokens
   - name: nft_mint_erc721
     config:
       materialized: ephemeral
