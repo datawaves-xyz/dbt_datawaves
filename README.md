@@ -49,7 +49,7 @@ This package models blockchain data from [Datawaves](https://datawaves.xyz/) and
 | [epic_nft_trader.sql](https://github.com/datawaves-xyz/dbt_ethereum/blob/master/models/labels/epic_nft_trader.sql) | Top 1% in the number of NFT transactions. |
 | [rare_nft_trader.sql](https://github.com/datawaves-xyz/dbt_ethereum/blob/master/models/labels/rare_nft_trader.sql) | Top 2.5% in the number of NFT transactions. |
 | [uncommon_nft_trader.sql](https://github.com/datawaves-xyz/dbt_ethereum/blob/master/models/labels/uncommon_nft_trader.sql) | Top 10% in the number of NFT transactions. |
-| [opensea_nft_trader.sql](https://github.com/datawaves-xyz/dbt_ethereum/blob/master/models/labels/opensea_nft_trader.sql) | Wallets that have transactions on OpenSea. |
+| [opensea_trader.sql](https://github.com/datawaves-xyz/dbt_ethereum/blob/master/models/labels/opensea_trader.sql) | Wallets that have transactions on OpenSea. |
 | [blue_chip_nft_holder.sql](https://github.com/datawaves-xyz/dbt_ethereum/blob/master/models/labels/blue_chip_nft_holder.sql) | Wallets that are currently holding at least one Blue Chip NFT in their portfolio. |
 | [diversified_nft_holder.sql](https://github.com/datawaves-xyz/dbt_ethereum/blob/master/models/labels/diversified_nft_holder.sql) | Wallets that are currently holding at least 5 collections. |
 
