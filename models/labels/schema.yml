@@ -4,5 +4,4 @@ models:
   - name: labels
     config:
       materialized: table
-      enabled: "var('using_labels', True)"
 

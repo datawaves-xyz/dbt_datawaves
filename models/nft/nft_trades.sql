@@ -1,5 +1,3 @@
-{{ config(enabled=var('using_nft_trades', True)) }}
-
 
 with opensea_trades as (
   select *
