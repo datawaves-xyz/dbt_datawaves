@@ -4,11 +4,9 @@ models:
   - name: nft_trades
     config:
       materialized: table
-      enabled: "var('using_nft_trades', True)"
     alias: trades
   - name: nft_mints
     config:
-      enabled: "var('using_nft_mints', True)"
       materialized: table
     alias: mints
 
