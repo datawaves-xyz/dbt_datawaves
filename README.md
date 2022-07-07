@@ -4,7 +4,7 @@
 ## What does this dbt package do?
 
 
-This dbt package models blockchain data synced from [Datawaves](https://datawaves.xyz/) to power custom transformations. It build data models like event (e.g. nft_mints) and labels (e.g. opensea_trader).
+This dbt package models blockchain data from [Datawaves](https://datawaves.xyz/) to power custom transformations. It builds data models like `nft_mints`(event) and `opensea_trader`(label).
 
 
 ## Abstractions
@@ -40,13 +40,13 @@ This dbt package models blockchain data synced from [Datawaves](https://datawave
 
 | **model** | **description**  |
 |-----------|------------------|
-| [legendary_nft_trader.sql](https://github.com/datawaves-xyz/dbt_ethereum/blob/master/models/labels/nft_collector/legendary_nft_trader.sql) | Top 0.1% in the number of NFT transactions. |
-| [epic_nft_trader.sql](https://github.com/datawaves-xyz/dbt_ethereum/blob/master/models/labels/nft_collector/epic_nft_trader.sql) | Top 1% in the number of NFT transactions. |
-| [rare_nft_trader.sql](https://github.com/datawaves-xyz/dbt_ethereum/blob/master/models/labels/nft_collector/rare_nft_trader.sql) | Top 2.5% in the number of NFT transactions. |
-| [uncommon_nft_trader.sql](https://github.com/datawaves-xyz/dbt_ethereum/blob/master/models/labels/nft_collector/uncommon_nft_trader.sql) | Top 10% in the number of NFT transactions. |
-| [opensea_trader.sql](https://github.com/datawaves-xyz/dbt_ethereum/blob/master/models/labels/nft_collector/opensea_trader.sql) | Wallets that have transactions on OpenSea. |
-| [blue_chip_nft_holder.sql](https://github.com/datawaves-xyz/dbt_ethereum/blob/master/models/labels/nft_collector/blue_chip_nft_holder.sql) | Wallets that are currently holding at least one Blue Chip NFT in their portfolio. |
-| [diversified_nft_holder.sql](https://github.com/datawaves-xyz/dbt_ethereum/blob/master/models/labels/nft_collector/diversified_nft_holder.sql) | Wallets that are currently holding at least 5 collections. |
+| [legendary_nft_trader](https://github.com/datawaves-xyz/dbt_ethereum/blob/master/models/labels/nft_collector/legendary_nft_trader.sql) | Top 0.1% in the number of NFT transactions. |
+| [epic_nft_trader](https://github.com/datawaves-xyz/dbt_ethereum/blob/master/models/labels/nft_collector/epic_nft_trader.sql) | Top 1% in the number of NFT transactions. |
+| [rare_nft_trader](https://github.com/datawaves-xyz/dbt_ethereum/blob/master/models/labels/nft_collector/rare_nft_trader.sql) | Top 2.5% in the number of NFT transactions. |
+| [uncommon_nft_trader](https://github.com/datawaves-xyz/dbt_ethereum/blob/master/models/labels/nft_collector/uncommon_nft_trader.sql) | Top 10% in the number of NFT transactions. |
+| [opensea_trader](https://github.com/datawaves-xyz/dbt_ethereum/blob/master/models/labels/nft_collector/opensea_trader.sql) | Wallets that have transactions on OpenSea. |
+| [blue_chip_nft_holder](https://github.com/datawaves-xyz/dbt_ethereum/blob/master/models/labels/nft_collector/blue_chip_nft_holder.sql) | Wallets that are currently holding at least one Blue Chip NFT in their portfolio. |
+| [diversified_nft_holder](https://github.com/datawaves-xyz/dbt_ethereum/blob/master/models/labels/nft_collector/diversified_nft_holder.sql) | Wallets that are currently holding at least 5 collections. |
 
 
 ## How do I use this dbt package?
@@ -66,7 +66,7 @@ To use this dbt project, you must have the following:
 Include in your packages.yml:
 
 
-```
+```yml
 packages:
   - git: "https://github.com/datawaves-xyz/dbt_datawaves"
     revision: "0.0.1"
