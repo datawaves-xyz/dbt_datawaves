@@ -1,15 +1,16 @@
 with opensea_trades as (
   select *
-  from {{ ref('opensea_trades') }}
+  from {{ ref('ethereum_opensea_trades') }}
 ),
 
 cryptopunks_trades as (
   select *
-  from {{ ref('cryptopunks_trades') }}
+  from {{ ref('ethereum_cryptopunks_trades') }}
 ),
 
 final as (
   select
+    'Ethereum' as blockchain,
     'OpenSea' as platform,
     nft_token_id,
     exchange_contract_address,
@@ -38,6 +39,7 @@ final as (
   union all
 
   select
+    'Ethereum' as blockchain,
     platform,
     nft_token_id,
     exchange_contract_address,

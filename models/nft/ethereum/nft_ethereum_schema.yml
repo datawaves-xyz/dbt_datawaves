@@ -1,0 +1,18 @@
+version: 2
+
+models:
+  - name: ethereum_opensea_wyvern_atomic_match
+    config:
+      materialized: view
+  - name: ethereum_opensea_trades
+    config:
+      materialized: view
+  - name: ethereum_cryptopunks_trades
+    config:
+      materialized: view
+  - name: ethereum_erc721_mints
+    config:
+      materialized: view
+  - name: ethereum_erc1155_mints
+    config:
+      materialized: view
