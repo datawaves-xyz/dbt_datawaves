@@ -1,11 +1,10 @@
 # dbt_datawaves
 
 
-## What does this dbt package do?
+## What does this project do?
 
 
-This package models blockchain data from [Datawaves](https://datawaves.xyz/) and provides abstractions like smart contract activity and wallet profile. These abstractions can simplify the process of querying for data.
-
+This dbt project models blockchain data synced from [Datawaves](https://datawaves.xyz/) to power custom transformations. It provides abstractions like event (e.g. nft_mints) and labels (e.g. opensea_trader).
 
 
 ## Architecture
@@ -14,15 +13,15 @@ This package models blockchain data from [Datawaves](https://datawaves.xyz/) and
 
 ## Abstractions
 
-### Event Model
+### Event Models
 
 | **model**                                                                                                 | **description**                                                                 |
 |-----------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------|
 | [nft_trades](https://github.com/datawaves-xyz/dbt_ethereum/blob/master/models/nft/nft_trades.sql) | Each record represents a trade in OpenSea/CryptoPunks, enriched with data about the trade. |
-| [nft_mints](https://github.com/datawaves-xyz/dbt_ethereum/blob/master/models/nft/nft_mints.sql) | Each record represents an ERC721/ERC1155 token that has been minted |
+| [nft_mints](https://github.com/datawaves-xyz/dbt_ethereum/blob/master/models/nft/nft_mints.sql) | Each record represents an ERC721/ERC1155 token that has been minted. |
 
 
-### Labels
+### Address Labels
 
 
 #### Whale
@@ -54,7 +53,7 @@ This package models blockchain data from [Datawaves](https://datawaves.xyz/) and
 | [diversified_nft_holder.sql](https://github.com/datawaves-xyz/dbt_ethereum/blob/master/models/labels/diversified_nft_holder.sql) | Wallets that are currently holding at least 5 collections. |
 
 
-## How do I use this dbt package?
+## How do I use this dbt project?
 
 ### Prerequisites
 
@@ -63,12 +62,7 @@ To use this dbt project, you must have the following:
 * Use Datawaves ETL Cloud to sync data into your destination.
 * A PostgreSQL, Databricks destination.
 
-### Install the package
 
-Include in your packages.yml:
+Make sure every source defined in `*_source.yml` exists in your destination. You can run `dbt source freshness` command to ensure they are "fresh".
 
-```yml
-packages:
-  - git: "https://github.com/datawaves-xyz/dbt_datawaves"
-    revision: "0.0.1"
-```
+

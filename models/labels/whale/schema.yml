@@ -1,0 +1,7 @@
+version: 2
+
+models:
+  - name: nft_whale
+    config:
+      materialized: ephemeral
+ 

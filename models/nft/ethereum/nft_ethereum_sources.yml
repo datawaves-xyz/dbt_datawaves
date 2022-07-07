@@ -1,0 +1,38 @@
+version: 2
+sources:
+  - name: ethereum_opensea_v1
+    schema: ethereum_opensea_v1
+    freshness:
+      error_after: {count: 48, period: hour}
+    tables:
+      - name: wyvern_exchange_call_atomic_match_
+        loaded_at_field: call_block_time
+
+  - name: ethereum_opensea_v2
+    schema: ethereum_opensea_v2
+    freshness:
+      error_after: {count: 48, period: hour}
+    tables:
+      - name: wyvern_exchange_call_atomic_match_
+        loaded_at_field: call_block_time
+
+  - name: ethereum_cryptopunks
+    schema: ethereum_cryptopunks
+
+    tables:
+      - name: crypto_punks_market_evt_assign
+        loaded_at_field: evt_block_time
+
+      - name: crypto_punks_market_evt_punk_bought
+        loaded_at_field: evt_block_time
+        freshness:
+          error_after: {count: 48, period: hour}
+
+      - name: crypto_punks_market_evt_punk_bid_entered
+        loaded_at_field: evt_block_time
+        freshness:
+          error_after: {count: 48, period: hour}
+
+      # - name: crypto_punks_market_evt_punk_transfer
+      #   loaded_at_field: evt_block_time
+

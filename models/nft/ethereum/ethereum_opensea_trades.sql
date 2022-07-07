@@ -30,7 +30,7 @@ erc1155_token_transfers as (
 
 wyvern_data as (
   select *
-  from {{ ref('opensea_wyvern_atomic_match') }}
+  from {{ ref('ethereum_opensea_wyvern_atomic_match') }}
   where dt >= '{{ var("start_ts") }}'
     and dt < '{{ var("end_ts") }}'
 ),

@@ -4,23 +4,11 @@ models:
   - name: nft_trades
     config:
       materialized: table
+      enabled: "var('using_nft_trades', True)"
     alias: trades
   - name: nft_mints
     config:
+      enabled: "var('using_nft_mints', True)"
       materialized: table
     alias: mints
-  - name: opensea_wyvern_atomic_match
-    config:
-      materialized: view
-  - name: opensea_trades
-    config:
-      materialized: view
-  - name: cryptopunks_trades
-    config:
-      materialized: view
-  - name: nft_mint_erc721
-    config:
-      materialized: ephemeral
-  - name: nft_mint_erc1155
-    config:
-      materialized: ephemeral
+

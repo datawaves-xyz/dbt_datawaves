@@ -1,0 +1,19 @@
+version: 2
+
+models:
+  - name: smart_nft_trader
+    config:
+      materialized: ephemeral
+  - name: smart_nft_holder
+    config:
+      materialized: ephemeral
+  - name: smart_nft_sweeper
+    config:
+      materialized: ephemeral
+  - name: smart_nft_minter
+    enabled: false
+    config:
+      materialized: ephemeral    
+  - name: smart_nft_golden_dog_minter
+    config:
+      materialized: ephemeral
