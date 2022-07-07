@@ -1,10 +1,10 @@
 # dbt_datawaves
 
 
-## What does this project do?
+## What does this dbt package do?
 
 
-This dbt project models blockchain data synced from [Datawaves](https://datawaves.xyz/) to power custom transformations. It provides abstractions like event (e.g. nft_mints) and labels (e.g. opensea_trader).
+This dbt package models blockchain data synced from [Datawaves](https://datawaves.xyz/) to power custom transformations. It build data models like event (e.g. nft_mints) and labels (e.g. opensea_trader).
 
 
 ## Architecture
@@ -13,7 +13,7 @@ This dbt project models blockchain data synced from [Datawaves](https://datawave
 
 ## Abstractions
 
-### Event Models
+### Event models
 
 | **model**                                                                                                 | **description**                                                                 |
 |-----------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------|
@@ -21,7 +21,7 @@ This dbt project models blockchain data synced from [Datawaves](https://datawave
 | [nft_mints](https://github.com/datawaves-xyz/dbt_ethereum/blob/master/models/nft/nft_mints.sql) | Each record represents an ERC721/ERC1155 token that has been minted. |
 
 
-### Address Labels
+### Address labels
 
 
 #### Whale
@@ -53,16 +53,35 @@ This dbt project models blockchain data synced from [Datawaves](https://datawave
 | [diversified_nft_holder.sql](https://github.com/datawaves-xyz/dbt_ethereum/blob/master/models/labels/diversified_nft_holder.sql) | Wallets that are currently holding at least 5 collections. |
 
 
-## How do I use this dbt project?
+## How do I use this dbt package?
 
 ### Prerequisites
 
 To use this dbt project, you must have the following:
 
 * Use Datawaves ETL Cloud to sync data into your destination.
-* A PostgreSQL, Databricks destination.
+* Make sure every source defined in `*_source.yml` exists in your destination. You can run `dbt source freshness` command to ensure they are "fresh".
 
 
-Make sure every source defined in `*_source.yml` exists in your destination. You can run `dbt source freshness` command to ensure they are "fresh".
+### Install the package
 
+Include in your packages.yml:
+
+
+```
+packages:
+  - git: "https://github.com/datawaves-xyz/dbt_datawaves"
+    revision: "0.0.1"
+```
+
+
+## Contribute
+
+Additional contributions to this package are very welcome! Please create issues or open PRs against main.
+
+
+## Database support
+
+
+This package has been tested on Databricks.
 
