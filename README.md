@@ -7,10 +7,6 @@
 This dbt package models blockchain data synced from [Datawaves](https://datawaves.xyz/) to power custom transformations. It build data models like event (e.g. nft_mints) and labels (e.g. opensea_trader).
 
 
-## Architecture
-
-![](./assets/dbt_datawaves_architecture.png)
-
 ## Abstractions
 
 ### Event models
@@ -61,6 +57,8 @@ To use this dbt project, you must have the following:
 
 * Use Datawaves ETL Cloud to sync data into your destination.
 * Make sure every source defined in `*_source.yml` exists in your destination. You can run `dbt source freshness` command to ensure they are "fresh".
+
+![](./assets/dbt_datawaves_architecture.png)
 
 
 ### Install the package
