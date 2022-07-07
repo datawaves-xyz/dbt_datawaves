@@ -3,7 +3,7 @@ version: 2
 models:
   - name: golden_dog
     config:
-      materialized: view
+      materialized: ephemeral
   - name: blue_chip
     config:
-      materialized: view
+      materialized: ephemeral

@@ -1,3 +1,6 @@
+{{ config(enabled=var('using_labels', True)) }}
+
+
 {{
   cte_import([
     ('nft_whale', 'nft_whale'),

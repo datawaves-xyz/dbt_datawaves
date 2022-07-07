@@ -10,24 +10,13 @@ models:
   datawaves:
     nft:
       +schema: nft
-      +tags:
-        - chain_ethereum
-        - level_modeling
-        - proj_nft
 
     labels:
       +schema: labels
-      +tags:
-        - chain_ethereum
-        - level_modeling
-        - proj_labels
 
     index:
       +schema: index
-      +tags:
-        - chain_ethereum
-        - level_modeling
-        - proj_index
+
 
 seeds:
   datawaves:
@@ -37,3 +26,6 @@ seeds:
 vars:
   start_ts: "1970-01-01"
   end_ts: "9999-01-01"
+  using_labels: false
+  using_nft_mints: true
+  using_nft_trades: true

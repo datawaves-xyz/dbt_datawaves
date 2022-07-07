@@ -1,3 +1,4 @@
+
 {{
   cte_import([
     ('ethereum_erc721_mints', 'ethereum_erc721_mints'),
