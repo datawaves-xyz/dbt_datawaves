@@ -50,11 +50,13 @@ erc1155_mint as (
 )
 
 select
+  'Ethereum' as blockchain,
+  'erc_1155' as erc_standard,
   u.tx_hash,
   u.nft_contract_address,
   u.nft_token_id,
   u.quantity,
-  u.evt_block_time,
+  u.evt_block_time as block_time,
   u.minter,
   u.eth_mint_price,
   u.eth_mint_price * p.price as usd_mint_price

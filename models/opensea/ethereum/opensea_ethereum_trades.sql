@@ -25,7 +25,7 @@ prices_usd as (
 
 wyvern_data as (
   select *
-  from {{ ref('ethereum_opensea_wyvern_atomic_match') }}
+  from {{ ref('opensea_ethereum_wyvern_atomic_match') }}
 ),
 
 agg as (
@@ -74,6 +74,8 @@ transfers_in_tx as (
 )
 
 select
+  'Ethereum' as blockchain,
+  'OpenSea' as platform,
   w.token_id as nft_token_id,
   w.exchange_contract_address,
   w.nft_contract_address,

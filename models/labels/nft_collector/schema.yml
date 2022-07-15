@@ -2,23 +2,37 @@ version: 2
 
 models:
   - name: opensea_trader
-    config:
-      materialized: ephemeral
+    columns:
+      - name: address
+        tests:
+          - unique
   - name: legendary_nft_trader
-    config:
-      materialized: ephemeral 
+    columns:
+      - name: address
+        tests:
+          - unique
   - name: epic_nft_trader
-    config:
-      materialized: ephemeral 
+    columns:
+      - name: address
+        tests:
+          - unique
   - name: rare_nft_trader
-    config:
-      materialized: ephemeral 
+    columns:
+      - name: address
+        tests:
+          - unique
   - name: uncommon_nft_trader
-    config:
-      materialized: ephemeral 
+    columns:
+      - name: address
+        tests:
+          - unique      
   - name: diversified_nft_holder
-    config:
-      materialized: ephemeral 
+    columns:
+      - name: address
+        tests:
+          - unique      
   - name: blue_chip_nft_holder
-    config:
-      materialized: ephemeral 
+    columns:
+      - name: address
+        tests:
+          - unique      

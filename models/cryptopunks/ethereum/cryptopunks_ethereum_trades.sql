@@ -31,7 +31,6 @@ agg as (
 
 address_info as (
   select
-    a.dt,
     a.evt_block_time as block_time,
     a.evt_block_number as block_number,
     a.evt_tx_hash as tx_hash,
@@ -50,7 +49,6 @@ address_info as (
 
 punk_trade as (
   select
-    dt,
     block_time,
     block_number,
     tx_hash,
@@ -81,6 +79,7 @@ punk_agg_tx as (
 )
 
 select
+  'Ethereum' as blockchain,
   'LarvaLabs Contract' as platform,
   a.nft_token_id,
   '0xb47e3cd837ddf8e4c57f05d70ab865de6e193bbb' as exchange_contract_address,
@@ -103,13 +102,12 @@ select
   a.block_number,
   a.tx_hash,
   tx.from_address as tx_from,
-  tx.to_address as tx_to,
-  a.dt
+  tx.to_address as tx_to
 from punk_trade a
 left join punk_agg_tx b
   on a.tx_hash = b.tx_hash
 left join tx
-  on a.tx_hash = tx.hash and a.dt = tx.dt
+  on a.tx_hash = tx.hash
 left join prices_usd p
   on p.minute = {{ dbt_utils.date_trunc('minute', 'a.block_time') }}
     and p.contract_address = '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2'
