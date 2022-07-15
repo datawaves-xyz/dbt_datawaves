@@ -47,8 +47,8 @@ wyvern_data as (
         then cast(round({{ datawaves_utils.binary_to_numeric(datawaves_utils.substring('calldata_buy', 101, 32)) }}, 0) as {{ dbt_utils.type_string() }})
       when {{ datawaves_utils.substring('calldata_buy', 1, 4) }} in ({{ datawaves_utils.binary_literal('23b872dd') }}, {{ datawaves_utils.binary_literal('f242432a') }})
         then cast(round({{ datawaves_utils.binary_to_numeric(datawaves_utils.substring('calldata_buy', 69, 32)) }}, 0) as {{ dbt_utils.type_string() }})
-    end as token_id
-
+    end as token_id,
+    call_trace_address
   from wyvern_atomic_match
   where
     (addrs[3] = '0x5b3256965e7c3cf26e11fcaf296dfc8807c01073'
@@ -72,6 +72,7 @@ select
   w.currency_contract,
   w.original_currency_contract,
   w.token_id,
+  w.call_trace_address,
   tx.from_address as tx_from,
   tx.to_address as tx_to
 from wyvern_data w

@@ -128,7 +128,8 @@ select
   w.block_number,
   w.tx_hash,
   w.tx_from,
-  w.tx_to
+  w.tx_to,
+  w.tx_hash || '-' || coalesce(w.token_id, '') || '-' ||  w.seller || '-' || coalesce(w.call_trace_address,'') as unique_trade_id
 from wyvern_data w
 
 left join erc721_tokens_in_tx
