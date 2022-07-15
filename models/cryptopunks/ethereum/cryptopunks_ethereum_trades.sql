@@ -40,7 +40,9 @@ address_info as (
     case
       when a.to_address = '0x0000000000000000000000000000000000000000' then b.to
       else a.to_address
-    end as to_address
+    end as to_address,
+    a.evt_tx_hash || '-' || coalesce(a.punk_index, '') || '-' ||  a.from_address || '-' || coalesce(a.evt_index,'') as unique_trade_id
+
   from punk_bought a
   left join erc20_token_transfers b
     on a.evt_tx_hash = b.evt_tx_hash and a.from_address = b.from
@@ -55,7 +57,8 @@ punk_trade as (
     nft_token_id,
     from_address,
     to_address,
-    (case when value = 0 then coalesce(bid_value, 0) else value end) as original_currency_amount
+    (case when value = 0 then coalesce(bid_value, 0) else value end) as original_currency_amount,
+    unique_trade_id
   from (
     select
       a.*,
@@ -102,7 +105,9 @@ select
   a.block_number,
   a.tx_hash,
   tx.from_address as tx_from,
-  tx.to_address as tx_to
+  tx.to_address as tx_to,
+  a.unique_trade_id
+
 from punk_trade a
 left join punk_agg_tx b
   on a.tx_hash = b.tx_hash

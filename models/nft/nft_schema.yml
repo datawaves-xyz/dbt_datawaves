@@ -2,9 +2,6 @@ version: 2
 
 models:
   - name: nft_trades
-    config:
-      materialized: table
-      alias: trades
   - name: nft_mints
     config:
       materialized: table
