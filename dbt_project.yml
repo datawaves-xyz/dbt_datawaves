@@ -13,15 +13,21 @@ models:
 
     labels:
       +schema: labels
+      +materialized: ephemeral
 
     index:
       +schema: index
+      +materialized: ephemeral
+    
+    cryptopunks:
+      +schema: cryptopunks
+      +materialized: view
+
+    opensea:
+      +schema: opensea
+      +materialized: view
 
 seeds:
   datawaves:
     nft:
       +schema: nft
-
-vars:
-  start_ts: "1970-01-01"
-  end_ts: "9999-01-01"

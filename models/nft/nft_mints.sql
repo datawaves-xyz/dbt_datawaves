@@ -1,61 +1,13 @@
 
-{{
-  cte_import([
-    ('ethereum_erc721_mints', 'ethereum_erc721_mints'),
-    ('ethereum_erc1155_mints', 'ethereum_erc1155_mints'),
-  ])
-}},
-
-crypto_punks_market_evt_assign as (
+with mints as (
   select *
-  from {{ source('ethereum_cryptopunks', 'crypto_punks_market_evt_assign') }}
-),
-
-mint_union as (
-  select
-    'Ethereum' as blockchain,
-    tx_hash,
-    nft_contract_address,
-    nft_token_id,
-    1 as quantity,
-    evt_block_time,
-    dt,
-    minter,
-    eth_mint_price,
-    usd_mint_price,
-    'erc721' as erc_standard
-  from ethereum_erc721_mints
+  from {{ ref("nft_ethereum_erc721_mints") }}
 
   union all
-  select
-    'Ethereum' as blockchain,
-    tx_hash,
-    nft_contract_address,
-    nft_token_id,
-    quantity,
-    evt_block_time,
-    dt,
-    minter,
-    eth_mint_price,
-    usd_mint_price,
-    'erc_1155' as erc_standard
-  from ethereum_erc1155_mints
 
-  union all
-  select
-    'Ethereum' as blockchain,
-    evt_tx_hash as tx_hash,
-    '0xb47e3cd837ddf8e4c57f05d70ab865de6e193bbb' as nft_contract_address,
-    punk_index as nft_token_id,
-    1 as quantity,
-    evt_block_time,
-    dt,
-    `to` as minter,
-    0 as eth_mint_price,
-    0 as usd_mint_price,
-    'erc20' as erc_standard
-  from crypto_punks_market_evt_assign
+  select *
+  from {{ ref("nft_ethereum_erc1155_mints") }}
 )
 
 select *
-from mint_union
+from mints

@@ -1,0 +1,5 @@
+version: 2
+
+models:
+  - name: opensea_ethereum_wyvern_atomic_match
+  - name: opensea_ethereum_trades

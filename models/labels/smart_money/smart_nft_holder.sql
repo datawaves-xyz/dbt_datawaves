@@ -62,7 +62,7 @@ holder_info as (
         nft_token_id,
         minter as to_address,
         eth_mint_price as eth_amount,
-        evt_block_time as block_time
+        block_time
       from nft_mints
     )
   )

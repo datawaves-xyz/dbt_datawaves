@@ -1,0 +1,17 @@
+version: 2
+sources:
+  - name: ethereum_opensea_v1
+    schema: ethereum_opensea_v1
+    freshness:
+      error_after: {count: 48, period: hour}
+    tables:
+      - name: wyvern_exchange_call_atomic_match_
+        loaded_at_field: call_block_time
+
+  - name: ethereum_opensea_v2
+    schema: ethereum_opensea_v2
+    freshness:
+      error_after: {count: 48, period: hour}
+    tables:
+      - name: wyvern_exchange_call_atomic_match_
+        loaded_at_field: call_block_time

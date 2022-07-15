@@ -6,7 +6,7 @@ with golden_dog as (
 mint_info as (
   select *
   from {{ ref('nft_mints') }}
-  where dt >= date_sub(current_date(), 60)
+  where to_date(block_time) >= date_sub(current_date(), 60)
 ),
 
 trade_info as (

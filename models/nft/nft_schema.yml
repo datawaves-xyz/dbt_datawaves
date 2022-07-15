@@ -4,9 +4,8 @@ models:
   - name: nft_trades
     config:
       materialized: table
-    alias: trades
+      alias: trades
   - name: nft_mints
     config:
       materialized: table
-    alias: mints
-
+      alias: mints

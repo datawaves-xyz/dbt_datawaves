@@ -1,71 +1,13 @@
 
-with opensea_trades as (
+with final as (
   select *
-  from {{ ref('ethereum_opensea_trades') }}
-),
-
-cryptopunks_trades as (
-  select *
-  from {{ ref('ethereum_cryptopunks_trades') }}
-),
-
-final as (
-  select
-    'Ethereum' as blockchain,
-    'OpenSea' as platform,
-    nft_token_id,
-    exchange_contract_address,
-    nft_contract_address,
-    erc_standard,
-    number_of_items,
-    aggregator,
-    trade_type,
-    buyer,
-    seller,
-    nft_project_name,
-    currency_amount,
-    currency_symbol,
-    currency_contract,
-    usd_amount,
-    eth_amount,
-    original_currency_amount,
-    original_currency_contract,
-    block_time,
-    block_number,
-    tx_hash,
-    tx_from,
-    tx_to
-  from opensea_trades
+  from {{ ref('opensea_ethereum_trades') }}
 
   union all
 
-  select
-    'Ethereum' as blockchain,
-    platform,
-    nft_token_id,
-    exchange_contract_address,
-    nft_contract_address,
-    erc_standard,
-    number_of_items,
-    aggregator,
-    trade_type,
-    buyer,
-    seller,
-    nft_project_name,
-    currency_amount,
-    currency_symbol,
-    currency_contract,
-    usd_amount,
-    eth_amount,
-    original_currency_amount,
-    original_currency_contract,
-    block_time,
-    block_number,
-    tx_hash,
-    tx_from,
-    tx_to
-  from cryptopunks_trades
+  select *
+  from {{ ref('cryptopunks_ethereum_trades') }}
 )
 
-select /*+ REPARTITION(50) */ *
+select *
 from final
