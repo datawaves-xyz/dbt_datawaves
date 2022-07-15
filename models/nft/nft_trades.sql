@@ -67,5 +67,5 @@ final as (
   from cryptopunks_trades
 )
 
-select /*+ REPARTITION(50) */ *
+select *
 from final

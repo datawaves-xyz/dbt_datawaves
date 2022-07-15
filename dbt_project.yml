@@ -21,7 +21,3 @@ seeds:
   datawaves:
     nft:
       +schema: nft
-
-vars:
-  start_ts: "1970-01-01"
-  end_ts: "9999-01-01"

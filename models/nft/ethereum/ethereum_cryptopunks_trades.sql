@@ -1,14 +1,7 @@
-{{
-  cte_import([
-    ('agg', 'aggregators'),
-  ])
-}},
 
-tx as (
+with tx as (
   select *
-  from {{ source('ethereum', 'transactions') }}
-  where dt >= '{{ var("start_ts") }}'
-    and dt < '{{ var("end_ts") }}'  
+  from {{ source('ethereum', 'transactions') }} 
 ),
 
 punk_bought as (
@@ -22,22 +15,18 @@ punk_bid_entered as (
 ),
 
 erc20_token_transfers as (
-  select
-    evt_tx_hash,
-    `from` as from_address,
-    `to` as to_address
+  select *
   from {{ source('ethereum_common', 'erc_20_evt_transfer') }}
-  where dt >= '{{ var("start_ts") }}'
-    and dt < '{{ var("end_ts") }}'
-    and contract_address = '0xb47e3cd837ddf8e4c57f05d70ab865de6e193bbb'
 ),
 
 prices_usd as (
   select *
   from {{ source('ethereum', 'prices') }}
-  where contract_address = '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2'
-    and dt >= '{{ var("start_ts") }}'
-    and dt < '{{ var("end_ts") }}'
+),
+
+agg as (
+  select *
+  from {{ ref('aggregators')}}
 ),
 
 address_info as (
@@ -50,11 +39,13 @@ address_info as (
     a.from_address as from_address,
     cast(a.value as double) as value,
     case
-      when a.to_address = '0x0000000000000000000000000000000000000000' then b.to_address else a.to_address
+      when a.to_address = '0x0000000000000000000000000000000000000000' then b.to
+      else a.to_address
     end as to_address
   from punk_bought a
   left join erc20_token_transfers b
-    on a.evt_tx_hash = b.evt_tx_hash and a.from_address = b.from_address
+    on a.evt_tx_hash = b.evt_tx_hash and a.from_address = b.from
+      and b.contract_address = '0xb47e3cd837ddf8e4c57f05d70ab865de6e193bbb'
 ),
 
 punk_trade as (
@@ -121,5 +112,6 @@ left join tx
   on a.tx_hash = tx.hash and a.dt = tx.dt
 left join prices_usd p
   on p.minute = {{ dbt_utils.date_trunc('minute', 'a.block_time') }}
+    and p.contract_address = '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2'
 left join agg
   on agg.contract_address = tx.to_address

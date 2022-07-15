@@ -3,7 +3,7 @@ with free_mint as (
     nft_contract_address,
     sum(eth_mint_price) as eth_amount
   from {{ ref('nft_mints') }}
-  where dt >= date_sub(current_date(), 60)
+  where to_date(block_time) >= date_sub(current_date(), 60)
   group by nft_contract_address
   having eth_amount = 0
 ),

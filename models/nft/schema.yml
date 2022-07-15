@@ -3,10 +3,10 @@ version: 2
 models:
   - name: nft_trades
     config:
-      materialized: table
+      materialized: view
     alias: trades
   - name: nft_mints
     config:
-      materialized: table
+      materialized: view
     alias: mints
 

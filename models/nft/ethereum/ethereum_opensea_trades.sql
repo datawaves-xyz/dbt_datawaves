@@ -1,10 +1,4 @@
-{{
-  cte_import([
-    ('agg', 'aggregators'),
-  ])
-}},
-
-nft_tokens as (
+with nft_tokens as (
   select * 
   from {{ source('ethereum_tokens', 'nft') }}
 ),
@@ -17,29 +11,26 @@ erc20 as (
 erc721_token_transfers as (
   select *
   from {{ source('ethereum_common', 'erc_721_evt_transfer') }}
-  where dt >= '{{ var("start_ts") }}'
-    and dt < '{{ var("end_ts") }}'
 ),
 
 erc1155_token_transfers as (
   select *
   from {{ source('ethereum_common', 'erc_1155_evt_transfer_single') }}
-  where dt >= '{{ var("start_ts") }}'
-    and dt < '{{ var("end_ts") }}'
-),
-
-wyvern_data as (
-  select *
-  from {{ ref('ethereum_opensea_wyvern_atomic_match') }}
-  where dt >= '{{ var("start_ts") }}'
-    and dt < '{{ var("end_ts") }}'
 ),
 
 prices_usd as (
   select *
   from {{ source('ethereum', 'prices') }}
-  where dt >= '{{ var("start_ts") }}'
-    and dt < '{{ var("end_ts") }}'
+),
+
+wyvern_data as (
+  select *
+  from {{ ref('ethereum_opensea_wyvern_atomic_match') }}
+),
+
+agg as (
+  select *
+  from {{ ref('aggregators')}}
 ),
 
 -- Count number of token IDs in each transaction
@@ -135,9 +126,7 @@ select
   w.block_number,
   w.tx_hash,
   w.tx_from,
-  w.tx_to,
-  -- date partition column
-  w.dt
+  w.tx_to
 from wyvern_data w
 
 left join erc721_tokens_in_tx

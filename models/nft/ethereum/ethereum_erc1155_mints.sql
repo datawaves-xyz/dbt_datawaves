@@ -1,24 +1,16 @@
 with transactions as (
   select *
   from {{ source('ethereum', 'transactions')}}
-  where dt >= '{{ var("start_ts") }}'
-    and dt < '{{ var("end_ts") }}'
 ),
 
 prices_usd as (
   select *
-  from {{ source('ethereum', 'prices') }}
-  where contract_address = '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2'
-    and dt >= '{{ var("start_ts") }}'
-    and dt < '{{ var("end_ts") }}'
+  from {{ source('ethereum', 'prices') }} 
 ),
 
 erc1155_token_transfer_single as (
   select *
   from {{ source('ethereum_common', 'erc_1155_evt_transfer_single') }}
-  where `from` = '0x0000000000000000000000000000000000000000'
-    and dt >= '{{ var("start_ts") }}'
-    and dt < '{{ var("end_ts") }}'
 ),
 
 erc1155_mint_tx as (
@@ -27,13 +19,13 @@ erc1155_mint_tx as (
     b.contract_address as nft_contract_address,
     b.id as nft_token_id,
     b.evt_block_time,
-    b.dt,
     b.to as minter,
     a.value,
     b.value as quantity
   from transactions as a
   join erc1155_token_transfer_single as b
     on a.hash = b.evt_tx_hash
+      and b.from = '0x0000000000000000000000000000000000000000'
 ),
 
 erc1155_mint as (
@@ -43,7 +35,6 @@ erc1155_mint as (
     x.nft_token_id,
     x.quantity,
     x.evt_block_time,
-    x.dt,
     x.minter,
     y.avg_value / y.num_of_items / power(10, 18) as eth_mint_price
   from erc1155_mint_tx as x
@@ -64,10 +55,10 @@ select
   u.nft_token_id,
   u.quantity,
   u.evt_block_time,
-  u.dt,
   u.minter,
   u.eth_mint_price,
   u.eth_mint_price * p.price as usd_mint_price
 from erc1155_mint as u
 left join prices_usd as p
   on p.minute = {{ dbt_utils.date_trunc('minute', 'u.evt_block_time') }}
+    and p.contract_address = '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2'
