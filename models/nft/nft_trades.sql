@@ -1,13 +1,8 @@
 
-with final as (
   select *
-  from {{ ref('opensea_ethereum_trades') }}
+  from {{ ref('opensea_trades') }}
 
   union all
 
   select *
-  from {{ ref('cryptopunks_ethereum_trades') }}
-)
-
-select *
-from final
+  from {{ ref('cryptopunks_trades') }}
