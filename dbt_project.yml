@@ -26,7 +26,10 @@ models:
     opensea:
       +schema: opensea
       +materialized: view
-
+    
+    ens:
+      +schema: ens
+      +materialized: view
 seeds:
   datawaves:
     nft:

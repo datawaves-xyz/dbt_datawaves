@@ -13,10 +13,15 @@
     ('uncommon_nft_trader', 'uncommon_nft_trader'),
     ('diversified_nft_holder', 'diversified_nft_holder'),
     ('blue_chip_nft_holder', 'blue_chip_nft_holder'),
+    ('ens_name', 'ens_name'),
+    ('ens_name_reverse', 'ens_name_reverse')
   ])
 }}
 
+-- Whale
 select address, label, label_type from nft_whale
+
+-- Smart Money
 union all
 select address, label, label_type from smart_nft_trader
 union all
@@ -27,6 +32,8 @@ union all
 select address, label, label_type from smart_nft_minter
 union all
 select address, label, label_type from smart_nft_golden_dog_minter
+
+-- NFT collecter
 union all
 select address, label, label_type from opensea_trader
 union all
@@ -41,3 +48,9 @@ union all
 select address, label, label_type from diversified_nft_holder
 union all
 select address, label, label_type from blue_chip_nft_holder
+
+-- ENS
+union all
+select address, label, label_type from ens_name
+union all
+select address, label, label_type from ens_name_reverse

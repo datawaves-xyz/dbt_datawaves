@@ -1,9 +1,9 @@
 with wyvern_atomic_match as (
   select *
-  from {{ source('ethereum_opensea_v1', 'wyvern_exchange_call_atomic_match_') }}
+  from {{ source('ethereum_opensea', 'wyvern_exchange_call_atomic_match_') }}
   union
   select *
-  from {{ source('ethereum_opensea_v2', 'wyvern_exchange_call_atomic_match_') }}
+  from {{ source('ethereum_opensea', 'wyvern_exchange_2_call_atomic_match_') }}
 ),
 
 tx as (
@@ -13,7 +13,6 @@ tx as (
 
 wyvern_data as (
   select
-    dt,
     call_tx_hash as tx_hash,
     call_block_number as block_number,
     call_block_time as block_time,
@@ -57,7 +56,6 @@ wyvern_data as (
 )
 
 select
-  w.dt,
   w.tx_hash,
   w.block_number,
   w.block_time,
@@ -76,4 +74,4 @@ select
   tx.to_address as tx_to
 from wyvern_data w
 
-left join tx on tx.hash = w.tx_hash and tx.dt = w.dt
+left join tx on tx.hash = w.tx_hash
