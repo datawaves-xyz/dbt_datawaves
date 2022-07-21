@@ -33,7 +33,15 @@ all_reverse_registrar as (
   from ens_reverse_registrar
   -- Only successful transactions
   where call_success is True
-), 
+)
 
 select 
-* from all_reverse_registrar
+    t.eth_addr as address, 
+    t.block_timestamp, 
+    t.tx_hash,
+    a.ens_name
+from ens_txn as t
+inner join all_reverse_registrar as a 
+  on a.block_number = t.block_number 
+  and a.tx_hash = t.tx_hash 
+  and a.ens_name <> '0x0000000000000000000000000000000000000000'
