@@ -1,0 +1,10 @@
+version: 2
+sources:
+  - name: ethereum_ens
+    schema: ethereum_ens
+    tables:
+      - name: ethregistrar_controller_evt_name_registered
+      - name: ethregistrar_controller_2_evt_name_registered
+      - name: ethregistrar_controller_3_evt_name_registered
+      - name: reverse_registrar_1_call_set_name
+      - name: reverse_registrar_2_call_set_name

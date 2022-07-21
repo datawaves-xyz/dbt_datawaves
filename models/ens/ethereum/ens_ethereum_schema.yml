@@ -1,0 +1,4 @@
+version: 2
+models:
+  - name: ens_ethereum_registrations
+  - name: ens_ethereum_reverse_registrars
