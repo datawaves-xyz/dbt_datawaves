@@ -2,3 +2,4 @@ version: 2
 
 models:
   - name: cryptopunks_ethereum_trades
+  - name: cryptopunks_ethereum_transfers

@@ -5,18 +5,6 @@ sources:
 
     tables:
       - name: crypto_punks_market_evt_assign
-        loaded_at_field: evt_block_time
-
       - name: crypto_punks_market_evt_punk_bought
-        loaded_at_field: evt_block_time
-        freshness:
-          error_after: {count: 48, period: hour}
-
       - name: crypto_punks_market_evt_punk_bid_entered
-        loaded_at_field: evt_block_time
-        freshness:
-          error_after: {count: 48, period: hour}
-
-      # - name: crypto_punks_market_evt_punk_transfer
-      #   loaded_at_field: evt_block_time
-
+      - name: crypto_punks_market_evt_punk_transfer
