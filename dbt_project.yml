@@ -30,6 +30,10 @@ models:
     ens:
       +schema: ens
       +materialized: view
+
+    transfers:
+      +schema: transfers
+      +materialized: view
 seeds:
   datawaves:
     nft:
