@@ -112,9 +112,9 @@ select
     else nft_tokens.name
   end as nft_project_name,
   -- Adjust the currency amount/symbol with erc20 tokens
-  {{ datawaves_utils.displayed_amount('w.currency_amount', 'p.decimals') }} as currency_amount,
-  {{ datawaves_utils.displayed_amount('w.currency_amount', 'p.decimals') }} * p.price as usd_amount,
-  {{ datawaves_utils.displayed_amount('w.currency_amount', 'p.decimals') }} * p.price / pe.price as eth_amount,
+  {{ datawaves_utils.displayed_amount('w.currency_amount', 'erc20.decimals') }} as currency_amount,
+  {{ datawaves_utils.displayed_amount('w.currency_amount', 'erc20.decimals') }} * p.price as usd_amount,
+  {{ datawaves_utils.displayed_amount('w.currency_amount', 'erc20.decimals') }} * p.price / pe.price as eth_amount,
   w.currency_amount as original_currency_amount,
   case
     when w.original_currency_contract = '0x0000000000000000000000000000000000000000'
