@@ -10,7 +10,7 @@ contracts as (
 
 erc721_transfer as (
   select
-    contract_address as nft_contract_address,
+    token_address as nft_contract_address,
     token_id as nft_token_id,
     wallet_address as to_address,
     block_time
@@ -20,7 +20,7 @@ erc721_transfer as (
 
 erc1155_transfer as (
   select
-    contract_address as nft_contract_address,
+    token_address as nft_contract_address,
     token_id as nft_token_id,
     wallet_address as to_address,
     block_time
