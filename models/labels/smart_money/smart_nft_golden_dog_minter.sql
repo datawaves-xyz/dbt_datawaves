@@ -1,6 +1,6 @@
 with golden_dog as (
   select *
-  from {{ ref('golden_dog') }}
+  from {{ ref('golden_dog_index') }}
 ),
 
 mint_info as (

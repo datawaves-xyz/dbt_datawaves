@@ -7,25 +7,20 @@ erc721_transfer as (
   select
     contract_address as nft_contract_address,
     token_id as nft_token_id,
-    to as to_address,
-    evt_block_time as block_time
-  from {{ source('ethereum_common', 'erc_721_evt_transfer') }}
+    wallet_address as to_address,
+    block_time
+  from {{ ref("transfers_ethereum_erc721") }}
+  where amount > 0
 ),
 
 erc1155_transfer as (
   select
     contract_address as nft_contract_address,
-    id as nft_token_id,
-    to as to_address,
-    evt_block_time as block_time
-  from {{ source('ethereum_common', 'erc_1155_evt_transfer_single') }}
-  union distinct
-  select
-    contract_address as nft_contract_address,
-    explode(ids) as nft_token_id,
-    to as to_address,
-    evt_block_time as block_time
-  from {{ source('ethereum_common', 'erc_1155_evt_transfer_batch') }}  
+    token_id as nft_token_id,
+    wallet_address as to_address,
+    block_time
+  from {{ ref("transfers_ethereum_erc1155") }}
+  where amount > 0
 ),
 
 cryptopunks_transfer as (
