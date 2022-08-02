@@ -1,27 +1,22 @@
 
-with erc721_transfers as (
-  select *
-  from {{ source('ethereum_common', 'erc_721_evt_transfer') }}
-),
-
-sent_transfers as (
+with sent_transfers as (
   select
     from as wallet_address,
-    contract_address as token_address,
-    evt_block_time as block_time,
+    token_address,
+    block_time,
     token_id,
-    -1 as amount
-  from erc721_transfers
+    -amount as amount
+  from {{ ref('erc721_ethereum_transfers') }}
 ),
 
 received_transfers as (
   select
     to as wallet_address,
-    contract_address as token_address,
-    evt_block_time as block_time,
+    token_address,
+    block_time,
     token_id,
-    1 as amount
-  from erc721_transfers
+    amount
+  from {{ ref('erc721_ethereum_transfers') }}
 ),
 
 transfers as (

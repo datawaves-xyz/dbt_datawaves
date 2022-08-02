@@ -1,0 +1,4 @@
+version: 2
+
+models:
+  - name: erc721_ethereum_transfers

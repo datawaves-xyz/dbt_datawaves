@@ -8,6 +8,15 @@ models:
   +file_format: delta
 
   datawaves:
+    erc20:
+      +schema: erc20
+
+    erc721:
+      +schema: erc721
+
+    erc1155:
+      +schema: erc1155
+
     nft:
       +schema: nft
 
