@@ -55,24 +55,6 @@ erc1155_tokens_in_tx as (
   group by evt_tx_hash, id
 ),
 
--- Count number of token transfers in each transaction;
--- We use this to count number of erc721 and erc1155 transfers
-transfers_in_tx as (
-  select
-    evt_tx_hash as tx_hash,
-    count(1) as num_of_transfers
-  from erc721_token_transfers
-  where `from` != '0x0000000000000000000000000000000000000000'
-  group by evt_tx_hash
-  union
-  select
-    evt_tx_hash as tx_hash,
-    count(1) as num_of_transfers
-  from erc1155_token_transfers
-  where `from` != '0x0000000000000000000000000000000000000000'
-  group by evt_tx_hash
-)
-
 select
   'Ethereum' as blockchain,
   'OpenSea' as platform,
@@ -92,7 +74,14 @@ select
     when w.trade_type = 'Single Item Trade' then 1
     when w.erc_standard = 'erc1155' then erc721_tokens_in_tx.num_of_items
     when w.erc_standard = 'erc721' then erc1155_tokens_in_tx.num_of_items
-    else transfers_in_tx.num_of_transfers
+    else
+      (select count(1)
+      from erc721_token_transfers
+      where evt_tx_hash = w.tx_hash)
+         +
+      (select count(1)
+      from erc1155_token_transfers
+      where evt_tx_hash = w.tx_hash)
   end as number_of_items,
   -- A bundle trade contains at least one erc721 or erc1155 tokens in tx
   case
@@ -138,8 +127,6 @@ left join erc721_tokens_in_tx
 left join erc1155_tokens_in_tx
   on erc1155_tokens_in_tx.tx_hash = w.tx_hash
     and erc1155_tokens_in_tx.token_id = w.token_id
-
-left join transfers_in_tx on transfers_in_tx.tx_hash = w.tx_hash
 
 left join prices_usd p
   on p.minute = {{ dbt_utils.date_trunc('minute', 'w.block_time') }}
