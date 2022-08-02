@@ -12,20 +12,18 @@ erc721_transfer as (
   select
     token_address as nft_contract_address,
     token_id as nft_token_id,
-    wallet_address as to_address,
+    `to` as to_address,
     block_time
-  from {{ ref("transfers_ethereum_erc721") }}
-  where amount > 0
+  from {{ ref("erc721_ethereum_transfers") }}
 ),
 
 erc1155_transfer as (
   select
     token_address as nft_contract_address,
     token_id as nft_token_id,
-    wallet_address as to_address,
+    `to` as to_address,
     block_time
-  from {{ ref("transfers_ethereum_erc1155") }}
-  where amount > 0
+  from {{ ref("erc1155_ethereum_transfers") }}
 ),
 
 cryptopunks_transfer as (
