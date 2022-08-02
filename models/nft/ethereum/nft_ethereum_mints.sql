@@ -42,12 +42,13 @@ mint as (
     x.quantity,
     x.block_time,
     x.minter,
-    ({{ datawaves_utils.displayed_amount('y.avg_value', 18) }} / num_of_items) as eth_mint_price
+    x.value as tx_amount,
+    num_of_items,
+    ({{ datawaves_utils.displayed_amount('x.value', 18) }} / num_of_items) as eth_mint_price
   from mint_tx as x
   left join (
     select
       tx_hash,
-      avg(value) as avg_value,
       count(distinct nft_token_id) as num_of_items
     from mint_tx
     group by tx_hash
@@ -64,6 +65,8 @@ select
   u.quantity,
   u.block_time,
   u.minter,
+  u.tx_amount,
+  u.num_of_items,
   u.eth_mint_price,
   u.eth_mint_price * p.price as usd_mint_price
 from mint as u
