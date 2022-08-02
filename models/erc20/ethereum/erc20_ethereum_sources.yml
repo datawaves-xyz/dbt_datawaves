@@ -1,0 +1,9 @@
+version: 2
+sources:
+  - name: ethereum_common
+    schema: ethereum_common
+    freshness: 
+      error_after: {count: 48, period: hour}
+    loaded_at_field: evt_block_time  
+    tables:
+      - name: erc_20_evt_transfer

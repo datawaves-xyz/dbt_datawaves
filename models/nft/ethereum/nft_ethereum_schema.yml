@@ -2,8 +2,5 @@ version: 2
 
 models:
   - name: nft_ethereum_erc721_mints
-    config:
-      materialized: view
   - name: nft_ethereum_erc1155_mints
-    config:
-      materialized: view
+  - name: nft_ethereum_transfers

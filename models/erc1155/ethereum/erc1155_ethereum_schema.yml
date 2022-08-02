@@ -1,0 +1,4 @@
+version: 2
+
+models:
+  - name: erc1155_ethereum_transfers

@@ -1,0 +1,4 @@
+version: 2
+
+models:
+  - name: erc20_ethereum_transfers

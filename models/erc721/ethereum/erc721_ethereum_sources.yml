@@ -6,7 +6,4 @@ sources:
       error_after: {count: 48, period: hour}
     loaded_at_field: evt_block_time  
     tables:
-      - name: erc_1155_evt_transfer_single
-      - name: erc_1155_evt_transfer_batch
-      - name: erc_20_evt_transfer
       - name: erc_721_evt_transfer
