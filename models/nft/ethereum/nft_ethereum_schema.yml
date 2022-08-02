@@ -1,6 +1,5 @@
 version: 2
 
 models:
-  - name: nft_ethereum_erc721_mints
-  - name: nft_ethereum_erc1155_mints
+  - name: nft_ethereum_mints
   - name: nft_ethereum_transfers

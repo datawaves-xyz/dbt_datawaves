@@ -9,11 +9,12 @@ with nft_transfers as (
   from {{ref('erc721_ethereum_transfers') }}
 )
 
-select 'Ethereum' as blockchain,
+select
+  'Ethereum' as blockchain,
   case
-    when from = '0x0000000000000000000000000000000000000000' then 'Mint'
-    when to = '0x0000000000000000000000000000000000000000' 
-      or to = '0x000000000000000000000000000000000000dead' then 'Burn' 
+    when `from` = '0x0000000000000000000000000000000000000000' then 'Mint'
+    when `to` = '0x0000000000000000000000000000000000000000' 
+      or `to` = '0x000000000000000000000000000000000000dead' then 'Burn' 
     else 'Trade' 
   end as type,
   *
