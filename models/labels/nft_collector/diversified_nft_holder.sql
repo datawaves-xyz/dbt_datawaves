@@ -3,24 +3,13 @@ with contracts as (
   from {{ source('ethereum', 'contracts') }}
 ),
 
-erc721_transfer as (
+nft_transfer as (
   select
     token_address as nft_contract_address,
     token_id as nft_token_id,
-    wallet_address as to_address,
+    to as to_address,
     block_time
-  from {{ ref("transfers_ethereum_erc721") }}
-  where amount > 0
-),
-
-erc1155_transfer as (
-  select
-    token_address as nft_contract_address,
-    token_id as nft_token_id,
-    wallet_address as to_address,
-    block_time
-  from {{ ref("transfers_ethereum_erc1155") }}
-  where amount > 0
+  from {{ ref("nft_ethereum_transfers") }}
 ),
 
 cryptopunks_transfer as (
@@ -40,9 +29,7 @@ holder_info as (
       to_address,
       row_number()over(partition by nft_contract_address, nft_token_id order by block_time desc) as rank 
     from (
-      select * from erc721_transfer
-      union distinct
-      select * from erc1155_transfer
+      select * from nft_transfer
       union distinct
       select * from cryptopunks_transfer
     )
