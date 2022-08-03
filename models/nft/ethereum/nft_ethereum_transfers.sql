@@ -6,7 +6,7 @@ with nft_transfers as (
   union all
 
   select 'erc721' as erc_standard, *
-  from {{ref('erc721_ethereum_transfers') }}
+  from {{ ref('erc721_ethereum_transfers') }}
 )
 
 select
@@ -16,6 +16,6 @@ select
     when `to` = '0x0000000000000000000000000000000000000000' 
       or `to` = '0x000000000000000000000000000000000000dead' then 'Burn' 
     else 'Trade' 
-  end as type,
+  end as `type`,
   *
 from nft_transfers

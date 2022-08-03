@@ -1,16 +1,6 @@
 with transactions as (
   select *
-  from {{ source('ethereum', 'transactions')}}
-),
-
-nft_transfers as (
-  select 'erc1155' as erc_standard, *
-  from {{ ref('erc1155_ethereum_transfers') }}
-
-  union all
-
-  select 'erc721' as erc_standard, *
-  from {{ ref('erc721_ethereum_transfers') }}
+  from {{ source('ethereum', 'transactions') }}
 ),
 
 prices_usd as (
@@ -21,7 +11,7 @@ prices_usd as (
 mint_tx as (
   select
     a.hash as tx_hash,
-    a.value,
+    a.value as tx_amount,
     b.token_address as nft_contract_address,
     b.token_id as nft_token_id,
     b.block_time,
@@ -29,8 +19,8 @@ mint_tx as (
     b.amount as quantity,
     b.erc_standard
   from transactions as a
-  join nft_transfers as b
-    on a.hash = b.tx_hash and b.`from` = '0x0000000000000000000000000000000000000000'
+  join {{ ref('nft_ethereum_transfers') }} as b
+    on a.hash = b.tx_hash and b.`type` = 'Mint'
 ),
 
 mint as (
@@ -42,9 +32,9 @@ mint as (
     x.quantity,
     x.block_time,
     x.minter,
-    x.value as tx_amount,
+    x.tx_amount,
     num_of_items,
-    ({{ datawaves_utils.displayed_amount('x.value', 18) }} / num_of_items) as eth_mint_price
+    ({{ datawaves_utils.displayed_amount('x.tx_amount', 18) }} / num_of_items) as eth_mint_price
   from mint_tx as x
   left join (
     select
