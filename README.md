@@ -13,7 +13,6 @@ This dbt package creates models on top of [Datawaves](https://datawaves.xyz/) [D
 
 ## Abstractions
 
-
 The pre-built abstractions data models can be divided into two categories. The project abstractions are project-level models built on top of the Decoded Projects Data in Datawaves. And the sector abstractions combine models from multiple projects into one table representing a domain, e.g., NFT.
 
 
@@ -37,6 +36,10 @@ The pre-built abstractions data models can be divided into two categories. The p
 | erc20 | [erc20_ethereum_transfers](https://github.com/datawaves-xyz/dbt_datawaves/blob/main/models/erc20/ethereum/erc20_ethereum_transfers.sql) | Each record represents an ERC20 token transfer event. | Ethereum |
 | erc721 | [erc721_ethereum_transfers](https://github.com/datawaves-xyz/dbt_datawaves/blob/main/models/erc721/ethereum/erc721_ethereum_transfers.sql) | Each record represents an ERC721 token transfer event. | Ethereum |
 | erc1155 | [erc1155_ethereum_transfers](https://github.com/datawaves-xyz/dbt_datawaves/blob/main/models/erc1155/ethereum/erc1155_ethereum_transfers.sql) | Each record represents an ERC1155 token transfer event. | Ethereum |
+
+
+## Project using this package
+* [dbt_datawaves_wallet_labels](https://github.com/datawaves-xyz/dbt_datawaves_wallet_labels)
 
 
 ## How do I use this dbt package?
