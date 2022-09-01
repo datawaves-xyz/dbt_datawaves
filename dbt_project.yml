@@ -10,49 +10,40 @@ models:
   datawaves:
     erc20:
       +schema: erc20
-      +tags: ['decoding']
+      +tags: ['sector']
 
     erc721:
       +schema: erc721
-      +tags: ['decoding']
+      +tags: ['sector']
 
     erc1155:
       +schema: erc1155
-      +tags: ['decoding']
+      +tags: ['sector']
 
     nft:
       +schema: nft
-      +tags: ['abstraction']
-
-    labels:
-      +schema: labels
-      +materialized: ephemeral
-      +tags: ['abstraction']
-
-    index:
-      +schema: index
-      +materialized: ephemeral
-      +tags: ['abstraction']
-
-    cryptopunks:
-      +schema: cryptopunks
-      +materialized: view
-      +tags: ['decoding', 'abstraction']
-
-    opensea:
-      +schema: opensea
-      +materialized: view
-      +tags: ['decoding', 'abstraction']
-
-    ens:
-      +schema: ens
-      +materialized: view
-      +tags: ['decoding', 'abstraction']
+      +tags: ['sector']
 
     transfers:
       +schema: transfers
       +materialized: view
-      +tags: ['abstraction']
+      +tags: ['sector']
+
+    cryptopunks:
+      +schema: cryptopunks
+      +materialized: view
+      +tags: ['project']
+
+    opensea:
+      +schema: opensea
+      +materialized: view
+      +tags: ['project']
+
+    ens:
+      +schema: ens
+      +materialized: view
+      +tags: ['project']
+
 
 seeds:
   datawaves:
