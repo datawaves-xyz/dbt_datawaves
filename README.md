@@ -4,49 +4,39 @@
 ## What does this dbt package do?
 
 
-This dbt package models blockchain data from [Datawaves](https://datawaves.xyz/) to power custom transformations. It builds data models like `nft_mints`(event) and `opensea_trader`(label).
+This dbt package creates models on top of [Datawaves](https://datawaves.xyz/) [Decoded Projects Data](https://docs.datawaves.xyz/evm-blockchains/decoded-projects-data) that:
+
+* Translate smart contract function calls and events into domain models
+* Enrich trades and mints with details about associated the such as USD price for a token
+* Provide balance table at different time granularity
 
 
 ## Abstractions
 
-### Event models
 
-| **model**                                                                                                 | **description**                                                                 |
-|-----------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------|
-| [nft_trades](https://github.com/datawaves-xyz/dbt_ethereum/blob/master/models/nft/nft_trades.sql) | Each record represents a trade in OpenSea/CryptoPunks, enriched with data about the trade. |
-| [nft_mints](https://github.com/datawaves-xyz/dbt_ethereum/blob/master/models/nft/nft_mints.sql) | Each record represents an ERC721/ERC1155 token that has been minted. |
+The pre-built abstractions data models can be divided into two categories. The project abstractions are project-level models built on top of the Decoded Projects Data in Datawaves. And the sector abstractions combine models from multiple projects into one table representing a domain, e.g., NFT.
 
 
-### Address labels
+### Project Abstractions (Views)
+
+| Project | Models | description | Supported Chains |
+|---|---|---|---|
+| ens | [ens_ethereum_registrations](https://github.com/datawaves_xyz/dbt_ethereum/blob/master/models/ens/ens_ethereum_registrations.sql) | Each record represents a registration on ENS | Ethereum |
+| ens | [ens_ethereum_reverse_registrars](https://github.com/datawaves_xyz/dbt_ethereum/blob/master/models/ens/ens_ethereum_reverse_registrars.sql) | Each record represents a reverse registrar on ENS | Ethereum |
+| opensea | [opensea_trades](https://github.com/datawaves_xyz/dbt_ethereum/blob/master/models/opensea/opensea_trades.sql) | Each record represents a trade in OpenSeas, enriched with USD price of the trade. | Ethereum |
+| cryptopunks | [cryptopunks_trades](https://github.com/datawaves_xyz/dbt_ethereum/blob/master/models/cryptopunks/cryptopunks_trades.sql) | Each record represents a trade in CryptoPunksMarket, enriched with USD price of the trade. | Ethereum |
 
 
-#### Whale
+### Sector Abstractions (Views)
 
-| **model** | **description**  |
-|-----------|------------------|
-| [nft_whale](https://github.com/datawaves-xyz/dbt_ethereum/blob/master/models/labels/whale/nft_whale.sql) | Top 0.1% in the number of NFT transactions|
 
-#### Smart Money
-
-| **model** | **description**  |
-|-----------|------------------|
-| [smart_nft_trader](https://github.com/datawaves-xyz/dbt_ethereum/blob/master/models/labels/smart_money/smart_nft_trader.sql) | The top 100 addresses in terms of realized profits from NFT sales. |
-| [smart_nft_holder](https://github.com/datawaves-xyz/dbt_ethereum/blob/master/models/labels/smart_money/smart_nft_holder.sql) | The top 100 addresses in terms of estimated profits of their current NFT portfolio. |
-| [smart_nft_sweeper](https://github.com/datawaves-xyz/dbt_ethereum/blob/master/models/labels/smart_money/smart_nft_sweeper.sql) | Addresses that have profitably swept at least 5 times at or below the floor price in the last 30 days. |
-| [smart_nft_trader](https://github.com/datawaves-xyz/dbt_ethereum/blob/master/models/labels/smart_money/smart_nft_trader.sql) | The top 100 addresses in terms of realized profits from NFT sales. |
-| [smart_nft_golden_dog_minter](https://github.com/datawaves-xyz/dbt_ethereum/blob/master/models/labels/smart_money/smart_nft_golden_dog_minter.sql)| The top 100 addresses that have realized profits on least 2 Golden Dog Collections that were minted in the last 60 days. | 
-
-#### NFT Collector 
-
-| **model** | **description**  |
-|-----------|------------------|
-| [legendary_nft_trader](https://github.com/datawaves-xyz/dbt_ethereum/blob/master/models/labels/nft_collector/legendary_nft_trader.sql) | Top 0.1% in the number of NFT transactions. |
-| [epic_nft_trader](https://github.com/datawaves-xyz/dbt_ethereum/blob/master/models/labels/nft_collector/epic_nft_trader.sql) | Top 1% in the number of NFT transactions. |
-| [rare_nft_trader](https://github.com/datawaves-xyz/dbt_ethereum/blob/master/models/labels/nft_collector/rare_nft_trader.sql) | Top 2.5% in the number of NFT transactions. |
-| [uncommon_nft_trader](https://github.com/datawaves-xyz/dbt_ethereum/blob/master/models/labels/nft_collector/uncommon_nft_trader.sql) | Top 10% in the number of NFT transactions. |
-| [opensea_trader](https://github.com/datawaves-xyz/dbt_ethereum/blob/master/models/labels/nft_collector/opensea_trader.sql) | Wallets that have transactions on OpenSea. |
-| [blue_chip_nft_holder](https://github.com/datawaves-xyz/dbt_ethereum/blob/master/models/labels/nft_collector/blue_chip_nft_holder.sql) | Wallets that are currently holding at least one Blue Chip NFT in their portfolio. |
-| [diversified_nft_holder](https://github.com/datawaves-xyz/dbt_ethereum/blob/master/models/labels/nft_collector/diversified_nft_holder.sql) | Wallets that are currently holding at least 5 collections. |
+| Sector | Models | description | Supported Chains |
+|---|---|---|---|
+| nft | [nft_trades](https://github.com/datawaves-xyz/dbt_datawaves/blob/master/models/nft/nft_trades.sql) | Each record represents a trade, enriched with USD price of the trade. | Ethereum |
+| nft | [nft_mints](https://github.com/datawaves-xyz/dbt_datawaves/blob/master/models/nft/nft_mints.sql) | Each record represents an ERC721/ERC1155 token that has been minted. | Ethereum |
+| erc20 | [erc20_ethereum_transfers](https://github.com/datawaves_xyz/dbt_ethereum/blob/master/models/erc1155/erc20_ethereum_transfers.sql) | Each record represents an ERC20 token transfer event. | Ethereum |
+| erc721 | [erc721_ethereum_transfers](https://github.com/datawaves_xyz/dbt_ethereum/blob/master/models/erc1155/erc721_ethereum_transfers.sql) | Each record represents an ERC721 token transfer event. | Ethereum |
+| erc1155 | [erc1155_ethereum_transfers](https://github.com/datawaves_xyz/dbt_ethereum/blob/master/models/erc1155/erc1155_ethereum_transfers.sql) | Each record represents an ERC1155 token transfer event. | Ethereum |
 
 
 ## How do I use this dbt package?

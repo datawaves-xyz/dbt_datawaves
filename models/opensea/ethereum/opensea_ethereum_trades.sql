@@ -53,7 +53,7 @@ erc1155_tokens_in_tx as (
   from erc1155_token_transfers
   where `from` != '0x0000000000000000000000000000000000000000'
   group by evt_tx_hash, id
-),
+)
 
 select
   'Ethereum' as blockchain,

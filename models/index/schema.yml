@@ -1,9 +1,0 @@
-version: 2
-
-models:
-  - name: golden_dog_index
-    config:
-      materialized: ephemeral
-  - name: blue_chip_index
-    config:
-      materialized: ephemeral
