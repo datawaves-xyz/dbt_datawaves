@@ -21,10 +21,10 @@ The pre-built abstractions data models can be divided into two categories. The p
 
 | Project | Models | description | Supported Chains |
 |---|---|---|---|
-| ens | [ens_ethereum_registrations](https://github.com/datawaves_xyz/dbt_ethereum/blob/master/models/ens/ens_ethereum_registrations.sql) | Each record represents a registration on ENS | Ethereum |
-| ens | [ens_ethereum_reverse_registrars](https://github.com/datawaves_xyz/dbt_ethereum/blob/master/models/ens/ens_ethereum_reverse_registrars.sql) | Each record represents a reverse registrar on ENS | Ethereum |
-| opensea | [opensea_trades](https://github.com/datawaves_xyz/dbt_ethereum/blob/master/models/opensea/opensea_trades.sql) | Each record represents a trade in OpenSeas, enriched with USD price of the trade. | Ethereum |
-| cryptopunks | [cryptopunks_trades](https://github.com/datawaves_xyz/dbt_ethereum/blob/master/models/cryptopunks/cryptopunks_trades.sql) | Each record represents a trade in CryptoPunksMarket, enriched with USD price of the trade. | Ethereum |
+| ens | [ens_ethereum_registrations](https://github.com/datawaves-xyz/dbt_datawaves/blob/main/models/ens/ethereum/ens_ethereum_registrations.sql) | Each record represents a registration on ENS | Ethereum |
+| ens | [ens_ethereum_reverse_registrars](https://github.com/datawaves-xyz/dbt_datawaves/blob/main/models/ens/ethereum/ens_ethereum_reverse_registrars.sql) | Each record represents a reverse registrar on ENS | Ethereum |
+| opensea | [opensea_trades](https://github.com/datawaves-xyz/dbt_datawaves/blob/main/models/opensea/opensea_trades.sql) | Each record represents a trade in OpenSeas, enriched with USD price of the trade. | Ethereum |
+| cryptopunks | [cryptopunks_trades](https://github.com/datawaves-xyz/dbt_datawaves/blob/main/models/cryptopunks/cryptopunks_trades.sql) | Each record represents a trade in CryptoPunksMarket, enriched with USD price of the trade. | Ethereum |
 
 
 ### Sector Abstractions (Views)
@@ -32,11 +32,11 @@ The pre-built abstractions data models can be divided into two categories. The p
 
 | Sector | Models | description | Supported Chains |
 |---|---|---|---|
-| nft | [nft_trades](https://github.com/datawaves-xyz/dbt_datawaves/blob/master/models/nft/nft_trades.sql) | Each record represents a trade, enriched with USD price of the trade. | Ethereum |
-| nft | [nft_mints](https://github.com/datawaves-xyz/dbt_datawaves/blob/master/models/nft/nft_mints.sql) | Each record represents an ERC721/ERC1155 token that has been minted. | Ethereum |
-| erc20 | [erc20_ethereum_transfers](https://github.com/datawaves_xyz/dbt_ethereum/blob/master/models/erc1155/erc20_ethereum_transfers.sql) | Each record represents an ERC20 token transfer event. | Ethereum |
-| erc721 | [erc721_ethereum_transfers](https://github.com/datawaves_xyz/dbt_ethereum/blob/master/models/erc1155/erc721_ethereum_transfers.sql) | Each record represents an ERC721 token transfer event. | Ethereum |
-| erc1155 | [erc1155_ethereum_transfers](https://github.com/datawaves_xyz/dbt_ethereum/blob/master/models/erc1155/erc1155_ethereum_transfers.sql) | Each record represents an ERC1155 token transfer event. | Ethereum |
+| nft | [nft_trades](https://github.com/datawaves-xyz/dbt_datawaves/blob/main/models/nft/nft_trades.sql) | Each record represents a trade, enriched with USD price of the trade. | Ethereum |
+| nft | [nft_mints](https://github.com/datawaves-xyz/dbt_datawaves/blob/main/models/nft/nft_mints.sql) | Each record represents an ERC721/ERC1155 token that has been minted. | Ethereum |
+| erc20 | [erc20_ethereum_transfers](https://github.com/datawaves-xyz/dbt_datawaves/blob/main/models/erc20/ethereum/erc20_ethereum_transfers.sql) | Each record represents an ERC20 token transfer event. | Ethereum |
+| erc721 | [erc721_ethereum_transfers](https://github.com/datawaves-xyz/dbt_datawaves/blob/main/models/erc721/ethereum/erc721_ethereum_transfers.sql) | Each record represents an ERC721 token transfer event. | Ethereum |
+| erc1155 | [erc1155_ethereum_transfers](https://github.com/datawaves-xyz/dbt_datawaves/blob/main/models/erc1155/ethereum/erc1155_ethereum_transfers.sql) | Each record represents an ERC1155 token transfer event. | Ethereum |
 
 
 ## How do I use this dbt package?
