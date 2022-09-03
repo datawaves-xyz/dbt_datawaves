@@ -1,3 +1,5 @@
+{{config(alias='mints')}}
+
 with transactions as (
   select *
   from {{ source('ethereum', 'transactions') }}

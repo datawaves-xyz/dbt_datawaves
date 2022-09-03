@@ -1,0 +1,5 @@
+version: 2
+
+models:
+  - name: ens_registrations
+  - name: ens_reverse_registrars

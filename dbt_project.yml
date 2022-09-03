@@ -6,44 +6,58 @@ profile: "datawaves"
 
 models:
   +file_format: delta
-
   datawaves:
     erc20:
       +schema: erc20
       +tags: ['sector']
+      ethereum:
+        +schema: erc20_ethereum
+        +materialized: view
 
     erc721:
       +schema: erc721
       +tags: ['sector']
+      ethereum:
+        +schema: erc721_ethereum
+        +materialized: view
 
     erc1155:
       +schema: erc1155
       +tags: ['sector']
+      ethereum:
+        +schema: erc1155_ethereum
+        +materialized: view
 
     nft:
       +schema: nft
-      +tags: ['sector']
-
-    transfers:
-      +schema: transfers
       +materialized: view
       +tags: ['sector']
+      ethereum:
+        +schema: nft_ethereum
+        +materialized: view
 
     cryptopunks:
       +schema: cryptopunks
       +materialized: view
       +tags: ['project']
+      ethereum:
+          +schema: cryptopunks_ethereum
+          +materialized: view
 
     opensea:
       +schema: opensea
       +materialized: view
       +tags: ['project']
-
+      ethereum:
+        +schema: opensea_ethereum
+        +materialized: view
     ens:
       +schema: ens
       +materialized: view
       +tags: ['project']
-
+      ethereum:
+        +schema: ens_ethereum
+        +materialized: view
 
 seeds:
   datawaves:

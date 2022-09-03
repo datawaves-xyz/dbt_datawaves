@@ -2,8 +2,4 @@ version: 2
 
 models:
   - name: nft_trades
-    config:
-      alias: trades
   - name: nft_mints
-    config:
-      alias: mints

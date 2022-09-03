@@ -1,3 +1,4 @@
+{{config(alias='transfers')}}
 
 with erc721_transfers as (
   select

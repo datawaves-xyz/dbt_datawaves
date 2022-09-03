@@ -1,3 +1,5 @@
+{{config(alias='transfers')}}
+
 select
   contract_address as nft_contract_address,
   punk_index as nft_token_id,

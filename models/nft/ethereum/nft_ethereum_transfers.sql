@@ -1,3 +1,4 @@
+{{config(alias='transfers')}}
 
 with nft_transfers as (
   select 'erc1155' as erc_standard, *

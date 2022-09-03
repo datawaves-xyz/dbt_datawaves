@@ -1,3 +1,4 @@
+{{config(alias='trades')}}
 
   select *
   from {{ ref('opensea_trades') }}

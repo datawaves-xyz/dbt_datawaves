@@ -1,3 +1,5 @@
+{{config(alias='trades')}}
+
 with nft_tokens as (
   select * 
   from {{ source('ethereum_tokens', 'nft') }}

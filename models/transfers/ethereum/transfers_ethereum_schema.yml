@@ -1,6 +1,0 @@
-version: 2
-
-models:
-  - name: transfers_ethereum_erc20
-  - name: transfers_ethereum_erc721
-  - name: transfers_ethereum_erc1155

@@ -1,3 +1,5 @@
+{{config(alias='registrations')}}
+
 select *
 from {{source('ethereum_ens', 'ethregistrar_controller_evt_name_registered')}}
 union

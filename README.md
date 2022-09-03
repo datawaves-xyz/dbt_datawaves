@@ -16,17 +16,17 @@ This dbt package creates models on top of [Datawaves](https://datawaves.xyz/) [D
 The pre-built abstractions data models can be divided into two categories. The project abstractions are project-level models built on top of the Decoded Projects Data in Datawaves. And the sector abstractions combine models from multiple projects into one table representing a domain, e.g., NFT.
 
 
-### Project Abstractions (Views)
+### Project Models
 
 | Project | Models | description | Supported Chains |
 |---|---|---|---|
-| ens | [ens_ethereum_registrations](https://github.com/datawaves-xyz/dbt_datawaves/blob/main/models/ens/ethereum/ens_ethereum_registrations.sql) | Each record represents a registration on ENS | Ethereum |
-| ens | [ens_ethereum_reverse_registrars](https://github.com/datawaves-xyz/dbt_datawaves/blob/main/models/ens/ethereum/ens_ethereum_reverse_registrars.sql) | Each record represents a reverse registrar on ENS | Ethereum |
+| ens | [ens_registrations](https://github.com/datawaves-xyz/dbt_datawaves/blob/main/models/ens/ethereum/ens_ethereum_registrations.sql) | Each record represents a registration on ENS | Ethereum |
+| ens | [ens_reverse_registrars](https://github.com/datawaves-xyz/dbt_datawaves/blob/main/models/ens/ethereum/ens_ethereum_reverse_registrars.sql) | Each record represents a reverse registrar on ENS | Ethereum |
 | opensea | [opensea_trades](https://github.com/datawaves-xyz/dbt_datawaves/blob/main/models/opensea/opensea_trades.sql) | Each record represents a trade in OpenSeas, enriched with USD price of the trade. | Ethereum |
 | cryptopunks | [cryptopunks_trades](https://github.com/datawaves-xyz/dbt_datawaves/blob/main/models/cryptopunks/cryptopunks_trades.sql) | Each record represents a trade in CryptoPunksMarket, enriched with USD price of the trade. | Ethereum |
 
 
-### Sector Abstractions (Views)
+### Sector Models
 
 
 | Sector | Models | description | Supported Chains |

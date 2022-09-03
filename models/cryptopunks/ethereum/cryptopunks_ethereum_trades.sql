@@ -1,3 +1,4 @@
+{{config(alias='trades')}}
 
 with tx as (
   select *

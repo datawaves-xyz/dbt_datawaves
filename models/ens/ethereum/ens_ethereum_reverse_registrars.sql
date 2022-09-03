@@ -25,6 +25,8 @@ ens_txn as (
       and receipt_status = 1
 ),
 
+{{config(alias='reverse_registrars')}}
+
 all_reverse_registrar as (
   select 
     distinct name as ens_name, 
